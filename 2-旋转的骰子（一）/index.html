@@ -16,15 +16,24 @@
         height: 100vh;
         perspective: 1200px;
         background-color: #000;
+        overscroll-behavior-y: contain;
       }
 
       .dice {
-        width: 200px;
-        height: 200px;
         position: fixed;
         top: calc(50vh - 100px);
         left: calc(50vw - 100px);
+        overscroll-behavior: contain;
+      }
+
+      .dice,
+      .horizontal,
+      .vertical,
+      .cube,
+      .face {
         transform-style: preserve-3d;
+        width: 200px;
+        height: 200px;
       }
 
       .face {
@@ -39,7 +48,6 @@
         background-color: #fff;
         border-radius: 40%;
         box-shadow: 0 0 40px #ccc inset;
-        transform-style: preserve-3d;
       }
 
       .face::after {
@@ -49,8 +57,9 @@
         position: absolute;
         top: 0;
         left: 0;
-        background-color: red;
-        transform: translateZ(-10px);
+        border-radius: 20%;
+        background-color: #e0e0e0;
+        transform: translateZ(-0.1px);
       }
 
       .dot-row {
@@ -127,23 +136,23 @@
       }
 
       .back {
-        transform: translateZ(-100px);
+        transform: rotateY(180deg) translateZ(100px);
       }
 
       .up {
-        transform: translateY(-100px) rotateX(90deg);
+        transform: rotateX(90deg) translateZ(100px);
       }
 
       .down {
-        transform: translateY(100px) rotateX(-90deg);
+        transform: rotateX(-90deg) translateZ(100px);
       }
 
       .left {
-        transform: translateX(-100px) rotateY(90deg);
+        transform: rotateY(-90deg) translateZ(100px);
       }
 
       .right {
-        transform: translateX(100px) rotateY(-90deg);
+        transform: rotateY(90deg) translateZ(100px);
       }
 
       .axis-face {
@@ -161,107 +170,129 @@
       .y {
         transform: rotateX(90deg);
       }
+
+      .tips {
+        color: #fff;
+      }
     </style>
   </head>
   <body>
+    <div class="tips">试试鼠标点击拖动，或手指在屏幕上滑动</div>
     <div class="dice">
-      <div class="face front one">
-        <div class="dot"></div>
-      </div>
-      <div class="face back two">
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
-      <div class="face up three">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
-      <div class="face down four">
-        <div class="dot-row">
-          <div class="dot"></div>
-          <div class="dot"></div>
-        </div>
-        <div class="dot-row">
-          <div class="dot"></div>
-          <div class="dot"></div>
-        </div>
-      </div>
-      <div class="face left five">
-        <div class="dot-row">
-          <div class="dot"></div>
-          <div class="dot"></div>
-        </div>
-        <div class="dot-row">
-          <div class="dot"></div>
-        </div>
-        <div class="dot-row">
-          <div class="dot"></div>
-          <div class="dot"></div>
-        </div>
-      </div>
-      <div class="face right six">
-        <div class="dot-row">
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-        </div>
-        <div class="dot-row">
-          <div class="dot"></div>
-          <div class="dot"></div>
-          <div class="dot"></div>
-        </div>
-      </div>
+      <div class="horizontal">
+        <div class="vertical">
+          <div class="cube">
+            <div class="face front one">
+              <div class="dot"></div>
+            </div>
+            <div class="face back two">
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+            <div class="face up three">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+            <div class="face down four">
+              <div class="dot-row">
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <div class="dot-row">
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+            <div class="face left five">
+              <div class="dot-row">
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <div class="dot-row">
+                <div class="dot"></div>
+              </div>
+              <div class="dot-row">
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+            <div class="face right six">
+              <div class="dot-row">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <div class="dot-row">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
 
-      <!-- 坐标轴面，在骰子内，用于遮挡骰子内表面 -->
-      <div class="axis-face x"></div>
-      <div class="axis-face y"></div>
-      <div class="axis-face z"></div>
+            <!-- 坐标轴面，在骰子内，用于遮挡缝隙 -->
+            <div class="axis-face x"></div>
+            <div class="axis-face y"></div>
+            <div class="axis-face z"></div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script>
       let body = document.body,
-        dice = document.querySelector('.dice'),
+        horizontal = document.querySelector('.horizontal'),
+        vertical = document.querySelector('.vertical'),
+        cube = document.querySelector('.cube'),
         start = {}
 
-      dice.style.transform = `rotateX(-45deg) rotateY(45deg)`
+      horizontal.style.transform = `rotateX(-45deg)`
+      vertical.style.transform = `rotateY(45deg)`
 
-      body.addEventListener('mousedown', mousedown)
-      body.addEventListener('mouseup', mouseup)
+      body.addEventListener('mousedown', moveStart)
+      body.addEventListener('touchstart', moveStart)
+      body.addEventListener('mouseup', moveEnd)
+      body.addEventListener('touchend', moveEnd)
 
       /**
-       * 鼠标键按下事件
+       * 鼠标键按下或触摸开始
        */
-      function mousedown(e) {
+      function moveStart(e) {
         // 正则匹配数字，存储骰子当前的旋转角度
-        let rotate = dice.style.transform.match(/[0-9-.]+/g)
+        let rotateX = horizontal.style.transform.match(/[0-9-.]+/g)
+        let rotateY = vertical.style.transform.match(/[0-9-.]+/g)
         start = {
-          x: e.clientX,
-          y: e.clientY,
-          rotateX: rotate[0] - 0,
-          rotateY: rotate[1] - 0
+          x: e.clientX || e.touches[0].clientX,
+          y: e.clientY || e.touches[0].clientY,
+          rotateX: rotateX - 0,
+          rotateY: rotateY - 0
         }
-        this.addEventListener('mousemove', mousemove)
+        console.log(start.rotateX, start.rotateY)
+        this.addEventListener('mousemove', moving)
+        this.addEventListener('touchmove', moving)
       }
 
       /**
-       * 鼠标移动事件，每移动 1px，旋转 1deg
+       * 鼠标移动或手指在屏幕上滑动，每移动 1px，旋转 1deg
        */
-      function mousemove(e) {
+      function moving(e) {
+        event.preventDefault()
         let now = {
-            x: e.clientX,
-            y: e.clientY
+            x: e.clientX || e.touches[0].clientX,
+            y: e.clientY || e.touches[0].clientY
           },
-          rx = now.x - start.x + start.rotateY,
-          ry = start.y - now.y + start.rotateX
-        dice.style.transform = `rotateX(${ry}deg) rotateY(${rx}deg)`
+          rotateY = now.x - start.x + start.rotateY,
+          rotateX = start.y - now.y + start.rotateX
+        horizontal.style.transform = `rotateX(${rotateX}deg)`
+        vertical.style.transform = `rotateY(${rotateY}deg)`
       }
 
       /**
-       * 鼠标键弹起事件，移除鼠标移动事件
+       * 鼠标键弹起或触摸结束，移除 moving 事件
        */
-      function mouseup() {
-        body.removeEventListener('mousemove', mousemove)
+      function moveEnd() {
+        body.removeEventListener('mousemove', moving)
+        body.removeEventListener('touchmove', moving)
       }
     </script>
   </body>
