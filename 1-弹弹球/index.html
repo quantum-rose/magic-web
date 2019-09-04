@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>1-弹弹球</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .ground {
+        width: 100vw;
+        height: 100vh;
+      }
+
+      .ball {
+        position: fixed;
+        top: -9999px;
+        left: -9999px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #666;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ground"></div>
+
+    <script>
+      let ground = document.querySelector('.ground'),
+        count = intRandom(1, 10),
+        balls = [],
+        ballWidth = 50,
+        viewportWidth = window.innerWidth,
+        viewportHeight = window.innerHeight,
+        maxX = viewportWidth - ballWidth,
+        maxY = viewportHeight - ballWidth
+
+      renderBalls()
+
+      /**
+       * 点击屏幕后移除当前所有小球，并添加一组新的小球
+       */
+      ground.addEventListener('click', function() {
+        balls.forEach(item => ground.removeChild(item))
+        count = intRandom(1, 10)
+        balls = []
+        renderBalls()
+      })
+
+      /**
+       * 监听窗口大小的变化
+       */
+      window.onresize = function() {
+        viewportWidth = window.innerWidth
+        viewportHeight = window.innerHeight
+        maxX = viewportWidth - ballWidth
+        maxY = viewportHeight - ballWidth
+
+        balls.forEach(item => {
+          item.x < 0 && (item.x = 0)
+          item.x > maxX && (item.x = maxX)
+          item.y < 0 && (item.y = 0)
+          item.y > maxY && (item.y = maxY)
+        })
+      }
+
+      /**
+       * 生成一组小球
+       */
+      function renderBalls() {
+        for (let i = 0; i < count; i++) {
+          let div = document.createElement('div'),
+            r = intRandom(0, 255),
+            g = intRandom(0, 255),
+            b = intRandom(0, 255)
+
+          div.className = 'ball'
+          div.x = intRandom(0, maxX)
+          div.y = intRandom(0, maxY)
+          div.vx = intRandom(-15, 15)
+          div.vy = intRandom(-15, 15)
+          div.style.backgroundColor = `rgb(${r},${g},${b})`
+
+          ground.appendChild(div)
+
+          setInterval(() => {
+            ;((div.x <= 0 && div.vx < 0) || (div.x >= maxX && div.vx > 0)) && (div.vx = -div.vx)
+            ;((div.y <= 0 && div.vy < 0) || (div.y >= maxY && div.vy > 0)) && (div.vy = -div.vy)
+            div.x += div.vx
+            div.y += div.vy
+            div.style.left = `${div.x}px`
+            div.style.top = `${div.y}px`
+          }, 1000 / 60)
+
+          balls.push(div)
+        }
+      }
+
+      /**
+       * 生成一个介于 start 和 end 之间的整数，闭区间
+       */
+      function intRandom(start, end) {
+        if (Object.prototype.toString.call(start) !== '[object Number]')
+          throw new TypeError(`${start} is not a number`)
+        if (Object.prototype.toString.call(end) !== '[object Number]')
+          throw new TypeError(`${end} is not a number`)
+        start = Math.floor(start)
+        end = Math.floor(end) + 1
+        return Math.floor(Math.random() * (end - start) + start)
+      }
+    </script>
+  </body>
+</html>
