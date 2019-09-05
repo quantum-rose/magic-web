@@ -312,16 +312,26 @@
         horizontal.className += ' ani-roll-x'
         vertical.className += ' ani-roll-y'
         cube.className = cube.className.replace(/\d/, intRandom(1, 6))
+
+        /* 设置延时，cube 过渡完成后，移除动画类，重置标识变量 */
+        setTimeout(() => {
+          horizontal.className = horizontal.className.replace('ani-roll-x', '').trim()
+          vertical.className = vertical.className.replace('ani-roll-y', '').trim()
+          isRolling = false
+        }, 3600)
       })
 
       /**
+       * 以下代码有 bug ，有时这个 transitionend 事件不会被触发，导致动画类没有移除，下次投掷骰子点击无反应
+       * 如果你知道原因，请联系我 cui-haojie@outlook.com
+       *
        * cube 过渡完成后，移除动画类，重置标识变量
        */
-      cube.addEventListener('transitionend', function() {
-        horizontal.className = horizontal.className.replace('ani-roll-x', '').trim()
-        vertical.className = vertical.className.replace('ani-roll-y', '').trim()
-        isRolling = false
-      })
+      // cube.addEventListener('transitionend', function() {
+      //   horizontal.className = horizontal.className.replace('ani-roll-x', '').trim()
+      //   vertical.className = vertical.className.replace('ani-roll-y', '').trim()
+      //   isRolling = false
+      // })
 
       /**
        * 生成一个介于 start 和 end 之间的整数，闭区间
