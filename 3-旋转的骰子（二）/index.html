@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>旋转的骰子（二）</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        width: 100vw;
+        height: 100vh;
+        perspective: 1200px;
+        background-color: #000;
+        overscroll-behavior-y: contain;
+      }
+
+      .dice {
+        position: fixed;
+        top: calc(50vh - 100px);
+        left: calc(50vw - 100px);
+        overscroll-behavior: contain;
+      }
+
+      .dice,
+      .horizontal,
+      .vertical,
+      .cube,
+      .face {
+        transform-style: preserve-3d;
+        width: 200px;
+        height: 200px;
+      }
+
+      .ani-roll-x {
+        animation: roll-x 0.9s linear infinite;
+      }
+
+      .ani-roll-y {
+        animation: roll-y 1.2s linear infinite;
+      }
+
+      @keyframes roll-x {
+        from {
+          transform: rotateX(0);
+        }
+        to {
+          transform: rotateX(360deg);
+        }
+      }
+
+      @keyframes roll-y {
+        from {
+          transform: rotateY(0);
+        }
+        to {
+          transform: rotateY(360deg);
+        }
+      }
+
+      .cube {
+        transition: transform 3.6s ease-out;
+      }
+
+      .point1 {
+        transform: rotateX(20deg) rotateZ(-45deg);
+      }
+
+      .point2 {
+        transform: rotateX(-160deg) rotateZ(45deg);
+      }
+
+      .point3 {
+        transform: rotateX(-70deg) rotateY(45deg);
+      }
+
+      .point4 {
+        transform: rotateX(110deg) rotateY(-45deg);
+      }
+
+      .point5 {
+        transform: rotateX(-70deg) rotateY(-45deg) rotateZ(90deg);
+      }
+
+      .point6 {
+        transform: rotateX(-70deg) rotateY(45deg) rotateZ(-90deg);
+      }
+
+      .face {
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: 0;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 40%;
+        box-shadow: 0 0 40px #ccc inset;
+      }
+
+      .face::after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 20%;
+        background-color: #e0e0e0;
+        transform: translateZ(-0.1px);
+      }
+
+      .dot-row {
+        display: flex;
+      }
+
+      .dot {
+        width: 40px;
+        height: 40px;
+        background-color: #444;
+        border-radius: 50%;
+        box-shadow: 10px 10px 20px #000 inset;
+      }
+
+      .one {
+        justify-content: center;
+        align-items: center;
+      }
+
+      .two {
+        justify-content: space-around;
+      }
+
+      .two > .dot:nth-child(2) {
+        align-self: flex-end;
+      }
+
+      .three {
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      .three > .dot:nth-child(1) {
+        align-self: flex-start;
+      }
+
+      .three > .dot:nth-child(3) {
+        align-self: flex-end;
+      }
+
+      .four {
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .four > .dot-row {
+        justify-content: space-between;
+      }
+
+      .five {
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .five > .dot-row {
+        justify-content: space-between;
+      }
+
+      .five > .dot-row:nth-child(2) {
+        justify-content: center;
+      }
+
+      .six {
+        flex-direction: column;
+        justify-content: space-around;
+      }
+
+      .six > .dot-row {
+        justify-content: space-between;
+      }
+
+      .front {
+        transform: translateZ(100px);
+      }
+
+      .back {
+        transform: rotateY(180deg) translateZ(100px);
+      }
+
+      .up {
+        transform: rotateX(90deg) translateZ(100px);
+      }
+
+      .down {
+        transform: rotateX(-90deg) translateZ(100px);
+      }
+
+      .left {
+        transform: rotateY(-90deg) translateZ(100px);
+      }
+
+      .right {
+        transform: rotateY(90deg) translateZ(100px);
+      }
+
+      .axis-face {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #e0e0e0;
+      }
+
+      .x {
+        transform: rotateY(90deg);
+      }
+
+      .y {
+        transform: rotateX(90deg);
+      }
+
+      .tips {
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="tips">点击屏幕投掷骰子</div>
+    <div class="dice">
+      <div class="horizontal">
+        <div class="vertical">
+          <div class="cube">
+            <div class="face front one">
+              <div class="dot"></div>
+            </div>
+            <div class="face back two">
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+            <div class="face up three">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+            <div class="face down four">
+              <div class="dot-row">
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <div class="dot-row">
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+            <div class="face left five">
+              <div class="dot-row">
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <div class="dot-row">
+                <div class="dot"></div>
+              </div>
+              <div class="dot-row">
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+            <div class="face right six">
+              <div class="dot-row">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+              <div class="dot-row">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+
+            <!-- 坐标轴面，在骰子内，用于遮挡缝隙 -->
+            <div class="axis-face x"></div>
+            <div class="axis-face y"></div>
+            <div class="axis-face z"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let body = document.body,
+        horizontal = document.querySelector('.horizontal'),
+        vertical = document.querySelector('.vertical'),
+        cube = document.querySelector('.cube'),
+        isRolling = false
+
+      cube.className += ` point${intRandom(1, 6)}` // 初始化为一个随机点数
+
+      /**
+       * 点击屏幕，开始投掷骰子
+       */
+      body.addEventListener('click', function() {
+        if (isRolling) return
+        isRolling = true // 改变标识变量
+        horizontal.className += ' ani-roll-x'
+        vertical.className += ' ani-roll-y'
+        cube.className = cube.className.replace(/\d/, intRandom(1, 6))
+      })
+
+      /**
+       * cube 过渡完成后，移除动画类，重置标识变量
+       */
+      cube.addEventListener('transitionend', function() {
+        horizontal.className = horizontal.className.replace('ani-roll-x', '').trim()
+        vertical.className = vertical.className.replace('ani-roll-y', '').trim()
+        isRolling = false
+      })
+
+      /**
+       * 生成一个介于 start 和 end 之间的整数，闭区间
+       */
+      function intRandom(start, end) {
+        if (Object.prototype.toString.call(start) !== '[object Number]')
+          throw new TypeError(`${start} is not a number`)
+        if (Object.prototype.toString.call(end) !== '[object Number]')
+          throw new TypeError(`${end} is not a number`)
+        start = Math.floor(start)
+        end = Math.floor(end) + 1
+        return Math.floor(Math.random() * (end - start) + start)
+      }
+    </script>
+  </body>
+</html>
