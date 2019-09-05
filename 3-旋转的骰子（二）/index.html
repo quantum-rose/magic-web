@@ -63,7 +63,7 @@
       }
 
       .cube {
-        transition: transform 3.6s ease-out;
+        transition: all 3.6s;
       }
 
       .point1 {
@@ -299,9 +299,10 @@
         horizontal = document.querySelector('.horizontal'),
         vertical = document.querySelector('.vertical'),
         cube = document.querySelector('.cube'),
+        point = `point${intRandom(1, 6)}`,
         isRolling = false
 
-      cube.className += ` point${intRandom(1, 6)}` // 初始化为一个随机点数
+      cube.classList.add(point) // 初始化一个随机点数
 
       /**
        * 点击屏幕，开始投掷骰子
@@ -309,14 +310,14 @@
       body.addEventListener('click', function() {
         if (isRolling) return
         isRolling = true // 改变标识变量
-        horizontal.className += ' ani-roll-x'
-        vertical.className += ' ani-roll-y'
-        cube.className = cube.className.replace(/\d/, intRandom(1, 6))
+        horizontal.classList.add('ani-roll-x')
+        vertical.classList.add('ani-roll-y')
+        cube.classList.replace(point, (point = `point${intRandom(1, 6)}`))
 
         /* 设置延时，cube 过渡完成后，移除动画类，重置标识变量 */
         setTimeout(() => {
-          horizontal.className = horizontal.className.replace('ani-roll-x', '').trim()
-          vertical.className = vertical.className.replace('ani-roll-y', '').trim()
+          horizontal.classList.remove('ani-roll-x')
+          vertical.classList.remove('ani-roll-y')
           isRolling = false
         }, 3600)
       })
@@ -328,8 +329,8 @@
        * cube 过渡完成后，移除动画类，重置标识变量
        */
       // cube.addEventListener('transitionend', function() {
-      //   horizontal.className = horizontal.className.replace('ani-roll-x', '').trim()
-      //   vertical.className = vertical.className.replace('ani-roll-y', '').trim()
+      //   horizontal.classList.remove('ani-roll-x')
+      //   vertical.classList.remove('ani-roll-y')
       //   isRolling = false
       // })
 
