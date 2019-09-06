@@ -5,51 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>星际穿越</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-      }
-
-      :root {
-        background-color: #000;
-      }
-
-      .sky {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transform-style: preserve-3d;
-        perspective: 500px;
-        perspective-origin: center center;
-      }
-
-      .sky > div {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 6px;
-        height: 6px;
-        background-color: transparent;
-        border-radius: 50%;
-        transform: translateZ(-4500px);
-      }
-
-      @keyframes move {
-        from {
-          opacity: 1;
-        }
-        90% {
-          opacity: 1;
-        }
-        to {
-          opacity: 0;
-          transform: translateZ(500px);
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="sky"></div>

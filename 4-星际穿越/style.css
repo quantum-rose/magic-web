@@ -1,0 +1,62 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  background-color: #000;
+}
+
+.sky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-perspective: 500px;
+  perspective: 500px;
+  -webkit-perspective-origin: center center;
+  perspective-origin: center center;
+}
+
+.sky > div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  background-color: transparent;
+  border-radius: 50%;
+  -webkit-transform: translateZ(-4500px);
+  transform: translateZ(-4500px);
+}
+
+@-webkit-keyframes move {
+  from {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translateZ(500px);
+    transform: translateZ(500px);
+  }
+}
+
+@keyframes move {
+  from {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    -webkit-transform: translateZ(500px);
+    transform: translateZ(500px);
+  }
+}
