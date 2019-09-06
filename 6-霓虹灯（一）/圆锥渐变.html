@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>圆锥渐变</title>
+    <style>
+      div {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: conic-gradient(hsl(0, 100%, 50%), hsl(360, 100%, 50%));
+      }
+    </style>
+  </head>
+  <body>
+    <div></div>
+
+    <script>
+      let background = 'conic-gradient('
+      for (let i = 0; i <= 360; i++) {
+        if (i !== 0) background += ','
+        background += `hsl(${i}, 100%, 50%)`
+      }
+      document.querySelector('div').style.background = background
+    </script>
+  </body>
+</html>
