@@ -35,14 +35,10 @@
         background-color: transparent;
         border-radius: 50%;
         transform: translateZ(-4500px);
-        opacity: 0;
       }
 
       @keyframes move {
         from {
-          opacity: 0;
-        }
-        30% {
           opacity: 1;
         }
         90% {
@@ -50,7 +46,7 @@
         }
         to {
           opacity: 0;
-          transform: translateZ(600px);
+          transform: translateZ(500px);
         }
       }
     </style>
@@ -106,7 +102,7 @@
           let x = intRandom(-viewportWidth, 2 * viewportWidth),
             y = intRandom(-viewportHeight, 2 * viewportHeight),
             blur = intRandom(2, 12),
-            spread = intRandom(0, 2),
+            spread = intRandom(0, 4),
             colorIndex = intRandom(0, 5)
           boxShadow += `${x}px ${y}px ${blur}px ${spread}px ${colorGroup[colorIndex]}`
         }
