@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>霓虹灯（二）</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      .neon-area {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #111;
+      }
+
+      .neon {
+        width: 60vw;
+        height: 20vw;
+        border-radius: 20vw 40vw 2.5vw 2.5vw / 17.5vw 17.5vw 2.5vw 2.5vw;
+        box-shadow: 0 0 0.15vw 0.3vw rgba(255, 200, 200, 0.5),
+          0 -0.15vw 0.15vw 0.3vw rgba(255, 200, 200, 0.5) inset,
+          0 0 0.15vw 0.6vw rgba(255, 100, 100, 0.9), 0 0 0.15vw 0.6vw rgba(255, 100, 100, 0.9) inset,
+          0 0 1vw 1vw rgba(255, 0, 0, 0.9), 0 0 1vw 1vw rgba(255, 0, 0, 0.9) inset,
+          0 1.2vw 2.4vw 1.2vw rgba(0, 0, 0, 0.9), 0 1.8vw 2.4vw 1.2vw rgba(0, 0, 0, 0.9) inset;
+      }
+
+      .switch-area {
+        height: 200px;
+        max-height: 30vh;
+        background-color: #c0c0c0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="neon-area">
+      <div class="neon"></div>
+    </div>
+    <div class="switch-area"></div>
+  </body>
+</html>
