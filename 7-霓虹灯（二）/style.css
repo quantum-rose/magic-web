@@ -1,0 +1,152 @@
+@font-face {
+  font-family: Pacifico;
+  src: url(Pacifico.ttf);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+  -ms-flex-direction: column-reverse;
+  flex-direction: column-reverse;
+  width: 100vw;
+  height: 100vh;
+}
+
+.neon-area {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #111;
+}
+
+.neon {
+  width: 60vw;
+  height: 20vw;
+  border-radius: 20vw 40vw 2.5vw 2.5vw / 17.5vw 17.5vw 2.5vw 2.5vw;
+  -webkit-box-shadow: 0 0 0.15vw 0.3vw rgba(255, 200, 200, 0.5),
+    0 -0.15vw 0.15vw 0.3vw rgba(255, 200, 200, 0.5) inset, 0 0 0.15vw 0.6vw rgba(255, 100, 100, 0.9),
+    0 0 0.15vw 0.6vw rgba(255, 100, 100, 0.9) inset, 0 0 1vw 1vw rgba(255, 0, 0, 0.9),
+    0 0 1vw 1vw rgba(255, 0, 0, 0.9) inset, 0 1.2vw 2.4vw 1.2vw rgba(0, 0, 0, 0.9),
+    0 1.8vw 2.4vw 1.2vw rgba(0, 0, 0, 0.9) inset;
+  box-shadow: 0 0 0.15vw 0.3vw rgba(255, 200, 200, 0.5),
+    0 -0.15vw 0.15vw 0.3vw rgba(255, 200, 200, 0.5) inset, 0 0 0.15vw 0.6vw rgba(255, 100, 100, 0.9),
+    0 0 0.15vw 0.6vw rgba(255, 100, 100, 0.9) inset, 0 0 1vw 1vw rgba(255, 0, 0, 0.9),
+    0 0 1vw 1vw rgba(255, 0, 0, 0.9) inset, 0 1.2vw 2.4vw 1.2vw rgba(0, 0, 0, 0.9),
+    0 1.8vw 2.4vw 1.2vw rgba(0, 0, 0, 0.9) inset;
+}
+
+.text {
+  text-align: center;
+  font-family: Pacifico;
+  font-size: 15vw;
+  color: #fff;
+  -webkit-transform: rotate(5deg);
+  transform: rotate(5deg);
+}
+
+.switch-area {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 200px;
+  max-height: 30vh;
+  background-color: #c0c0c0;
+}
+
+.switch-area input {
+  display: none;
+}
+
+.switch {
+  position: relative;
+  width: 300px;
+  height: 150px;
+  border-radius: 75px;
+  background: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(hsla(0, 0%, 40%, 1)),
+    color-stop(80%, hsla(0, 0%, 90%, 1))
+  );
+  background: linear-gradient(to bottom, hsla(0, 0%, 40%, 1), hsla(0, 0%, 90%, 1) 80%);
+  -webkit-box-shadow: 0 1px #666 inset, 0 -1px #fff inset;
+  box-shadow: 0 1px #666 inset, 0 -1px #fff inset;
+}
+
+.word::before {
+  content: 'off';
+}
+
+.word {
+  content: '';
+  position: absolute;
+  width: 240px;
+  height: 100px;
+  border-radius: 50px;
+  background: pink;
+  -webkit-transform: translate(30px, 25px);
+  transform: translate(30px, 25px);
+}
+
+.word::after {
+  content: 'on';
+}
+
+.switch::after {
+  content: '';
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(
+      circle closest-side,
+      #d5d4d4 0%,
+      #d5d4d4 80%,
+      transparent calc(80% + 1px),
+      transparent 100%
+    ),
+    -webkit-gradient(linear, left top, left bottom, color-stop(20%, hsla(0, 0%, 90%, 1)), to(hsla(0, 0%, 40%, 1)));
+  background: radial-gradient(
+      circle closest-side,
+      #d5d4d4 0%,
+      #d5d4d4 80%,
+      transparent calc(80% + 1px),
+      transparent 100%
+    ),
+    linear-gradient(to bottom, hsla(0, 0%, 90%, 1) 20%, hsla(0, 0%, 40%, 1));
+  -webkit-transform: translate(20px, 20px);
+  transform: translate(20px, 20px);
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
+}
+
+input:checked ~ .switch::after {
+  -webkit-transform: translate(170px, 20px);
+  transform: translate(170px, 20px);
+}

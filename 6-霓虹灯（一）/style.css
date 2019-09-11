@@ -2,6 +2,7 @@
   font-family: Pacifico;
   src: url(Pacifico.ttf);
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -40,11 +41,9 @@ input[type='checkbox'] {
   border: 0.3vw solid silver;
   border-radius: 6vw;
   -webkit-box-shadow: 0.3vw 0.3vw 0.6vw hsla(0, 0%, 0%, 0.3) inset,
-    0.6vw 0.6vw 1.2vw hsla(0, 0%, 0%, 0.3) inset,
-    0.9vw 0.9vw 1.8vw hsla(0, 0%, 0%, 0.3) inset;
+    0.6vw 0.6vw 1.2vw hsla(0, 0%, 0%, 0.3) inset, 0.9vw 0.9vw 1.8vw hsla(0, 0%, 0%, 0.3) inset;
   box-shadow: 0.3vw 0.3vw 0.6vw hsla(0, 0%, 0%, 0.3) inset,
-    0.6vw 0.6vw 1.2vw hsla(0, 0%, 0%, 0.3) inset,
-    0.9vw 0.9vw 1.8vw hsla(0, 0%, 0%, 0.3) inset;
+    0.6vw 0.6vw 1.2vw hsla(0, 0%, 0%, 0.3) inset, 0.9vw 0.9vw 1.8vw hsla(0, 0%, 0%, 0.3) inset;
   background: repeating-linear-gradient(
         45deg,
         hsla(0, 0%, 100%, 0.3) 0%,
@@ -53,13 +52,8 @@ input[type='checkbox'] {
         transparent 50%
       )
       0% / 0.5vw 0.5vw,
-    -webkit-gradient(
-        linear,
-        left top,
-        right top,
-        color-stop(50%, red),
-        color-stop(50%, black)
-      ) 100% / 160% 100% no-repeat;
+    -webkit-gradient(linear, left top, right top, color-stop(50%, red), color-stop(50%, black)) 100% /
+      160% 100% no-repeat;
   background: repeating-linear-gradient(
         45deg,
         hsla(0, 0%, 100%, 0.3) 0%,
@@ -111,14 +105,10 @@ input[type='checkbox'] {
       hsla(0, 0%, 85%, 1) 30%,
       hsla(0, 0%, 60%, 1) 100%
     );
-  -webkit-box-shadow: 0.3vw 0.3vw 0.6vw hsla(0, 0%, 0%, 0.3),
-    0.6vw 0.6vw 0.6vw hsla(0, 0%, 0%, 0.3),
-    0.9vw 0.9vw 1.2vw hsla(0, 0%, 0%, 0.3),
-    1.2vw 1.2vw 2.4vw hsla(0, 0%, 0%, 0.3);
-  box-shadow: 0.3vw 0.3vw 0.6vw hsla(0, 0%, 0%, 0.3),
-    0.6vw 0.6vw 0.6vw hsla(0, 0%, 0%, 0.3),
-    0.9vw 0.9vw 1.2vw hsla(0, 0%, 0%, 0.3),
-    1.2vw 1.2vw 2.4vw hsla(0, 0%, 0%, 0.3);
+  -webkit-box-shadow: 0.3vw 0.3vw 0.6vw hsla(0, 0%, 0%, 0.3), 0.6vw 0.6vw 0.6vw hsla(0, 0%, 0%, 0.3),
+    0.9vw 0.9vw 1.2vw hsla(0, 0%, 0%, 0.3), 1.2vw 1.2vw 2.4vw hsla(0, 0%, 0%, 0.3);
+  box-shadow: 0.3vw 0.3vw 0.6vw hsla(0, 0%, 0%, 0.3), 0.6vw 0.6vw 0.6vw hsla(0, 0%, 0%, 0.3),
+    0.9vw 0.9vw 1.2vw hsla(0, 0%, 0%, 0.3), 1.2vw 1.2vw 2.4vw hsla(0, 0%, 0%, 0.3);
   -webkit-transition: left 0.5s;
   transition: left 0.5s;
 }
@@ -129,10 +119,8 @@ input[type='checkbox'] {
   font-size: 12vw;
   font-family: Pacifico;
   text-shadow: 1vw 1vw 1vw #000;
-  -webkit-animation: neon-off 1s 0.5s backwards,
-    neon-off-color 1.5s ease-out 0.5s backwards;
-  animation: neon-off 1s 0.5s backwards,
-    neon-off-color 1.5s ease-out 0.5s backwards;
+  -webkit-animation: neon-off 1s 0.5s backwards, neon-off-color 1.5s ease-out 0.5s backwards;
+  animation: neon-off 1s 0.5s backwards, neon-off-color 1.5s ease-out 0.5s backwards;
 }
 
 input:checked ~ .switch {
@@ -146,36 +134,31 @@ input:checked ~ .switch::before {
 input:checked ~ .text {
   -webkit-animation: neon-on 2s ease-in-out 0.8s infinite alternate,
     neon-on-color 1s ease-out 0.5s forwards;
-  animation: neon-on 2s ease-in-out 0.8s infinite alternate,
-    neon-on-color 1s ease-out 0.5s forwards;
+  animation: neon-on 2s ease-in-out 0.8s infinite alternate, neon-on-color 1s ease-out 0.5s forwards;
 }
 
 @-webkit-keyframes neon-on {
   from {
-    text-shadow: 0 0 0.4vw hsl(0, 0%, 100%), 0 0 1.2vw hsl(0, 0%, 100%),
-      0 0 3.6vw hsl(0, 0%, 100%), 0 0 4vw hsl(15, 100%, 50%),
-      0 0 5vw hsl(15, 100%, 50%), 0 0 6vw hsl(15, 100%, 50%),
+    text-shadow: 0 0 0.4vw hsl(0, 0%, 100%), 0 0 1.2vw hsl(0, 0%, 100%), 0 0 3.6vw hsl(0, 0%, 100%),
+      0 0 4vw hsl(15, 100%, 50%), 0 0 5vw hsl(15, 100%, 50%), 0 0 6vw hsl(15, 100%, 50%),
       0 0 7vw hsl(15, 100%, 50%), 0 0 8vw hsl(15, 100%, 50%);
   }
   to {
-    text-shadow: 0 0 0.2vw hsl(0, 0%, 100%), 0 0 0.6vw hsl(0, 0%, 100%),
-      0 0 1.8vw hsl(0, 0%, 100%), 0 0 2vw hsl(15, 100%, 50%),
-      0 0 2.5vw hsl(15, 100%, 50%), 0 0 3vw hsl(15, 100%, 50%),
+    text-shadow: 0 0 0.2vw hsl(0, 0%, 100%), 0 0 0.6vw hsl(0, 0%, 100%), 0 0 1.8vw hsl(0, 0%, 100%),
+      0 0 2vw hsl(15, 100%, 50%), 0 0 2.5vw hsl(15, 100%, 50%), 0 0 3vw hsl(15, 100%, 50%),
       0 0 3.5vw hsl(15, 100%, 50%), 0 0 4vw hsl(15, 100%, 50%);
   }
 }
 
 @keyframes neon-on {
   from {
-    text-shadow: 0 0 0.4vw hsl(0, 0%, 100%), 0 0 1.2vw hsl(0, 0%, 100%),
-      0 0 3.6vw hsl(0, 0%, 100%), 0 0 4vw hsl(15, 100%, 50%),
-      0 0 5vw hsl(15, 100%, 50%), 0 0 6vw hsl(15, 100%, 50%),
+    text-shadow: 0 0 0.4vw hsl(0, 0%, 100%), 0 0 1.2vw hsl(0, 0%, 100%), 0 0 3.6vw hsl(0, 0%, 100%),
+      0 0 4vw hsl(15, 100%, 50%), 0 0 5vw hsl(15, 100%, 50%), 0 0 6vw hsl(15, 100%, 50%),
       0 0 7vw hsl(15, 100%, 50%), 0 0 8vw hsl(15, 100%, 50%);
   }
   to {
-    text-shadow: 0 0 0.2vw hsl(0, 0%, 100%), 0 0 0.6vw hsl(0, 0%, 100%),
-      0 0 1.8vw hsl(0, 0%, 100%), 0 0 2vw hsl(15, 100%, 50%),
-      0 0 2.5vw hsl(15, 100%, 50%), 0 0 3vw hsl(15, 100%, 50%),
+    text-shadow: 0 0 0.2vw hsl(0, 0%, 100%), 0 0 0.6vw hsl(0, 0%, 100%), 0 0 1.8vw hsl(0, 0%, 100%),
+      0 0 2vw hsl(15, 100%, 50%), 0 0 2.5vw hsl(15, 100%, 50%), 0 0 3vw hsl(15, 100%, 50%),
       0 0 3.5vw hsl(15, 100%, 50%), 0 0 4vw hsl(15, 100%, 50%);
   }
 }
@@ -194,18 +177,16 @@ input:checked ~ .text {
 
 @-webkit-keyframes neon-off {
   from {
-    text-shadow: 0 0 0.4vw hsl(0, 0%, 100%), 0 0 1.2vw hsl(0, 0%, 100%),
-      0 0 3.6vw hsl(0, 0%, 100%), 0 0 4vw hsl(15, 100%, 50%),
-      0 0 5vw hsl(15, 100%, 50%), 0 0 6vw hsl(15, 100%, 50%),
+    text-shadow: 0 0 0.4vw hsl(0, 0%, 100%), 0 0 1.2vw hsl(0, 0%, 100%), 0 0 3.6vw hsl(0, 0%, 100%),
+      0 0 4vw hsl(15, 100%, 50%), 0 0 5vw hsl(15, 100%, 50%), 0 0 6vw hsl(15, 100%, 50%),
       0 0 7vw hsl(15, 100%, 50%), 0 0 8vw hsl(15, 100%, 50%);
   }
 }
 
 @keyframes neon-off {
   from {
-    text-shadow: 0 0 0.4vw hsl(0, 0%, 100%), 0 0 1.2vw hsl(0, 0%, 100%),
-      0 0 3.6vw hsl(0, 0%, 100%), 0 0 4vw hsl(15, 100%, 50%),
-      0 0 5vw hsl(15, 100%, 50%), 0 0 6vw hsl(15, 100%, 50%),
+    text-shadow: 0 0 0.4vw hsl(0, 0%, 100%), 0 0 1.2vw hsl(0, 0%, 100%), 0 0 3.6vw hsl(0, 0%, 100%),
+      0 0 4vw hsl(15, 100%, 50%), 0 0 5vw hsl(15, 100%, 50%), 0 0 6vw hsl(15, 100%, 50%),
       0 0 7vw hsl(15, 100%, 50%), 0 0 8vw hsl(15, 100%, 50%);
   }
   to {
