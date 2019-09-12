@@ -29,12 +29,13 @@
     <div></div>
 
     <script>
-      let background = 'conic-gradient('
+      let background = []
       for (let i = 0; i <= 360; i++) {
-        if (i !== 0) background += ','
-        background += `hsl(${i}, 100%, 50%)`
+        background.push(`hsl(${i}, 100%, 50%)`)
       }
-      document.querySelector('div').style.background = background
+      document.querySelector(
+        'div'
+      ).style.background = `conic-gradient(${background.join(',')})`
     </script>
   </body>
 </html>
