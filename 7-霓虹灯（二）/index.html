@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <input type="checkbox" id="switch" />
     <div class="switch-area">
-      <input type="checkbox" id="switch" />
       <label class="switch" for="switch">
         <div class="word"></div>
       </label>
@@ -27,7 +27,10 @@
       text.innerText = ''
       /* 将文字拆分 */
       textArr.forEach(item => {
-        text.insertAdjacentHTML('beforeend', `<span>${item}</span>`)
+        text.insertAdjacentHTML(
+          'beforeend',
+          `<span data-word="${item}">${item}</span>`
+        )
       })
     </script>
   </body>
