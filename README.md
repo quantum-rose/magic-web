@@ -9,3 +9,4 @@
 5. [翻折的文字](http://cuihaojie.top/magic-web/5-%E7%BF%BB%E6%8A%98%E7%9A%84%E6%96%87%E5%AD%97/)
 6. [霓虹灯（一）](http://cuihaojie.top/magic-web/6-%E9%9C%93%E8%99%B9%E7%81%AF%EF%BC%88%E4%B8%80%EF%BC%89/)
 7. [霓虹灯（二）](http://cuihaojie.top/magic-web/7-%E9%9C%93%E8%99%B9%E7%81%AF%EF%BC%88%E4%BA%8C%EF%BC%89/)
+8. [Canvas](http://cuihaojie.top/magic-web/8-canvas/)
