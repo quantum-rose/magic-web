@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>canvas</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      canvas {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+
+      .text {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        line-height: 100vh;
+        text-align: center;
+        font-size: 15vw;
+        font-weight: 700;
+        color: #fff;
+        background-color: #000;
+        mix-blend-mode: multiply;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="cvs">
+      no support canvas
+    </canvas>
+
+    <div class="text">
+      Hello Canvas
+    </div>
+
+    <script>
+      let cvs = document.querySelector('#cvs'),
+        cvsCtx = cvs.getContext('2d'),
+        circles = [],
+        cvsWidth,
+        cvsHeight
+
+      init()
+
+      function init() {
+        resize()
+        createCircle()
+        setInterval(render(), 1000 / 60)
+        window.onresize = resize
+      }
+
+      /**
+       * 创建并保存 100 个圆
+       */
+      function createCircle() {
+        for (let i = 0; i < 100; i++) {
+          circles[i] = {
+            x: intRandom(0, cvsWidth),
+            y: intRandom(0, cvsHeight),
+            vx: intRandom(-20, 20) / 10 || 2,
+            vy: intRandom(-20, 20) / 10 || -2,
+            r: intRandom(10, 60),
+            color: `rgba(
+              ${intRandom(0, 255)},
+              ${intRandom(0, 255)},
+              ${intRandom(0, 255)},
+              ${intRandom(4, 9) / 10}
+            )`
+          }
+        }
+      }
+
+      /**
+       * 绘制
+       */
+      function render() {
+        cvsCtx.clearRect(0, 0, cvsWidth, cvsHeight)
+        circles.forEach(circle => {
+          cvsCtx.beginPath()
+          cvsCtx.arc(circle.x, circle.y, circle.r, 0, 2 * Math.PI, false)
+          cvsCtx.fillStyle = circle.color
+          cvsCtx.fill()
+          /* 计算下一帧的坐标 */
+          ;((circle.x <= 0 && circle.vx < 0) ||
+            (circle.x >= cvsWidth && circle.vx > 0)) &&
+            (circle.vx = -circle.vx)
+          ;((circle.y <= 0 && circle.vy < 0) ||
+            (circle.y >= cvsHeight && circle.vy > 0)) &&
+            (circle.vy = -circle.vy)
+          circle.x += circle.vx
+          circle.y += circle.vy
+        })
+        return render
+      }
+
+      /**
+       * 动态设置 canvas 的宽高
+       */
+      function resize() {
+        cvs.width = cvsWidth = window.innerWidth
+        cvs.height = cvsHeight = 0.15 * cvsWidth
+      }
+
+      /**
+       * 生成一个介于 start 和 end 之间的整数，闭区间
+       */
+      function intRandom(start, end) {
+        if (Object.prototype.toString.call(start) !== '[object Number]')
+          throw new TypeError(`${start} is not a number`)
+        if (Object.prototype.toString.call(end) !== '[object Number]')
+          throw new TypeError(`${end} is not a number`)
+        start = Math.floor(start)
+        end = Math.floor(end) + 1
+        return Math.floor(Math.random() * (end - start) + start)
+      }
+    </script>
+  </body>
+</html>
