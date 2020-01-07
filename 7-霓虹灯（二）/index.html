@@ -1,37 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>霓虹灯（二）</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <input type="checkbox" id="switch" />
-    <div class="switch-area">
-      <label class="switch" for="switch">
-        <div class="word"></div>
-      </label>
-    </div>
-    <div class="neon-area">
-      <div class="neon">
-        <div class="text">Magic</div>
-      </div>
-    </div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>霓虹灯（二）</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <input type="checkbox" id="switch" />
+        <div class="switch-area">
+            <label class="switch" for="switch">
+                <div class="word"></div>
+            </label>
+        </div>
+        <div class="neon-area">
+            <div class="neon">
+                <div class="text">Magic</div>
+            </div>
+        </div>
 
-    <script>
-      let text = document.querySelector('.text'),
-        textArr = text.innerText.split('')
+        <script>
+            let text = document.querySelector('.text'),
+                textArr = text.innerText.split('');
 
-      text.innerText = ''
-      /* 将文字拆分 */
-      textArr.forEach(item => {
-        text.insertAdjacentHTML(
-          'beforeend',
-          `<span data-word="${item}">${item}</span>`
-        )
-      })
-    </script>
-  </body>
+            text.innerText = '';
+            /* 将文字拆分 */
+            textArr.forEach(item => {
+                text.insertAdjacentHTML('beforeend', `<span data-word="${item}">${item}</span>`);
+            });
+        </script>
+    </body>
 </html>

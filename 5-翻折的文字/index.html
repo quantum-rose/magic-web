@@ -1,49 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>翻折的文字</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="tips">试试看鼠标经过文字时会发生什么</div>
-    <h1 class="text">This is magic!</h1>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>翻折的文字</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="tips">试试看鼠标经过文字时会发生什么</div>
+        <h1 class="text">This is magic!</h1>
 
-    <script>
-      let text = document.querySelector('.text'),
-        textArr = text.innerText.split('')
+        <script>
+            let text = document.querySelector('.text'),
+                textArr = text.innerText.split('');
 
-      text.innerText = ''
-      /* 将文字拆分 */
-      textArr.forEach(item => {
-        text.insertAdjacentHTML(
-          'beforeend',
-          `<span class="character" data-character="${item}">${item}</span>`
-        )
-      })
+            text.innerText = '';
+            /* 将文字拆分 */
+            textArr.forEach(item => {
+                text.insertAdjacentHTML('beforeend', `<span class="character" data-character="${item}">${item}</span>`);
+            });
 
-      let characters = text.querySelectorAll('.character'),
-        letters = Array.from(characters).filter(item => item.innerText !== ' '), // 过滤空格
-        len = letters.length
+            let characters = text.querySelectorAll('.character'),
+                letters = Array.from(characters).filter(item => item.innerText !== ' '), // 过滤空格
+                len = letters.length;
 
-      setInterval(setAnimation(), 1500 + len * 200)
+            setInterval(setAnimation(), 1500 + len * 200);
 
-      /**
-       * 定时器函数，使文字产生自动播放动画的效果
-       */
-      function setAnimation() {
-        letters.forEach((item, i) => {
-          setTimeout(() => {
-            item.classList.add('ani')
-          }, 500 + i * 200)
-          setTimeout(() => {
-            item.classList.remove('ani')
-          }, 750 + i * 200)
-        })
-        return setAnimation
-      }
-    </script>
-  </body>
+            /**
+             * 定时器函数，使文字产生自动播放动画的效果
+             */
+            function setAnimation() {
+                letters.forEach((item, i) => {
+                    setTimeout(() => {
+                        item.classList.add('ani');
+                    }, 500 + i * 200);
+                    setTimeout(() => {
+                        item.classList.remove('ani');
+                    }, 750 + i * 200);
+                });
+                return setAnimation;
+            }
+        </script>
+    </body>
 </html>

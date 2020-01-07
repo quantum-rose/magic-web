@@ -1,82 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>星际穿越</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="sky"></div>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>星际穿越</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="sky"></div>
 
-    <script>
-      let sky = document.querySelector('.sky'),
-        viewportWidth = window.innerWidth,
-        viewportHeight = window.innerHeight,
-        colorGroup = ['#78b6e3', '#fff', '#fffda8', '#fedc00', '#db7000', '#ad3406']
+        <script>
+            let sky = document.querySelector('.sky'),
+                viewportWidth = window.innerWidth,
+                viewportHeight = window.innerHeight,
+                colorGroup = ['#78b6e3', '#fff', '#fffda8', '#fedc00', '#db7000', '#ad3406'];
 
-      /* 循环添加 30 组星星 */
-      for (let i = 0; i < 30; i++) {
-        let starsGroup = document.createElement('div')
-        startAnimation(starsGroup, -i / 6)
-        sky.appendChild(starsGroup)
+            /* 循环添加 30 组星星 */
+            for (let i = 0; i < 30; i++) {
+                let starsGroup = document.createElement('div');
+                startAnimation(starsGroup, -i / 6);
+                sky.appendChild(starsGroup);
 
-        /**
-         * 监听动画的完成，移除动画，然后再次启动动画
-         */
-        starsGroup.addEventListener('animationend', function(e) {
-          starsGroup.style.animation = ``
-          e.target.offsetWidth // 强制渲染页面，否则动画不会重新启动
-          startAnimation(starsGroup, -i / 6)
-        })
-      }
+                /**
+                 * 监听动画的完成，移除动画，然后再次启动动画
+                 */
+                starsGroup.addEventListener('animationend', function(e) {
+                    starsGroup.style.animation = ``;
+                    e.target.offsetWidth; // 强制渲染页面，否则动画不会重新启动
+                    startAnimation(starsGroup, -i / 6);
+                });
+            }
 
-      /**
-       * 监听窗口大小的变化
-       */
-      window.onresize = function() {
-        viewportWidth = window.innerWidth
-        viewportHeight = window.innerHeight
-      }
+            /**
+             * 监听窗口大小的变化
+             */
+            window.onresize = function() {
+                viewportWidth = window.innerWidth;
+                viewportHeight = window.innerHeight;
+            };
 
-      /**
-       * 启动星际穿越动画
-       */
-      function startAnimation(element, delay) {
-        element.style.boxShadow = setBoxShadow()
-        element.style.animation = `move 5s linear ${delay}s 1`
-      }
+            /**
+             * 启动星际穿越动画
+             */
+            function startAnimation(element, delay) {
+                element.style.boxShadow = setBoxShadow();
+                element.style.animation = `move 5s linear ${delay}s 1`;
+            }
 
-      /**
-       * 为星星组设置 boxShadow，每一个阴影都是一个星星
-       */
-      function setBoxShadow() {
-        let boxShadow = ''
-        for (let j = 0; j < 30; j++) {
-          if (j !== 0) boxShadow += ','
-          let x = intRandom(-viewportWidth, 2 * viewportWidth),
-            y = intRandom(-viewportHeight, 2 * viewportHeight),
-            blur = intRandom(2, 12),
-            spread = intRandom(0, 4),
-            colorIndex = intRandom(0, 5)
-          boxShadow += `${x}px ${y}px ${blur}px ${spread}px ${colorGroup[colorIndex]}`
-        }
-        return boxShadow
-      }
+            /**
+             * 为星星组设置 boxShadow，每一个阴影都是一个星星
+             */
+            function setBoxShadow() {
+                let boxShadow = '';
+                for (let j = 0; j < 30; j++) {
+                    if (j !== 0) boxShadow += ',';
+                    let x = intRandom(-viewportWidth, 2 * viewportWidth),
+                        y = intRandom(-viewportHeight, 2 * viewportHeight),
+                        blur = intRandom(2, 12),
+                        spread = intRandom(0, 4),
+                        colorIndex = intRandom(0, 5);
+                    boxShadow += `${x}px ${y}px ${blur}px ${spread}px ${colorGroup[colorIndex]}`;
+                }
+                return boxShadow;
+            }
 
-      /**
-       * 生成一个介于 start 和 end 之间的整数，闭区间
-       */
-      function intRandom(start, end) {
-        if (Object.prototype.toString.call(start) !== '[object Number]')
-          throw new TypeError(`${start} is not a number`)
-        if (Object.prototype.toString.call(end) !== '[object Number]')
-          throw new TypeError(`${end} is not a number`)
-        start = Math.floor(start)
-        end = Math.floor(end) + 1
-        return Math.floor(Math.random() * (end - start) + start)
-      }
-    </script>
-  </body>
+            /**
+             * 生成一个介于 start 和 end 之间的整数，闭区间
+             */
+            function intRandom(start, end) {
+                if (Object.prototype.toString.call(start) !== '[object Number]')
+                    throw new TypeError(`${start} is not a number`);
+                if (Object.prototype.toString.call(end) !== '[object Number]')
+                    throw new TypeError(`${end} is not a number`);
+                start = Math.floor(start);
+                end = Math.floor(end) + 1;
+                return Math.floor(Math.random() * (end - start) + start);
+            }
+        </script>
+    </body>
 </html>

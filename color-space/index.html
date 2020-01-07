@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>色彩空间</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                background-color: #fff;
+                background-image: linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%),
+                    linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%);
+                background-size: 32px 32px;
+                background-position: 0 0, 16px 16px;
+            }
+
+            body {
+                height: 100%;
+            }
+
+            .camera {
+                width: 100vw;
+                height: 100vh;
+                -webkit-perspective: 1200px;
+                perspective: 1200px;
+                overscroll-behavior-y: contain;
+            }
+
+            .wrapper {
+                position: fixed;
+                top: calc(50vh - 25vmin);
+                left: calc(50vw - 25vmin);
+                -ms-scroll-chaining: none;
+                overscroll-behavior: contain;
+            }
+
+            .wrapper,
+            .horizontal,
+            .vertical,
+            .cube,
+            .face {
+                -webkit-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+                width: calc(50vmin + 1px);
+                height: calc(50vmin + 1px);
+            }
+
+            .face {
+                position: absolute;
+                top: 0;
+                left: 0;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                width: 100%;
+                height: 100%;
+                background-color: #fff;
+                -ms-interpolation-mode: nearest-neighbor;
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: -moz-crisp-edges;
+                image-rendering: -o-pixelated;
+                image-rendering: pixelated;
+            }
+
+            .front {
+                -webkit-transform: translateZ(25vmin);
+                transform: translateZ(25vmin);
+            }
+
+            .back {
+                -webkit-transform: rotateY(180deg) translateZ(25vmin);
+                transform: rotateY(180deg) translateZ(25vmin);
+            }
+
+            .up {
+                -webkit-transform: rotateX(90deg) translateZ(25vmin);
+                transform: rotateX(90deg) translateZ(25vmin);
+            }
+
+            .down {
+                -webkit-transform: rotateX(-90deg) translateZ(25vmin);
+                transform: rotateX(-90deg) translateZ(25vmin);
+            }
+
+            .left {
+                -webkit-transform: rotateY(-90deg) translateZ(25vmin);
+                transform: rotateY(-90deg) translateZ(25vmin);
+            }
+
+            .right {
+                -webkit-transform: rotateY(90deg) translateZ(25vmin);
+                transform: rotateY(90deg) translateZ(25vmin);
+            }
+
+            .tools {
+                position: fixed;
+                top: 0;
+                left: 0;
+                color: #fff;
+                padding: 1vmin;
+                background-color: rgba(0, 0, 0, 0.7);
+            }
+
+            .tips {
+                margin-bottom: 1vmin;
+            }
+
+            .filter {
+                display: block;
+            }
+
+            .filter > span {
+                font-size: 16px;
+                line-height: 18px;
+                vertical-align: top;
+            }
+
+            .filter > input {
+                width: 50vmin;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container" style="filter: brightness(100%) grayscale(0%) invert(0%) hue-rotate(0deg);">
+            <div class="camera">
+                <div class="wrapper">
+                    <div class="horizontal">
+                        <div class="vertical">
+                            <div class="cube">
+                                <canvas id="front" class="face front" width="256" height="256"></canvas>
+                                <canvas id="back" class="face back" width="256" height="256"></canvas>
+                                <canvas id="up" class="face up" width="256" height="256"></canvas>
+                                <canvas id="down" class="face down" width="256" height="256"></canvas>
+                                <canvas id="left" class="face left" width="256" height="256"></canvas>
+                                <canvas id="right" class="face right" width="256" height="256"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tools">
+            <div class="tips">试试鼠标点击拖动，或手指在屏幕上滑动</div>
+            <label class="filter">
+                <span>亮度：</span><input type="range" min="0" max="100" step="1" value="100" id="brightness" />
+            </label>
+            <label class="filter">
+                <span>灰度：</span><input type="range" min="0" max="100" step="1" value="0" id="grayscale" />
+            </label>
+            <label class="filter">
+                <span>反色：</span><input type="range" min="0" max="100" step="1" value="0" id="invert" />
+            </label>
+            <label class="filter">
+                <span>色相：</span><input type="range" min="0" max="360" step="1" value="0" id="hueRotate" />
+            </label>
+        </div>
+
+        <script>
+            let container = document.querySelector('#container'),
+                horizontal = document.querySelector('.horizontal'),
+                vertical = document.querySelector('.vertical'),
+                cube = document.querySelector('.cube'),
+                front = document.querySelector('#front'),
+                frontCtx = front.getContext('2d'),
+                back = document.querySelector('#back'),
+                backCtx = back.getContext('2d'),
+                up = document.querySelector('#up'),
+                upCtx = up.getContext('2d'),
+                down = document.querySelector('#down'),
+                downCtx = down.getContext('2d'),
+                left = document.querySelector('#left'),
+                leftCtx = left.getContext('2d'),
+                right = document.querySelector('#right'),
+                rightCtx = right.getContext('2d'),
+                brightness = document.querySelector('#brightness'),
+                grayscale = document.querySelector('#grayscale'),
+                invert = document.querySelector('#invert'),
+                hueRotate = document.querySelector('#hueRotate'),
+                start = {};
+
+            horizontal.style.transform = `rotateX(-45deg)`;
+            vertical.style.transform = `rotateY(45deg)`;
+
+            container.addEventListener('mousedown', moveStart);
+            container.addEventListener('touchstart', moveStart);
+            container.addEventListener('mouseup', moveEnd);
+            container.addEventListener('touchend', moveEnd);
+
+            /**
+             * 鼠标键按下或触摸开始
+             */
+            function moveStart(e) {
+                let rotateX = horizontal.style.transform.match(/[0-9-.]+/g);
+                let rotateY = vertical.style.transform.match(/[0-9-.]+/g);
+                start = {
+                    x: e.clientX || e.touches[0].clientX,
+                    y: e.clientY || e.touches[0].clientY,
+                    rotateX: rotateX - 0,
+                    rotateY: rotateY - 0
+                };
+                this.addEventListener('mousemove', moving);
+                this.addEventListener('touchmove', moving);
+            }
+
+            /**
+             * 鼠标移动或手指在屏幕上滑动，每移动 1px，旋转 1deg
+             */
+            function moving(e) {
+                event.preventDefault();
+                let now = {
+                        x: e.clientX || e.touches[0].clientX,
+                        y: e.clientY || e.touches[0].clientY
+                    },
+                    rotateY = now.x - start.x + start.rotateY,
+                    rotateX = start.y - now.y + start.rotateX;
+                horizontal.style.transform = `rotateX(${rotateX}deg)`;
+                vertical.style.transform = `rotateY(${rotateY}deg)`;
+            }
+
+            /**
+             * 鼠标键弹起或触摸结束，移除 moving 事件
+             */
+            function moveEnd() {
+                container.removeEventListener('mousemove', moving);
+                container.removeEventListener('touchmove', moving);
+            }
+
+            brightness.addEventListener('input', function(e) {
+                container.style.filter = container.style.filter.replace(/(?<=brightness\()\d+/, e.target.value);
+            });
+            grayscale.addEventListener('input', function(e) {
+                container.style.filter = container.style.filter.replace(/(?<=grayscale\()\d+/, e.target.value);
+            });
+            invert.addEventListener('input', function(e) {
+                container.style.filter = container.style.filter.replace(/(?<=invert\()\d+/, e.target.value);
+            });
+            hueRotate.addEventListener('input', function(e) {
+                container.style.filter = container.style.filter.replace(/(?<=hue-rotate\()\d+/, e.target.value);
+            });
+
+            for (let i = 0; i < 256; i++) {
+                for (let j = 0; j < 256; j++) {
+                    frontCtx.fillStyle = `rgb(${255 - i}, ${255 - j}, 255)`;
+                    frontCtx.fillRect(i, j, 1, 1);
+
+                    backCtx.fillStyle = `rgb(${i}, ${255 - j}, 0)`;
+                    backCtx.fillRect(i, j, 1, 1);
+
+                    upCtx.fillStyle = `rgb(${255 - i}, 255, ${j})`;
+                    upCtx.fillRect(i, j, 1, 1);
+
+                    downCtx.fillStyle = `rgb(${255 - i}, 0, ${255 - j})`;
+                    downCtx.fillRect(i, j, 1, 1);
+
+                    leftCtx.fillStyle = `rgb(255, ${255 - j}, ${i})`;
+                    leftCtx.fillRect(i, j, 1, 1);
+
+                    rightCtx.fillStyle = `rgb(0, ${255 - j}, ${255 - i})`;
+                    rightCtx.fillRect(i, j, 1, 1);
+                }
+            }
+        </script>
+    </body>
+</html>

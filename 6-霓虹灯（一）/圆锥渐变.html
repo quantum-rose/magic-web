@@ -1,41 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>圆锥渐变</title>
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-      }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>圆锥渐变</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
 
-      body {
-        display: flex;
-        width: 100vw;
-        height: 100vh;
-      }
+            body {
+                display: flex;
+                width: 100vw;
+                height: 100vh;
+            }
 
-      div {
-        margin: auto;
-        width: 100vmin;
-        height: 100vmin;
-        border-radius: 50%;
-      }
-    </style>
-  </head>
-  <body>
-    <div></div>
+            div {
+                margin: auto;
+                width: 100vmin;
+                height: 100vmin;
+                border-radius: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <div></div>
 
-    <script>
-      let background = []
-      for (let i = 0; i <= 360; i++) {
-        background.push(`hsl(${i}, 100%, 50%)`)
-      }
-      document.querySelector(
-        'div'
-      ).style.background = `conic-gradient(${background.join(',')})`
-    </script>
-  </body>
+        <script>
+            let background = [];
+            for (let i = 0; i <= 360; i++) {
+                background.push(`hsl(${i}, 100%, 50%)`);
+            }
+            document.querySelector('div').style.background = `conic-gradient(${background.join(',')})`;
+        </script>
+    </body>
 </html>

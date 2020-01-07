@@ -1,456 +1,399 @@
 @font-face {
-  font-family: Pacifico;
-  src: url(Pacifico.ttf);
+    font-family: Pacifico;
+    src: url(Pacifico.ttf);
 }
 
 * {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: reverse;
-  -ms-flex-direction: column-reverse;
-  flex-direction: column-reverse;
-  width: 100vw;
-  height: 100vh;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: column-reverse;
+    flex-direction: column-reverse;
+    width: 100vw;
+    height: 100vh;
 }
 
 input {
-  display: none;
+    display: none;
 }
 
 .neon-area {
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background-color: #111;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    background-color: #111;
 }
 
 .neon {
-  position: relative;
+    position: relative;
 }
 
 .neon::before {
-  content: '';
-  position: absolute;
+    content: '';
+    position: absolute;
 }
 
 .neon,
 .neon::before {
-  width: 60vw;
-  height: 20vw;
-  margin-bottom: 10vh;
-  border-radius: 20vw 40vw 2.5vw 2.5vw / 17.5vw 17.5vw 2.5vw 2.5vw;
-  -webkit-box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5),
-    0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5) inset,
-    0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9),
-    0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9) inset,
-    0 0 1vw 1vw hsla(0, 100%, 10%, 0.9),
-    0 0 1vw 1vw hsla(0, 100%, 10%, 0.9) inset,
-    0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9),
-    0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
-  box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5),
-    0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5) inset,
-    0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9),
-    0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9) inset,
-    0 0 1vw 1vw hsla(0, 100%, 10%, 0.9),
-    0 0 1vw 1vw hsla(0, 100%, 10%, 0.9) inset,
-    0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9),
-    0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
-  -webkit-transition: -webkit-box-shadow 0.5s 0.8s;
-  transition: -webkit-box-shadow 0.5s 0.8s;
-  transition: box-shadow 0.5s 0.8s;
-  transition: box-shadow 0.5s 0.8s, -webkit-box-shadow 0.5s 0.8s;
+    width: 60vw;
+    height: 20vw;
+    margin-bottom: 10vh;
+    border-radius: 20vw 40vw 2.5vw 2.5vw / 17.5vw 17.5vw 2.5vw 2.5vw;
+    -webkit-box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5), 0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5) inset,
+        0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9), 0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9) inset,
+        0 0 1vw 1vw hsla(0, 100%, 10%, 0.9), 0 0 1vw 1vw hsla(0, 100%, 10%, 0.9) inset,
+        0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9), 0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
+    box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5), 0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5) inset,
+        0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9), 0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9) inset,
+        0 0 1vw 1vw hsla(0, 100%, 10%, 0.9), 0 0 1vw 1vw hsla(0, 100%, 10%, 0.9) inset,
+        0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9), 0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
+    -webkit-transition: -webkit-box-shadow 0.5s 0.8s;
+    transition: -webkit-box-shadow 0.5s 0.8s;
+    transition: box-shadow 0.5s 0.8s;
+    transition: box-shadow 0.5s 0.8s, -webkit-box-shadow 0.5s 0.8s;
 }
 
 /* 与暗灯管相比仅仅提升了亮度值 */
 input:checked ~ .neon-area > .neon,
 input:checked ~ .neon-area > .neon::before {
-  -webkit-box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 90%, 0.5),
-    0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 90%, 0.5) inset,
-    0 0 0.15vw 0.6vw hsla(0, 100%, 70%, 0.9),
-    0 0 0.15vw 0.6vw hsla(0, 100%, 70%, 0.9) inset,
-    0 0 1vw 1vw hsla(0, 100%, 50%, 0.9),
-    0 0 1vw 1vw hsla(0, 100%, 50%, 0.9) inset,
-    0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9),
-    0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
-  box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 90%, 0.5),
-    0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 90%, 0.5) inset,
-    0 0 0.15vw 0.6vw hsla(0, 100%, 70%, 0.9),
-    0 0 0.15vw 0.6vw hsla(0, 100%, 70%, 0.9) inset,
-    0 0 1vw 1vw hsla(0, 100%, 50%, 0.9),
-    0 0 1vw 1vw hsla(0, 100%, 50%, 0.9) inset,
-    0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9),
-    0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
+    -webkit-box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 90%, 0.5), 0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 90%, 0.5) inset,
+        0 0 0.15vw 0.6vw hsla(0, 100%, 70%, 0.9), 0 0 0.15vw 0.6vw hsla(0, 100%, 70%, 0.9) inset,
+        0 0 1vw 1vw hsla(0, 100%, 50%, 0.9), 0 0 1vw 1vw hsla(0, 100%, 50%, 0.9) inset,
+        0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9), 0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
+    box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 90%, 0.5), 0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 90%, 0.5) inset,
+        0 0 0.15vw 0.6vw hsla(0, 100%, 70%, 0.9), 0 0 0.15vw 0.6vw hsla(0, 100%, 70%, 0.9) inset,
+        0 0 1vw 1vw hsla(0, 100%, 50%, 0.9), 0 0 1vw 1vw hsla(0, 100%, 50%, 0.9) inset,
+        0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9), 0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
 }
 
 input:checked ~ .neon-area > .neon {
-  -webkit-animation: neon-blink 0.1s 1s infinite;
-  animation: neon-blink 0.1s 1s infinite;
+    -webkit-animation: neon-blink 0.1s 1s infinite;
+    animation: neon-blink 0.1s 1s infinite;
 }
 
 .neon > .text {
-  text-align: center;
-  font-family: Pacifico;
-  font-size: 15vw;
-  -webkit-transform: rotate(5deg);
-  transform: rotate(5deg);
-  color: hsl(60, 100%, 10%);
-  text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1),
-    0 0.2vw 1.2vw rgba(0, 0, 0, 0.2), 0 0.1vw 0.8vw rgba(0, 0, 0, 0.3),
-    0 1vw 4vw #000, 0 1vw 1.2vw #000, 0 0.3vw 1.6vw #000;
-  -webkit-transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s;
-  transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s;
+    text-align: center;
+    font-family: Pacifico;
+    font-size: 15vw;
+    -webkit-transform: rotate(5deg);
+    transform: rotate(5deg);
+    color: hsl(60, 100%, 10%);
+    text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1), 0 0.2vw 1.2vw rgba(0, 0, 0, 0.2), 0 0.1vw 0.8vw rgba(0, 0, 0, 0.3),
+        0 1vw 4vw #000, 0 1vw 1.2vw #000, 0 0.3vw 1.6vw #000;
+    -webkit-transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s;
+    transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s;
 }
 
 input:checked ~ .neon-area > .neon > .text {
-  color: hsl(60, 100%, 60%);
-  text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1),
-    0 0.2vw 1.2vw rgba(0, 0, 0, 0.2), 0 0.1vw 0.8vw rgba(0, 0, 0, 0.3),
-    0 0 0.3vw rgba(255, 255, 0, 0.8), 0 0 0.6vw rgba(255, 200, 0, 0.2),
-    0 0 4vw rgba(255, 100, 0, 0.9), 0 0 4vw rgba(200, 200, 0, 0.9),
-    0 0 8vw rgba(100, 100, 0, 0.7);
+    color: hsl(60, 100%, 60%);
+    text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1), 0 0.2vw 1.2vw rgba(0, 0, 0, 0.2), 0 0.1vw 0.8vw rgba(0, 0, 0, 0.3),
+        0 0 0.3vw rgba(255, 255, 0, 0.8), 0 0 0.6vw rgba(255, 200, 0, 0.2), 0 0 4vw rgba(255, 100, 0, 0.9),
+        0 0 4vw rgba(200, 200, 0, 0.9), 0 0 8vw rgba(100, 100, 0, 0.7);
 }
 
 .switch-area {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  height: 200px;
-  max-height: 30vh;
-  background-color: #c0c0c0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    height: 200px;
+    max-height: 30vh;
+    background-color: #c0c0c0;
 }
 
 .switch::before {
-  content: '';
-  position: absolute;
-  z-index: 1000;
-  width: 240px;
-  height: 100px;
-  border-radius: 50px;
-  -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.5) inset,
-    0 0 18px rgba(0, 0, 0, 0.5) inset, 0 0 36px rgba(0, 0, 0, 0.5) inset;
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.5) inset,
-    0 0 18px rgba(0, 0, 0, 0.5) inset, 0 0 36px rgba(0, 0, 0, 0.5) inset;
-  -webkit-transform: translate(30px, 25px);
-  transform: translate(30px, 25px);
+    content: '';
+    position: absolute;
+    z-index: 1000;
+    width: 240px;
+    height: 100px;
+    border-radius: 50px;
+    -webkit-box-shadow: 0 0 6px rgba(0, 0, 0, 0.5) inset, 0 0 18px rgba(0, 0, 0, 0.5) inset,
+        0 0 36px rgba(0, 0, 0, 0.5) inset;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.5) inset, 0 0 18px rgba(0, 0, 0, 0.5) inset, 0 0 36px rgba(0, 0, 0, 0.5) inset;
+    -webkit-transform: translate(30px, 25px);
+    transform: translate(30px, 25px);
 }
 
 .switch {
-  position: relative;
-  width: 300px;
-  height: 150px;
-  border-radius: 75px;
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(hsla(0, 0%, 40%, 1)),
-    color-stop(80%, hsla(0, 0%, 90%, 1))
-  );
-  background: linear-gradient(
-    to bottom,
-    hsla(0, 0%, 40%, 1),
-    hsla(0, 0%, 90%, 1) 80%
-  );
-  -webkit-box-shadow: 0 1px #666 inset, 0 -1px #fff inset;
-  box-shadow: 0 1px #666 inset, 0 -1px #fff inset;
+    position: relative;
+    width: 300px;
+    height: 150px;
+    border-radius: 75px;
+    background: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        from(hsla(0, 0%, 40%, 1)),
+        color-stop(80%, hsla(0, 0%, 90%, 1))
+    );
+    background: linear-gradient(to bottom, hsla(0, 0%, 40%, 1), hsla(0, 0%, 90%, 1) 80%);
+    -webkit-box-shadow: 0 1px #666 inset, 0 -1px #fff inset;
+    box-shadow: 0 1px #666 inset, 0 -1px #fff inset;
 }
 
 .word::before,
 .word::after {
-  position: absolute;
-  width: 240px;
-  height: 100px;
-  line-height: 95px;
-  text-align: center;
-  font-size: 30px;
-  font-weight: 700;
-  -webkit-transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s,
-    -webkit-transform 0.5s;
-  transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s, -webkit-transform 0.5s;
-  -webkit-transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s,
-    -webkit-transform 0.5s;
-  -webkit-transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s,
-    -webkit-transform 0.5s;
-  -webkit-transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s,
-    -webkit-transform 0.5s;
-  -webkit-transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s,
-    -webkit-transform 0.5s;
-  -webkit-transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s,
-    -webkit-transform 0.5s;
-  transition: transform 0.5s, color 0.5s 0.5s, text-shadow 0.5s 0.5s;
-  transition: transform 0.5s, color 0.5s 0.5s, text-shadow 0.5s 0.5s,
-    -webkit-transform 0.5s;
-  transition: transform 0.5s, color 0.5s 0.5s, text-shadow 0.5s 0.5s,
-    -webkit-transform 0.5s;
-  transition: transform 0.5s, color 0.5s 0.5s, text-shadow 0.5s 0.5s,
-    -webkit-transform 0.5s;
-  transition: transform 0.5s, color 0.5s 0.5s, text-shadow 0.5s 0.5s,
-    -webkit-transform 0.5s;
-  transition: transform 0.5s, color 0.5s 0.5s, text-shadow 0.5s 0.5s,
-    -webkit-transform 0.5s;
-  transition: transform 0.5s, color 0.5s 0.5s, text-shadow 0.5s 0.5s,
-    -webkit-transform 0.5s;
+    position: absolute;
+    width: 240px;
+    height: 100px;
+    line-height: 95px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    -webkit-transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s, -webkit-transform 0.5s;
+    transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s, -webkit-transform 0.5s;
+    -webkit-transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s, -webkit-transform 0.5s;
+    -webkit-transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s, -webkit-transform 0.5s;
+    -webkit-transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s, -webkit-transform 0.5s;
+    -webkit-transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s, -webkit-transform 0.5s;
+    -webkit-transition: color 0.5s 0.5s, text-shadow 0.5s 0.5s, -webkit-transform 0.5s;
+    transition: transform 0.5s, color 0.5s 0.5s, text-shadow 0.5s 0.5s;
+    transition: transform 0.5s, color 0.5s 0.5s, text-shadow 0.5s 0.5s, -webkit-transform 0.5s;
+    transition: transform 0.5s, color 0.5s 0.5s, text-shadow 0.5s 0.5s, -webkit-transform 0.5s;
+    transition: transform 0.5s, color 0.5s 0.5s, text-shadow 0.5s 0.5s, -webkit-transform 0.5s;
+    transition: transform 0.5s, color 0.5s 0.5s, text-shadow 0.5s 0.5s, -webkit-transform 0.5s;
+    transition: transform 0.5s, color 0.5s 0.5s, text-shadow 0.5s 0.5s, -webkit-transform 0.5s;
+    transition: transform 0.5s, color 0.5s 0.5s, text-shadow 0.5s 0.5s, -webkit-transform 0.5s;
 }
 
 .word::before {
-  content: 'on';
-  background-color: #e26011;
-  color: hsl(120, 100%, 25%);
-  -webkit-transform: translateX(-190px);
-  transform: translateX(-190px);
+    content: 'on';
+    background-color: #e26011;
+    color: hsl(120, 100%, 25%);
+    -webkit-transform: translateX(-190px);
+    transform: translateX(-190px);
 }
 
 input:checked ~ .switch-area > .switch > .word::before {
-  color: hsl(120, 100%, 60%);
-  text-shadow: 0 0 5px hsla(120, 100%, 50%, 0.9),
-    0 0 10px hsla(120, 100%, 50%, 0.7), 0 0 20px hsla(120, 100%, 50%, 0.5),
-    0 0 30px hsla(120, 100%, 50%, 0.4);
-  -webkit-transform: translateX(-50px);
-  transform: translateX(-50px);
+    color: hsl(120, 100%, 60%);
+    text-shadow: 0 0 5px hsla(120, 100%, 50%, 0.9), 0 0 10px hsla(120, 100%, 50%, 0.7),
+        0 0 20px hsla(120, 100%, 50%, 0.5), 0 0 30px hsla(120, 100%, 50%, 0.4);
+    -webkit-transform: translateX(-50px);
+    transform: translateX(-50px);
 }
 
 .word {
-  overflow: hidden;
-  position: absolute;
-  width: 240px;
-  height: 100px;
-  border-radius: 50px;
-  -webkit-transform: translate(30px, 25px);
-  transform: translate(30px, 25px);
+    overflow: hidden;
+    position: absolute;
+    width: 240px;
+    height: 100px;
+    border-radius: 50px;
+    -webkit-transform: translate(30px, 25px);
+    transform: translate(30px, 25px);
 }
 
 .word::after {
-  content: 'off';
-  background-color: #808080;
-  color: hsl(0, 100%, 60%);
-  text-shadow: 0 0 5px hsla(0, 100%, 50%, 0.9), 0 0 10px hsla(0, 100%, 50%, 0.7),
-    0 0 20px hsla(0, 100%, 50%, 0.5), 0 0 30px hsla(120, 100%, 50%, 0.4);
-  -webkit-transform: translateX(50px);
-  transform: translateX(50px);
+    content: 'off';
+    background-color: #808080;
+    color: hsl(0, 100%, 60%);
+    text-shadow: 0 0 5px hsla(0, 100%, 50%, 0.9), 0 0 10px hsla(0, 100%, 50%, 0.7), 0 0 20px hsla(0, 100%, 50%, 0.5),
+        0 0 30px hsla(120, 100%, 50%, 0.4);
+    -webkit-transform: translateX(50px);
+    transform: translateX(50px);
 }
 
 input:checked ~ .switch-area > .switch > .word::after {
-  color: hsl(0, 100%, 25%);
-  text-shadow: none;
-  -webkit-transform: translateX(190px);
-  transform: translateX(190px);
+    color: hsl(0, 100%, 25%);
+    text-shadow: none;
+    -webkit-transform: translateX(190px);
+    transform: translateX(190px);
 }
 
 .switch::after {
-  content: '';
-  position: absolute;
-  z-index: 1010;
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  background: radial-gradient(
-      circle closest-side,
-      #d5d4d4 0%,
-      #d5d4d4 80%,
-      transparent calc(80% + 1px),
-      transparent 100%
-    ),
-    -webkit-gradient(linear, left top, left bottom, color-stop(20%, hsla(0, 0%, 90%, 1)), to(hsla(0, 0%, 40%, 1)));
-  background: radial-gradient(
-      circle closest-side,
-      #d5d4d4 0%,
-      #d5d4d4 80%,
-      transparent calc(80% + 1px),
-      transparent 100%
-    ),
-    linear-gradient(to bottom, hsla(0, 0%, 90%, 1) 20%, hsla(0, 0%, 40%, 1));
-  -webkit-transform: translate(20px, 20px);
-  transform: translate(20px, 20px);
-  -webkit-transition: -webkit-transform 0.5s;
-  transition: -webkit-transform 0.5s;
-  transition: transform 0.5s;
-  transition: transform 0.5s, -webkit-transform 0.5s;
+    content: '';
+    position: absolute;
+    z-index: 1010;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(
+            circle closest-side,
+            #d5d4d4 0%,
+            #d5d4d4 80%,
+            transparent calc(80% + 1px),
+            transparent 100%
+        ),
+        -webkit-gradient(linear, left top, left bottom, color-stop(20%, hsla(0, 0%, 90%, 1)), to(hsla(0, 0%, 40%, 1)));
+    background: radial-gradient(
+            circle closest-side,
+            #d5d4d4 0%,
+            #d5d4d4 80%,
+            transparent calc(80% + 1px),
+            transparent 100%
+        ),
+        linear-gradient(to bottom, hsla(0, 0%, 90%, 1) 20%, hsla(0, 0%, 40%, 1));
+    -webkit-transform: translate(20px, 20px);
+    transform: translate(20px, 20px);
+    -webkit-transition: -webkit-transform 0.5s;
+    transition: -webkit-transform 0.5s;
+    transition: transform 0.5s;
+    transition: transform 0.5s, -webkit-transform 0.5s;
 }
 
 input:checked ~ .switch-area > .switch::after {
-  -webkit-transform: translate(170px, 20px);
-  transform: translate(170px, 20px);
+    -webkit-transform: translate(170px, 20px);
+    transform: translate(170px, 20px);
 }
 
 /* 明暗相间 */
 @-webkit-keyframes blink-a {
-  50% {
-    color: hsl(60, 100%, 10%);
-    text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1),
-      0 0.2vw 1.2vw rgba(0, 0, 0, 0.2), 0 0.1vw 0.8vw rgba(0, 0, 0, 0.3),
-      0 1vw 4vw #000, 0 1vw 1.2vw #000, 0 0.3vw 1.6vw #000;
-  }
+    50% {
+        color: hsl(60, 100%, 10%);
+        text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1), 0 0.2vw 1.2vw rgba(0, 0, 0, 0.2),
+            0 0.1vw 0.8vw rgba(0, 0, 0, 0.3), 0 1vw 4vw #000, 0 1vw 1.2vw #000, 0 0.3vw 1.6vw #000;
+    }
 }
 @keyframes blink-a {
-  50% {
-    color: hsl(60, 100%, 10%);
-    text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1),
-      0 0.2vw 1.2vw rgba(0, 0, 0, 0.2), 0 0.1vw 0.8vw rgba(0, 0, 0, 0.3),
-      0 1vw 4vw #000, 0 1vw 1.2vw #000, 0 0.3vw 1.6vw #000;
-  }
+    50% {
+        color: hsl(60, 100%, 10%);
+        text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1), 0 0.2vw 1.2vw rgba(0, 0, 0, 0.2),
+            0 0.1vw 0.8vw rgba(0, 0, 0, 0.3), 0 1vw 4vw #000, 0 1vw 1.2vw #000, 0 0.3vw 1.6vw #000;
+    }
 }
 
 /* 短时间变暗，然后迅速恢复 */
 @-webkit-keyframes blink-b {
-  22%,
-  40%,
-  42%,
-  44% {
-    color: hsl(60, 100%, 10%);
-    text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1),
-      0 0.2vw 1.2vw rgba(0, 0, 0, 0.2), 0 0.1vw 0.8vw rgba(0, 0, 0, 0.3),
-      0 1vw 4vw #000, 0 1vw 1.2vw #000, 0 0.3vw 1.6vw #000;
-  }
-  0%,
-  21%,
-  41%,
-  43%,
-  45%,
-  100% {
-    color: inherit;
-    text-shadow: inherit;
-  }
+    22%,
+    40%,
+    42%,
+    44% {
+        color: hsl(60, 100%, 10%);
+        text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1), 0 0.2vw 1.2vw rgba(0, 0, 0, 0.2),
+            0 0.1vw 0.8vw rgba(0, 0, 0, 0.3), 0 1vw 4vw #000, 0 1vw 1.2vw #000, 0 0.3vw 1.6vw #000;
+    }
+    0%,
+    21%,
+    41%,
+    43%,
+    45%,
+    100% {
+        color: inherit;
+        text-shadow: inherit;
+    }
 }
 @keyframes blink-b {
-  22%,
-  40%,
-  42%,
-  44% {
-    color: hsl(60, 100%, 10%);
-    text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1),
-      0 0.2vw 1.2vw rgba(0, 0, 0, 0.2), 0 0.1vw 0.8vw rgba(0, 0, 0, 0.3),
-      0 1vw 4vw #000, 0 1vw 1.2vw #000, 0 0.3vw 1.6vw #000;
-  }
-  0%,
-  21%,
-  41%,
-  43%,
-  45%,
-  100% {
-    color: inherit;
-    text-shadow: inherit;
-  }
+    22%,
+    40%,
+    42%,
+    44% {
+        color: hsl(60, 100%, 10%);
+        text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1), 0 0.2vw 1.2vw rgba(0, 0, 0, 0.2),
+            0 0.1vw 0.8vw rgba(0, 0, 0, 0.3), 0 1vw 4vw #000, 0 1vw 1.2vw #000, 0 0.3vw 1.6vw #000;
+    }
+    0%,
+    21%,
+    41%,
+    43%,
+    45%,
+    100% {
+        color: inherit;
+        text-shadow: inherit;
+    }
 }
 
 @-webkit-keyframes blink-c {
-  50%,
-  52%,
-  54%,
-  56%,
-  58%,
-  60% {
-    color: inherit;
-    text-shadow: inherit;
-  }
-  51%,
-  53%,
-  55%,
-  57%,
-  59% {
-    color: hsl(60, 100%, 10%);
-    text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1),
-      0 0.2vw 1.2vw rgba(0, 0, 0, 0.2), 0 0.1vw 0.8vw rgba(0, 0, 0, 0.3),
-      0 1vw 4vw #000, 0 1vw 1.2vw #000, 0 0.3vw 1.6vw #000;
-  }
+    50%,
+    52%,
+    54%,
+    56%,
+    58%,
+    60% {
+        color: inherit;
+        text-shadow: inherit;
+    }
+    51%,
+    53%,
+    55%,
+    57%,
+    59% {
+        color: hsl(60, 100%, 10%);
+        text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1), 0 0.2vw 1.2vw rgba(0, 0, 0, 0.2),
+            0 0.1vw 0.8vw rgba(0, 0, 0, 0.3), 0 1vw 4vw #000, 0 1vw 1.2vw #000, 0 0.3vw 1.6vw #000;
+    }
 }
 
 @keyframes blink-c {
-  50%,
-  52%,
-  54%,
-  56%,
-  58%,
-  60% {
-    color: inherit;
-    text-shadow: inherit;
-  }
-  51%,
-  53%,
-  55%,
-  57%,
-  59% {
-    color: hsl(60, 100%, 10%);
-    text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1),
-      0 0.2vw 1.2vw rgba(0, 0, 0, 0.2), 0 0.1vw 0.8vw rgba(0, 0, 0, 0.3),
-      0 1vw 4vw #000, 0 1vw 1.2vw #000, 0 0.3vw 1.6vw #000;
-  }
+    50%,
+    52%,
+    54%,
+    56%,
+    58%,
+    60% {
+        color: inherit;
+        text-shadow: inherit;
+    }
+    51%,
+    53%,
+    55%,
+    57%,
+    59% {
+        color: hsl(60, 100%, 10%);
+        text-shadow: 0 0.3vw 1.6vw rgba(0, 0, 0, 0.1), 0 0.2vw 1.2vw rgba(0, 0, 0, 0.2),
+            0 0.1vw 0.8vw rgba(0, 0, 0, 0.3), 0 1vw 4vw #000, 0 1vw 1.2vw #000, 0 0.3vw 1.6vw #000;
+    }
 }
 
 @-webkit-keyframes neon-blink {
-  50% {
-    -webkit-box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5),
-      0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5) inset,
-      0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9),
-      0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9) inset,
-      0 0 1vw 1vw hsla(0, 100%, 10%, 0.9),
-      0 0 1vw 1vw hsla(0, 100%, 10%, 0.9) inset,
-      0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9),
-      0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
-    box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5),
-      0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5) inset,
-      0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9),
-      0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9) inset,
-      0 0 1vw 1vw hsla(0, 100%, 10%, 0.9),
-      0 0 1vw 1vw hsla(0, 100%, 10%, 0.9) inset,
-      0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9),
-      0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
-  }
+    50% {
+        -webkit-box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5),
+            0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5) inset, 0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9),
+            0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9) inset, 0 0 1vw 1vw hsla(0, 100%, 10%, 0.9),
+            0 0 1vw 1vw hsla(0, 100%, 10%, 0.9) inset, 0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9),
+            0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
+        box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5), 0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5) inset,
+            0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9), 0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9) inset,
+            0 0 1vw 1vw hsla(0, 100%, 10%, 0.9), 0 0 1vw 1vw hsla(0, 100%, 10%, 0.9) inset,
+            0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9), 0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
+    }
 }
 
 @keyframes neon-blink {
-  50% {
-    -webkit-box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5),
-      0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5) inset,
-      0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9),
-      0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9) inset,
-      0 0 1vw 1vw hsla(0, 100%, 10%, 0.9),
-      0 0 1vw 1vw hsla(0, 100%, 10%, 0.9) inset,
-      0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9),
-      0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
-    box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5),
-      0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5) inset,
-      0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9),
-      0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9) inset,
-      0 0 1vw 1vw hsla(0, 100%, 10%, 0.9),
-      0 0 1vw 1vw hsla(0, 100%, 10%, 0.9) inset,
-      0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9),
-      0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
-  }
+    50% {
+        -webkit-box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5),
+            0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5) inset, 0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9),
+            0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9) inset, 0 0 1vw 1vw hsla(0, 100%, 10%, 0.9),
+            0 0 1vw 1vw hsla(0, 100%, 10%, 0.9) inset, 0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9),
+            0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
+        box-shadow: 0 0 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5), 0 -0.15vw 0.15vw 0.3vw hsla(0, 100%, 10%, 0.5) inset,
+            0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9), 0 0 0.15vw 0.6vw hsla(0, 100%, 10%, 0.9) inset,
+            0 0 1vw 1vw hsla(0, 100%, 10%, 0.9), 0 0 1vw 1vw hsla(0, 100%, 10%, 0.9) inset,
+            0 1.2vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9), 0 1.8vw 2.4vw 1.2vw hsla(0, 0%, 0%, 0.9) inset;
+    }
 }
 
 [data-word='M'] {
-  -webkit-animation: blink-c 7s linear infinite;
-  animation: blink-c 7s linear infinite;
+    -webkit-animation: blink-c 7s linear infinite;
+    animation: blink-c 7s linear infinite;
 }
 
 [data-word='g'] {
-  -webkit-animation: blink-b 5s linear infinite;
-  animation: blink-b 5s linear infinite;
+    -webkit-animation: blink-b 5s linear infinite;
+    animation: blink-b 5s linear infinite;
 }
 
 [data-word='c'] {
-  -webkit-animation: blink-a 0.01s linear infinite;
-  animation: blink-a 0.01s linear infinite;
+    -webkit-animation: blink-a 0.01s linear infinite;
+    animation: blink-a 0.01s linear infinite;
 }
