@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link rel="stylesheet" href="https://cdn.staticfile.org/Swiper/4.5.1/css/swiper.min.css" />
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <!-- SVG mask -->
+                <div class="swiper-slide">
+                    <div class="wrapper">
+                        <div class="background-image"></div>
+                        <video
+                            width="100%"
+                            class="svg-mask-video"
+                            src="./bgmovie.mp4"
+                            loop
+                            autoplay
+                            controls
+                            x-webkit-airplay
+                            playsinline
+                            webkit-playsinline
+                            x5-playsinline
+                            x5-video-orientation="portraint"
+                        ></video>
+                        <svg class="svg-mask-svg" viewbox="0 0 1920 1080" preserveAspectRatio="xMidYMid meet">
+                            <defs>
+                                <mask id="svgMask" x="0" y="0" width="100%" height="100%">
+                                    <rect x="0" y="0" width="100%" height="100%" fill="rgb(240,240,240)" />
+                                    <text
+                                        class="svg-mask-text"
+                                        x="50%"
+                                        y="55%"
+                                        font-size="600"
+                                        text-anchor="middle"
+                                        fill="#000"
+                                        dominant-baseline="middle"
+                                    >
+                                        MASK
+                                    </text>
+                                </mask>
+                            </defs>
+                            <rect x="0" y="0" width="100%" height="100%" mask="url(#svgMask)" fill="#fff" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- CSS background-clip -->
+                <div class="swiper-slide">
+                    <div class="swiper-slide wrapper">
+                        <div class="background-clip-mask">BACK</div>
+                    </div>
+                </div>
+
+                <!-- SVG clipPath -->
+                <div class="swiper-slide">
+                    <div class="swiper-slide wrapper">
+                        <div class="background-image" style="clip-path: url(#svgClip);"></div>
+                        <video
+                            width="100%"
+                            class="svg-clip-video"
+                            src="./bgmovie.mp4"
+                            loop
+                            autoplay
+                            playsinline
+                            webkit-playsinline
+                            x5-playsinline
+                            x5-video-player-type="h5"
+                            x5-video-orientation="portraint"
+                            style="clip-path: url(#svgClip);"
+                        ></video>
+                        <svg class="svg-clip-svg">
+                            <clipPath id="svgClip" clipPathUnits="userSpaceOnUse">
+                                <text
+                                    class="svg-clip-text"
+                                    x="50%"
+                                    y="55%"
+                                    font-size="2.8rem"
+                                    text-anchor="middle"
+                                    fill="#000"
+                                    dominant-baseline="middle"
+                                >
+                                    CLIP
+                                </text>
+                            </clipPath>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- CSS mix-blend-mode -->
+                <div class="swiper-slide">
+                    <div class="swiper-slide wrapper">
+                        <div class="background-image"></div>
+                        <video
+                            width="100%"
+                            class="mix-blend-video"
+                            src="./bgmovie.mp4"
+                            loop
+                            autoplay
+                            playsinline
+                            webkit-playsinline
+                            x5-playsinline
+                            x5-video-player-type="h5"
+                            x5-video-orientation="portraint"
+                        ></video>
+                        <div class="mix-blend-text">MIX</div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <script src="https://cdn.staticfile.org/Swiper/4.5.1/js/swiper.min.js"></script>
+        <script>
+            var mySwiper = new Swiper('.swiper-container', {
+                direction: 'vertical',
+                mousewheel: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+            });
+        </script>
+    </body>
+</html>
