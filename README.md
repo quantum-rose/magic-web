@@ -10,6 +10,7 @@
 6. [霓虹灯（一）](http://cuihaojie.top/magic-web/6-%E9%9C%93%E8%99%B9%E7%81%AF%EF%BC%88%E4%B8%80%EF%BC%89/)
 7. [霓虹灯（二）](http://cuihaojie.top/magic-web/7-%E9%9C%93%E8%99%B9%E7%81%AF%EF%BC%88%E4%BA%8C%EF%BC%89/)
 8. [Canvas](http://cuihaojie.top/magic-web/8-canvas/)
+9. [SVG 镂空文本](http://cuihaojie.top/magic-web/9-SVG%E9%95%82%E7%A9%BA%E6%96%87%E6%9C%AC/)
 
 ### SP
 
