@@ -31,38 +31,27 @@ body,
     stroke-linejoin: round;
     stroke-dasharray: 822;
     stroke-dashoffset: 822;
-
-    -webkit-animation-duration: 3s;
-    animation-duration: 3s;
-    -webkit-animation-timing-function: linear;
-    animation-timing-function: linear;
-    -webkit-animation-iteration-count: infinite;
-    animation-iteration-count: infinite;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-animation-direction: alternate;
-    animation-direction: alternate;
 }
 
 .path-group-1 {
     stroke: #086972;
     stroke-width: 5px;
-    -webkit-animation-name: strokeText1;
-    animation-name: strokeText1;
+    -webkit-animation: strokeText1 3s linear infinite alternate both;
+    animation: strokeText1 3s linear infinite alternate both;
 }
 
 .path-group-2 {
     stroke: #17b978;
     stroke-width: 10px;
-    -webkit-animation-name: strokeText2;
-    animation-name: strokeText2;
+    -webkit-animation: strokeText2 3s linear infinite alternate both;
+    animation: strokeText2 3s linear infinite alternate both;
 }
 
 .path-group-3 {
     stroke: #a7ff83;
     stroke-width: 20px;
-    -webkit-animation-name: strokeText3;
-    animation-name: strokeText3;
+    -webkit-animation: strokeText3 3s linear infinite alternate both;
+    animation: strokeText3 3s linear infinite alternate both;
 }
 
 @-webkit-keyframes strokeText1 {
@@ -208,41 +197,59 @@ body,
     stroke-linejoin: round;
     stroke-dasharray: 9490;
     stroke-dashoffset: 9490;
-
-    -webkit-animation-duration: 10s;
-    animation-duration: 10s;
-    -webkit-animation-timing-function: linear;
-    animation-timing-function: linear;
-    -webkit-animation-iteration-count: infinite;
-    animation-iteration-count: infinite;
-    -webkit-animation-fill-mode: both;
-    animation-fill-mode: both;
-    -webkit-animation-direction: alternate;
-    animation-direction: alternate;
-}
-
-.butterfly {
     stroke: #8972ba;
     stroke-width: 5px;
-    -webkit-animation-name: butterfly;
-    animation-name: butterfly;
+    -webkit-animation: butterfly 10s linear infinite;
+    animation: butterfly 10s linear infinite;
 }
 
 @-webkit-keyframes butterfly {
-    10% {
+    5% {
         stroke-dashoffset: 9490;
     }
-    95%,
+    85%,
     to {
         stroke-dashoffset: 0;
     }
 }
 
 @keyframes butterfly {
-    10% {
+    5% {
         stroke-dashoffset: 9490;
     }
-    95%,
+    85%,
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.eraser {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 2829;
+    stroke-dashoffset: 2829;
+    stroke: #ffffff;
+    stroke-width: 150px;
+    -webkit-animation: eraser 10s linear infinite;
+    animation: eraser 10s linear infinite;
+}
+
+@-webkit-keyframes eraser {
+    from,
+    90% {
+        stroke-dashoffset: 2829;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes eraser {
+    from,
+    90% {
+        stroke-dashoffset: 2829;
+    }
     to {
         stroke-dashoffset: 0;
     }
