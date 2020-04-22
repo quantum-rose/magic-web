@@ -69,6 +69,7 @@
 
             window.addEventListener('resize', function () {
                 if (Date.now() - lastTime > 16) {
+                    lastTime = Date.now();
                     viewport = {
                         width: document.body.clientWidth,
                         height: document.body.clientHeight,
@@ -77,18 +78,17 @@
                         x: viewport.width / 2,
                         y: viewport.height / 2,
                     };
-                    lastTime = Date.now();
                 }
             });
 
             document.body.addEventListener('mousemove', function (e) {
                 if (Date.now() - lastTime > 16) {
+                    lastTime = Date.now();
                     mouse = {
                         x: e.pageX,
                         y: e.pageY,
                     };
                     lightMove();
-                    lastTime = Date.now();
                 }
             });
 
