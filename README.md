@@ -12,6 +12,7 @@
 8.  [Canvas](http://cuihaojie.top/magic-web/08-canvas/)
 9.  [SVG 镂空文本](http://cuihaojie.top/magic-web/09-SVG%E9%95%82%E7%A9%BA%E6%96%87%E6%9C%AC/)
 10. [SVG 路径动画](http://cuihaojie.top/magic-web/10-SVG%E8%B7%AF%E5%BE%84%E5%8A%A8%E7%94%BB/)
+11. [长阴影](http://cuihaojie.top/magic-web/11-%E9%95%BF%E9%98%B4%E5%BD%B1/)
 
 ### SP
 
