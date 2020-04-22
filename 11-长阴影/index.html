@@ -8,7 +8,7 @@
         <script>
             const SHADOW_LENGTH = 100; // 阴影总长，单位px
             const SHADOW_TOTAL = 400; // 阴影总数
-            const SINGLE_SHADOW_LENGTH = 2 ** 0.5 * (SHADOW_LENGTH / SHADOW_TOTAL); // 单个阴影的长度，单位px
+            const SINGLE_SHADOW_LENGTH = SHADOW_LENGTH / SHADOW_TOTAL; // 单个阴影的长度，单位px
 
             let shadowStyle = document.createElement('style'),
                 offsetX,
