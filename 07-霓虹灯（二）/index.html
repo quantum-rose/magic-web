@@ -23,12 +23,11 @@
         <script>
             let text = document.querySelector('.text'),
                 textArr = text.innerText.split('');
-
-            text.innerText = '';
             /* 将文字拆分 */
-            textArr.forEach(item => {
-                text.insertAdjacentHTML('beforeend', `<span data-word="${item}">${item}</span>`);
+            textArr.forEach((item, index, arr) => {
+                arr[index] = `<span data-word="${item}">${item}</span>`;
             });
+            text.innerHTML = textArr.join('');
         </script>
     </body>
 </html>

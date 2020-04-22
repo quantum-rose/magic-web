@@ -14,12 +14,11 @@
         <script>
             let text = document.querySelector('.text'),
                 textArr = text.innerText.split('');
-
-            text.innerText = '';
             /* 将文字拆分 */
-            textArr.forEach(item => {
-                text.insertAdjacentHTML('beforeend', `<span class="character" data-character="${item}">${item}</span>`);
+            textArr.forEach((item, index, arr) => {
+                arr[index] = `<span class="character" data-character="${item}">${item}</span>`;
             });
+            text.innerHTML = textArr.join('');
 
             let characters = text.querySelectorAll('.character'),
                 letters = Array.from(characters).filter(item => item.innerText !== ' '), // 过滤空格

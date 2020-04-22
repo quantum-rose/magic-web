@@ -9,6 +9,10 @@
             * {
                 margin: 0;
                 padding: 0;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
             }
 
             canvas {
@@ -51,7 +55,7 @@
             function init() {
                 resize();
                 createCircle();
-                setInterval(render(), 1000 / 60);
+                render();
                 window.onresize = resize;
             }
 
@@ -71,7 +75,7 @@
                             ${intRandom(0, 255)},
                             ${intRandom(0, 255)},
                             ${intRandom(4, 9) / 10}
-                        )`
+                        )`,
                     };
                 }
             }
@@ -94,7 +98,7 @@
                     circle.x += circle.vx;
                     circle.y += circle.vy;
                 });
-                return render;
+                requestAnimationFrame(render);
             }
 
             /**

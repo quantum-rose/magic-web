@@ -75,40 +75,25 @@
                 horizontal = document.querySelector('.horizontal'),
                 vertical = document.querySelector('.vertical'),
                 cube = document.querySelector('.cube'),
-                point = `point${intRandom(1, 6)}`,
-                isRolling = false;
+                point = `point${intRandom(1, 6)}`;
 
             cube.classList.add(point); // 初始化一个随机点数
 
             /**
              * 点击屏幕，开始投掷骰子
              */
-            body.addEventListener('click', function() {
-                if (isRolling) return;
-                isRolling = true; // 改变标识变量
+            body.addEventListener('click', function () {
+                body.classList.add('no-event');
                 horizontal.classList.add('ani-roll-x');
                 vertical.classList.add('ani-roll-y');
                 cube.classList.replace(point, (point = `point${intRandom(1, 6)}`));
 
-                /* 设置延时，cube 过渡完成后，移除动画类，重置标识变量 */
                 setTimeout(() => {
                     horizontal.classList.remove('ani-roll-x');
                     vertical.classList.remove('ani-roll-y');
-                    isRolling = false;
+                    body.classList.remove('no-event');
                 }, 3600);
             });
-
-            /**
-             * 以下代码有 bug ，有时这个 transitionend 事件不会被触发，导致动画类没有移除，下次投掷骰子点击无反应
-             * 如果你知道原因，请联系我 cui-haojie@outlook.com
-             *
-             * cube 过渡完成后，移除动画类，重置标识变量
-             */
-            // cube.addEventListener('transitionend', function() {
-            //   horizontal.classList.remove('ani-roll-x')
-            //   vertical.classList.remove('ani-roll-y')
-            //   isRolling = false
-            // })
 
             /**
              * 生成一个介于 start 和 end 之间的整数，闭区间

@@ -12,6 +12,10 @@ body {
     overscroll-behavior-y: contain;
 }
 
+body.no-event {
+    pointer-events: none;
+}
+
 .dice {
     position: fixed;
     top: calc(50vh - 100px);
@@ -86,8 +90,8 @@ body {
 }
 
 .cube {
-    -webkit-transition: all 3.6s;
-    transition: all 3.6s;
+    -webkit-transition: transform 3.6s linear;
+    transition: transform 3.6s linear;
 }
 
 .point1 {

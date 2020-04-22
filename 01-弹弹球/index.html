@@ -51,7 +51,7 @@
             ground.addEventListener('click', function() {
                 balls.forEach(item => ground.removeChild(item));
                 count = intRandom(1, 10);
-                balls = [];
+                balls.length = 0;
                 renderBalls();
             });
 

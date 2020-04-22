@@ -21,7 +21,7 @@
                 shadowArr.push(`${offsetX}px ${offsetY}px 0 hsl(218, 57%, 10%)`);
             }
 
-            shadowStyle.innerText = `.letter,.heightlight{text-shadow: ${shadowArr.join(',')};}`;
+            shadowStyle.innerText = `.letter::after{text-shadow: ${shadowArr.join(',')};}`;
             shadowStyle.classList.add('shadow-style');
             document.head.appendChild(shadowStyle);
         </script>
@@ -123,18 +123,18 @@
                 lightSourceStyle.left = lightSourceLeft + 'px';
                 lightSourceStyle.transform = `rotateZ(${(atan2 / Math.PI) * 180 + 180}deg)`;
 
-                shadowArr = [];
+                shadowArr.length = 0;
                 for (let i = 1; i <= 400; i++) {
                     offsetY = SINGLE_SHADOW_LENGTH * -i * sin;
                     offsetX = SINGLE_SHADOW_LENGTH * -i * cos;
                     shadowArr.push(`${offsetX}px ${offsetY}px 0 hsl(218, 57%, 10%)`);
                 }
-                shadowStyle.innerText = `.letter,.heightlight{text-shadow: ${shadowArr.join(',')};}`;
+                shadowStyle.innerText = `.letter::after{text-shadow: ${shadowArr.join(',')};}`;
             }
 
             document.querySelectorAll('.letter').forEach(item => {
                 item.addEventListener('mouseenter', function () {
-                    this.classList.add('enter', 'transition-activity');
+                    this.classList.add('transition-activity', 'enter');
                 });
                 item.addEventListener('mouseout', function () {
                     this.classList.add('transition-activity');
