@@ -70,24 +70,18 @@
             window.addEventListener('resize', function () {
                 if (Date.now() - lastTime > 16) {
                     lastTime = Date.now();
-                    viewport = {
-                        width: document.body.clientWidth,
-                        height: document.body.clientHeight,
-                    };
-                    origin = {
-                        x: viewport.width / 2,
-                        y: viewport.height / 2,
-                    };
+                    viewport.width = document.body.clientWidth;
+                    viewport.height = document.body.clientHeight;
+                    origin.x = viewport.width / 2;
+                    origin.y = viewport.height / 2;
                 }
             });
 
             document.body.addEventListener('mousemove', function (e) {
                 if (Date.now() - lastTime > 16) {
                     lastTime = Date.now();
-                    mouse = {
-                        x: e.pageX,
-                        y: e.pageY,
-                    };
+                    mouse.x = e.pageX;
+                    mouse.y = e.pageY;
                     lightMove();
                 }
             });

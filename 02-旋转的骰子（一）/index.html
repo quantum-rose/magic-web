@@ -75,7 +75,12 @@
                 horizontal = document.querySelector('.horizontal'),
                 vertical = document.querySelector('.vertical'),
                 cube = document.querySelector('.cube'),
-                start = {};
+                start = {
+                    x: 0,
+                    y: 0,
+                    rotateX: 0,
+                    rotateY: 0,
+                };
 
             horizontal.style.transform = `rotateX(-45deg)`;
             vertical.style.transform = `rotateY(45deg)`;
@@ -92,12 +97,10 @@
                 // 正则匹配数字，存储骰子当前的旋转角度
                 let rotateX = horizontal.style.transform.match(/[0-9-.]+/g);
                 let rotateY = vertical.style.transform.match(/[0-9-.]+/g);
-                start = {
-                    x: e.clientX || e.touches[0].clientX,
-                    y: e.clientY || e.touches[0].clientY,
-                    rotateX: rotateX - 0,
-                    rotateY: rotateY - 0
-                };
+                start.x = e.clientX || e.touches[0].clientX;
+                start.y = e.clientY || e.touches[0].clientY;
+                start.rotateX = rotateX - 0;
+                start.rotateY = rotateY - 0;
                 this.addEventListener('mousemove', moving);
                 this.addEventListener('touchmove', moving);
             }
@@ -109,7 +112,7 @@
                 event.preventDefault();
                 let now = {
                         x: e.clientX || e.touches[0].clientX,
-                        y: e.clientY || e.touches[0].clientY
+                        y: e.clientY || e.touches[0].clientY,
                     },
                     rotateY = now.x - start.x + start.rotateY,
                     rotateX = start.y - now.y + start.rotateX;

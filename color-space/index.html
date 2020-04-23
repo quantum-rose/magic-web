@@ -124,6 +124,7 @@
             }
         </style>
     </head>
+
     <body>
         <div id="container" style="filter: brightness(100%) grayscale(0%) invert(0%) hue-rotate(0deg);">
             <div class="camera">
@@ -196,12 +197,10 @@
             function moveStart(e) {
                 let rotateX = horizontal.style.transform.match(/[0-9-.]+/g);
                 let rotateY = vertical.style.transform.match(/[0-9-.]+/g);
-                start = {
-                    x: e.clientX || e.touches[0].clientX,
-                    y: e.clientY || e.touches[0].clientY,
-                    rotateX: rotateX - 0,
-                    rotateY: rotateY - 0
-                };
+                start.x = e.clientX || e.touches[0].clientX;
+                start.y = e.clientY || e.touches[0].clientY;
+                start.rotateX = rotateX - 0;
+                start.rotateY = rotateY - 0;
                 this.addEventListener('mousemove', moving);
                 this.addEventListener('touchmove', moving);
             }
@@ -213,7 +212,7 @@
                 event.preventDefault();
                 let now = {
                         x: e.clientX || e.touches[0].clientX,
-                        y: e.clientY || e.touches[0].clientY
+                        y: e.clientY || e.touches[0].clientY,
                     },
                     rotateY = now.x - start.x + start.rotateY,
                     rotateX = start.y - now.y + start.rotateX;
@@ -229,16 +228,16 @@
                 container.removeEventListener('touchmove', moving);
             }
 
-            brightness.addEventListener('input', function(e) {
+            brightness.addEventListener('input', function (e) {
                 container.style.filter = container.style.filter.replace(/(?<=brightness\()\d+/, e.target.value);
             });
-            grayscale.addEventListener('input', function(e) {
+            grayscale.addEventListener('input', function (e) {
                 container.style.filter = container.style.filter.replace(/(?<=grayscale\()\d+/, e.target.value);
             });
-            invert.addEventListener('input', function(e) {
+            invert.addEventListener('input', function (e) {
                 container.style.filter = container.style.filter.replace(/(?<=invert\()\d+/, e.target.value);
             });
-            hueRotate.addEventListener('input', function(e) {
+            hueRotate.addEventListener('input', function (e) {
                 container.style.filter = container.style.filter.replace(/(?<=hue-rotate\()\d+/, e.target.value);
             });
 
