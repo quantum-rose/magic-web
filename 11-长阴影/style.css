@@ -51,7 +51,7 @@ body {
     align-items: center;
     width: 0.4rem;
     height: 0.4rem;
-    border-radius: 4px;
+    border-radius: 0.02rem;
     background: linear-gradient(-25deg, #1e3c72, #2a5298);
     cursor: pointer;
     overflow: hidden;
@@ -80,20 +80,22 @@ body {
 
 .light-source {
     position: absolute;
-    top: 0;
-    left: 50%;
-    -webkit-perspective: 100px;
-    perspective: 100px;
-    -webkit-transform: rotateZ(90deg);
-    transform: rotateZ(90deg);
+    display: -webkit-box;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    -webkit-perspective: 0.5rem;
+    perspective: 0.5rem;
+    -webkit-transform: translate3d(0, -50%, 0) rotateZ(90deg);
+    transform: translate3d(0, -50%, 0) rotateZ(90deg);
+    -webkit-transform-origin: center;
+    transform-origin: center;
 }
 
 .light {
-    position: absolute;
-    top: -20px;
-    left: -99px;
-    width: 198px;
-    height: 40px;
+    margin: auto;
+    width: 1rem;
+    height: 0.2rem;
     -webkit-transform: rotateY(-85deg);
     transform: rotateY(-85deg);
     -webkit-transform-origin: center;

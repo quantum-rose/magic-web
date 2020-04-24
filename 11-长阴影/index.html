@@ -6,36 +6,36 @@
         <title>长阴影</title>
         <link rel="stylesheet" href="style.css" />
         <script>
-            const SHADOW_LENGTH = 100; // 阴影总长，单位px
-            const SHADOW_TOTAL = 400; // 阴影总数
+            const SHADOW_LENGTH = 200; // 阴影总长，单位px
+            const SHADOW_TOTAL = 200; // 阴影总数
             const SINGLE_SHADOW_LENGTH = SHADOW_LENGTH / SHADOW_TOTAL; // 单个阴影的长度，单位px
 
-            let shadowStyle = document.createElement('style'),
-                offsetX,
-                offsetY,
+            let $shadowStyle = document.createElement('style'),
+                shadowOffsetX,
+                shadowOffsetY,
                 shadowArr = [];
 
             for (let i = 1; i <= SHADOW_TOTAL; i++) {
-                offsetY = SINGLE_SHADOW_LENGTH * i;
-                offsetX = 0;
-                shadowArr.push(`${offsetX}px ${offsetY}px 0 hsl(218, 57%, 10%)`);
+                shadowOffsetY = SINGLE_SHADOW_LENGTH * i;
+                shadowOffsetX = 0;
+                shadowArr[i - 1] = `${shadowOffsetX}px ${shadowOffsetY}px 0 hsl(218, 57%, 10%)`;
             }
 
-            shadowStyle.innerText = `.letter::after{text-shadow: ${shadowArr.join(',')};}`;
-            shadowStyle.classList.add('shadow-style');
-            document.head.appendChild(shadowStyle);
+            $shadowStyle.innerText = `.letter::after{text-shadow: ${shadowArr.join(',')};}`;
+            $shadowStyle.classList.add('shadow-style');
+            document.head.appendChild($shadowStyle);
         </script>
     </head>
     <body>
         <div class="long-shadow">LONG-SHADOW</div>
 
         <script>
-            let longShadow = document.querySelector('.long-shadow'),
-                longShadowTextArr = longShadow.innerText.split('');
+            let $longShadow = document.querySelector('.long-shadow'),
+                longShadowTextArr = $longShadow.innerText.split('');
             longShadowTextArr.map((item, index, arr) => {
                 arr[index] = `<span class="letter" data-letter="${item}"></span>`;
             });
-            longShadow.innerHTML = longShadowTextArr.join('');
+            $longShadow.innerHTML = longShadowTextArr.join('');
         </script>
 
         <div class="light-source">
@@ -55,16 +55,13 @@
                     x: 0,
                     y: 0,
                 },
-                lightSourceStyle = document.querySelector('.light-source').style,
-                lightSourceTop = 0,
-                lightSourceLeft = 0,
+                matrixArr = [],
                 deltaY = 0,
                 deltaX = 0,
                 r = 0,
                 sin = 0,
                 cos = 0,
                 tan = 0,
-                atan2 = 0,
                 lastTime = 0;
 
             window.addEventListener('resize', function () {
@@ -93,37 +90,31 @@
                 sin = deltaY / r;
                 cos = deltaX / r;
                 tan = deltaY / deltaX;
-                atan2 = Math.atan2(deltaY, deltaX);
+                matrixArr.length = 0;
+                matrixArr.push(-cos, -sin, sin, -cos);
 
                 if (Math.abs(tan * origin.x) <= origin.y) {
                     if (deltaX > 0) {
-                        lightSourceTop = origin.y + tan * origin.x;
-                        lightSourceLeft = viewport.width;
+                        matrixArr.push(origin.x, tan * origin.x);
                     } else {
-                        lightSourceTop = origin.y + tan * -origin.x;
-                        lightSourceLeft = 0;
+                        matrixArr.push(-origin.x, tan * -origin.x);
                     }
                 } else {
                     if (deltaY > 0) {
-                        lightSourceTop = viewport.height;
-                        lightSourceLeft = origin.x + origin.y / tan;
+                        matrixArr.push(origin.y / tan, origin.y);
                     } else {
-                        lightSourceTop = 0;
-                        lightSourceLeft = origin.x + -origin.y / tan;
+                        matrixArr.push(-origin.y / tan, -origin.y);
                     }
                 }
 
-                lightSourceStyle.top = lightSourceTop + 'px';
-                lightSourceStyle.left = lightSourceLeft + 'px';
-                lightSourceStyle.transform = `rotateZ(${(atan2 / Math.PI) * 180 + 180}deg)`;
-
                 shadowArr.length = 0;
-                for (let i = 1; i <= 400; i++) {
-                    offsetY = SINGLE_SHADOW_LENGTH * -i * sin;
-                    offsetX = SINGLE_SHADOW_LENGTH * -i * cos;
-                    shadowArr.push(`${offsetX}px ${offsetY}px 0 hsl(218, 57%, 10%)`);
+                for (let i = 1; i <= SHADOW_TOTAL; i++) {
+                    shadowOffsetY = SINGLE_SHADOW_LENGTH * -i * sin;
+                    shadowOffsetX = SINGLE_SHADOW_LENGTH * -i * cos;
+                    shadowArr[i - 1] = `${shadowOffsetX}px ${shadowOffsetY}px 0 hsl(218, 57%, 10%)`;
                 }
-                shadowStyle.innerText = `.letter::after{text-shadow: ${shadowArr.join(',')};}`;
+
+                $shadowStyle.innerText = `.letter::after{text-shadow:${shadowArr.join(',')};}.light-source{transform: matrix(${matrixArr.join(',')});}`;
             }
 
             document.querySelectorAll('.letter').forEach(item => {
