@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            html,
+            body {
+                width: 100%;
+                height: 100%;
+            }
+
+            body {
+                display: flex;
+                background-image: linear-gradient(25deg, #24305a, #3e6270, #519885, #5fd29a);
+            }
+
+            #wave {
+                width: 30vmin;
+                height: 30vmin;
+                margin: auto;
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="wave"></canvas>
+
+        <script>
+            const $canvas = document.getElementById('wave'),
+                cvsCtx = $canvas.getContext('2d'),
+                PI_1_2 = Math.PI / 2,
+                PI_2 = Math.PI * 2;
+
+            let cvsSize = $canvas.offsetWidth,
+                cvsOrigin = cvsSize / 2,
+                outlineWidth = cvsSize / 20,
+                circleRadius = cvsOrigin - outlineWidth / 2,
+                A = circleRadius / 6,
+                ω = PI_2 / cvsSize,
+                φ = Math.PI * 16,
+                percent = 0;
+
+            $canvas.width = $canvas.height = cvsSize;
+
+            draw();
+
+            function draw() {
+                cvsCtx.clearRect(0, 0, cvsSize, cvsSize);
+                percent > 1 && (percent = 0);
+                percent += 0.005;
+                renderWave(percent);
+                renderOutline(percent);
+                renderText(percent);
+                requestAnimationFrame(draw);
+            }
+
+            function renderOutline(percent) {
+                cvsCtx.save();
+                cvsCtx.beginPath();
+                cvsCtx.arc(cvsOrigin, cvsOrigin, circleRadius, -PI_1_2, PI_2 * percent - PI_1_2, false);
+                cvsCtx.strokeStyle = '#70dfc0';
+                cvsCtx.lineWidth = outlineWidth;
+                cvsCtx.stroke();
+                cvsCtx.restore();
+            }
+
+            function renderWave(percent) {
+                cvsCtx.save();
+                setCircleClip();
+                drawWave(1 - percent, percent * φ);
+                // drawWave(1 - percent, -percent * φ)
+                cvsCtx.restore();
+            }
+
+            function setCircleClip() {
+                cvsCtx.beginPath();
+                cvsCtx.arc(cvsOrigin, cvsOrigin, cvsOrigin - outlineWidth, 0, PI_2, false);
+                cvsCtx.clip();
+            }
+
+            function drawWave(percent, φ) {
+                cvsCtx.beginPath();
+                cvsCtx.moveTo(0, Math.sqrt(percent) * A * Math.sin(φ) + percent * cvsSize);
+                for (let i = 1; i <= cvsSize; i++) {
+                    cvsCtx.lineTo(i, Math.sqrt(percent) * A * Math.sin(ω * i + φ) + percent * cvsSize);
+                }
+                cvsCtx.lineTo(cvsSize, cvsSize);
+                cvsCtx.lineTo(0, cvsSize);
+                cvsCtx.strokeStyle = 'rgba(0,0,0,0)';
+                cvsCtx.lineWidth = 0;
+                cvsCtx.stroke();
+                cvsCtx.closePath();
+                let fill = cvsCtx.createLinearGradient(0, cvsSize, 0, 0);
+                fill.addColorStop(0, 'rgba(10, 12, 32, 0.8)');
+                fill.addColorStop(0.5, 'rgba(44, 75, 80, 0.8)');
+                fill.addColorStop(1, 'rgba(77, 146, 134, 0.8)');
+                // fill.addColorStop(1, 'rgba(112, 223, 192, 1)');
+                cvsCtx.fillStyle = fill;
+                cvsCtx.fill();
+            }
+
+            function renderText(percent) {
+                cvsCtx.fillText(Math.floor(percent * 100) + '%', cvsOrigin, cvsOrigin);
+                cvsCtx.fillStyle = '#70dfc0';
+                cvsCtx.textAlign = 'center';
+                cvsCtx.textBaseline = 'middle';
+                cvsCtx.font = cvsSize / 8 + 'px impact';
+            }
+
+            window.onresize = function () {
+                cvsSize = $canvas.offsetWidth;
+                cvsOrigin = cvsSize / 2;
+                outlineWidth = cvsSize / 20;
+                circleRadius = cvsOrigin - outlineWidth / 2;
+                A = circleRadius / 6;
+                ω = PI_2 / cvsSize;
+                $canvas.width = $canvas.height = cvsSize;
+            };
+        </script>
+    </body>
+
+</html>
