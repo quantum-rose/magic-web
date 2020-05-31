@@ -75,7 +75,7 @@
             function renderWave(percent) {
                 cvsCtx.save();
                 setCircleClip();
-                drawWave(1 - percent, percent * φ);
+                drawWave(percent, percent * φ);
                 // drawWave(1 - percent, -percent * φ)
                 cvsCtx.restore();
             }
@@ -87,10 +87,11 @@
             }
 
             function drawWave(percent, φ) {
+                let p = 1 - percent
                 cvsCtx.beginPath();
-                cvsCtx.moveTo(0, Math.sqrt(percent) * A * Math.sin(φ) + percent * cvsSize);
+                cvsCtx.moveTo(0, Math.sqrt(p) * A * Math.sin(φ) + p * cvsSize);
                 for (let i = 1; i <= cvsSize; i++) {
-                    cvsCtx.lineTo(i, Math.sqrt(percent) * A * Math.sin(ω * i + φ) + percent * cvsSize);
+                    cvsCtx.lineTo(i, Math.sqrt(p) * A * Math.sin(ω * i + φ) + p * cvsSize);
                 }
                 cvsCtx.lineTo(cvsSize, cvsSize);
                 cvsCtx.lineTo(0, cvsSize);
@@ -98,11 +99,10 @@
                 cvsCtx.lineWidth = 0;
                 cvsCtx.stroke();
                 cvsCtx.closePath();
-                let fill = cvsCtx.createLinearGradient(0, cvsSize, 0, 0);
-                fill.addColorStop(0, 'rgba(10, 12, 32, 0.8)');
-                fill.addColorStop(0.5, 'rgba(44, 75, 80, 0.8)');
-                fill.addColorStop(1, 'rgba(77, 146, 134, 0.8)');
-                // fill.addColorStop(1, 'rgba(112, 223, 192, 1)');
+                let fill = cvsCtx.createLinearGradient(0, 0, 0, cvsSize);
+                fill.addColorStop(0, 'rgba(10, 12, 32, 0.5)');
+                fill.addColorStop(0.5, `rgba(${44 - percent * 34}, ${75 - percent * 63}, ${80 - percent * 48}, 0.5)`);
+                fill.addColorStop(1, `rgba(${77 - percent * 67}, ${146 - percent * 134}, ${134 - percent * 102}, 0.5)`);
                 cvsCtx.fillStyle = fill;
                 cvsCtx.fill();
             }
