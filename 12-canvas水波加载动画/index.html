@@ -114,11 +114,11 @@
             }
 
             function renderText(percent) {
-                cvsCtx.fillText(Math.floor(percent * 100) + '%', cvsHalfSize, cvsHalfSize);
-                cvsCtx.fillStyle = '#70dfc0';
                 cvsCtx.textAlign = 'center';
                 cvsCtx.textBaseline = 'middle';
                 cvsCtx.font = cvsSize / 8 + 'px impact';
+                cvsCtx.fillStyle = '#70dfc0';
+                cvsCtx.fillText(Math.floor(percent * 100) + '%', cvsHalfSize, cvsHalfSize);
             }
 
             window.onresize = function () {
@@ -127,7 +127,7 @@
                 outlineWidth = cvsSize / 20;
                 circleRadius = cvsHalfSize - outlineWidth / 2;
                 A = circleRadius / 6;
-                ω = PI_2 / cvsSize;
+                ω = Math.PI / circleRadius;
                 $canvas.width = $canvas.height = cvsSize;
             };
         </script>
