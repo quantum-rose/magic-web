@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>canvas水波加载动画</title>
         <style>
             * {
                 margin: 0;
@@ -15,6 +15,7 @@
             body {
                 width: 100%;
                 height: 100%;
+                touch-action: none;
             }
 
             body {
@@ -23,9 +24,9 @@
             }
 
             #wave {
-                width: 30vmin;
-                height: 30vmin;
                 margin: auto;
+                width: 60vmin;
+                height: 60vmin;
             }
         </style>
     </head>
@@ -33,19 +34,24 @@
     <body>
         <canvas id="wave"></canvas>
 
+        <!-- <script src="https://cdn.staticfile.org/vConsole/3.3.4/vconsole.min.js"></script>
+        <script>
+            new VConsole();
+        </script> -->
+
         <script>
             const $canvas = document.getElementById('wave'),
                 cvsCtx = $canvas.getContext('2d'),
                 PI_1_2 = Math.PI / 2,
                 PI_2 = Math.PI * 2;
 
-            let cvsSize = $canvas.offsetWidth,
-                cvsOrigin = cvsSize / 2,
+            let cvsSize = $canvas.offsetWidth * window.devicePixelRatio,
+                cvsHalfSize = cvsSize / 2,
                 outlineWidth = cvsSize / 20,
-                circleRadius = cvsOrigin - outlineWidth / 2,
-                A = circleRadius / 6,
-                ω = PI_2 / cvsSize,
-                φ = Math.PI * 16,
+                circleRadius = cvsHalfSize - outlineWidth / 2,
+                A = circleRadius / 6, // 振幅，最大为半径的六分之一
+                ω = Math.PI / circleRadius, // 角速度，此时周期为2R，在圆内最宽处刚好显示一个完整的周期
+                φ = Math.PI * 16, // 相位，从0加载到100%的过程中，波形向左平移16π，即8个周期
                 percent = 0;
 
             $canvas.width = $canvas.height = cvsSize;
@@ -65,7 +71,7 @@
             function renderOutline(percent) {
                 cvsCtx.save();
                 cvsCtx.beginPath();
-                cvsCtx.arc(cvsOrigin, cvsOrigin, circleRadius, -PI_1_2, PI_2 * percent - PI_1_2, false);
+                cvsCtx.arc(cvsHalfSize, cvsHalfSize, circleRadius, -PI_1_2, PI_2 * percent - PI_1_2, false);
                 cvsCtx.strokeStyle = '#70dfc0';
                 cvsCtx.lineWidth = outlineWidth;
                 cvsCtx.stroke();
@@ -82,16 +88,16 @@
 
             function setCircleClip() {
                 cvsCtx.beginPath();
-                cvsCtx.arc(cvsOrigin, cvsOrigin, cvsOrigin - outlineWidth, 0, PI_2, false);
+                cvsCtx.arc(cvsHalfSize, cvsHalfSize, cvsHalfSize - outlineWidth, 0, PI_2, false);
                 cvsCtx.clip();
             }
 
-            function drawWave(percent, φ) {
+            function drawWave(percent, fi) {
                 let p = 1 - percent
                 cvsCtx.beginPath();
-                cvsCtx.moveTo(0, Math.sqrt(p) * A * Math.sin(φ) + p * cvsSize);
+                cvsCtx.moveTo(0, p ** 0.5 * A * Math.sin(fi) + p * cvsSize);
                 for (let i = 1; i <= cvsSize; i++) {
-                    cvsCtx.lineTo(i, Math.sqrt(p) * A * Math.sin(ω * i + φ) + p * cvsSize);
+                    cvsCtx.lineTo(i, p ** 0.5 * A * Math.sin(ω * i + fi) + p * cvsSize);
                 }
                 cvsCtx.lineTo(cvsSize, cvsSize);
                 cvsCtx.lineTo(0, cvsSize);
@@ -108,7 +114,7 @@
             }
 
             function renderText(percent) {
-                cvsCtx.fillText(Math.floor(percent * 100) + '%', cvsOrigin, cvsOrigin);
+                cvsCtx.fillText(Math.floor(percent * 100) + '%', cvsHalfSize, cvsHalfSize);
                 cvsCtx.fillStyle = '#70dfc0';
                 cvsCtx.textAlign = 'center';
                 cvsCtx.textBaseline = 'middle';
@@ -117,9 +123,9 @@
 
             window.onresize = function () {
                 cvsSize = $canvas.offsetWidth;
-                cvsOrigin = cvsSize / 2;
+                cvsHalfSize = cvsSize / 2;
                 outlineWidth = cvsSize / 20;
-                circleRadius = cvsOrigin - outlineWidth / 2;
+                circleRadius = cvsHalfSize - outlineWidth / 2;
                 A = circleRadius / 6;
                 ω = PI_2 / cvsSize;
                 $canvas.width = $canvas.height = cvsSize;
