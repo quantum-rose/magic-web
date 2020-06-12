@@ -4,228 +4,27 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>canvas水波加载动画</title>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-            }
-
-            html,
-            body {
-                width: 100%;
-                height: 100%;
-                touch-action: none;
-            }
-
-            body {
-                display: flex;
-                background-image: linear-gradient(25deg, #24305a, #3e6270, #519885, #5fd29a);
-            }
-
-            #wave {
-                margin: auto;
-                width: 60vmin;
-                height: 60vmin;
-            }
-        </style>
+        <link rel="stylesheet" href="./style.css" />
     </head>
 
     <body>
         <canvas id="wave"></canvas>
 
-        <!-- <script src="https://cdn.staticfile.org/vConsole/3.3.4/vconsole.min.js"></script>
-        <script>
-            new VConsole();
-        </script> -->
+        <div class="tools-bar">
+            <label class="checkbox">
+                <input type="checkbox" name="固定圆角矩形" id="staticRoundedRect" />
+                静态圆角矩形
+            </label>
+            <label class="checkbox">
+                <input type="checkbox" name="动态圆角矩形" id="dynamicRoundedRect" />
+                动态圆角矩形
+            </label>
+            <label class="checkbox">
+                <input type="checkbox" name="动态内圆角矩形" id="dynamicInsetRoundedRect" />
+                动态内圆角矩形
+            </label>
+        </div>
 
-        <script>
-            const $canvas = document.getElementById('wave'),
-                cvsCtx = $canvas.getContext('2d'),
-                PI_1_2 = Math.PI / 2,
-                PI_2 = Math.PI * 2;
-
-            let cvsSize = $canvas.offsetWidth * window.devicePixelRatio,
-                cvsHalfSize = cvsSize / 2,
-                cvsQuarterSize = cvsSize / 4,
-                outlineWidth = cvsSize / 20,
-                circleRadius = cvsHalfSize - outlineWidth / 2,
-                A = circleRadius / 6, // 振幅，最大为半径的六分之一
-                ω = Math.PI / circleRadius, // 角速度，此时周期为2R，在圆内最宽处刚好显示一个完整的周期
-                φ = Math.PI * 16, // 相位，从0加载到100%的过程中，波形向左平移16π，即8个周期
-                percent = 0;
-
-            $canvas.width = $canvas.height = cvsSize;
-
-            CanvasRenderingContext2D.prototype.roundedRect_arcTo = function (x, y, width, height, radius) {
-                cvsCtx.moveTo(x + radius, y);
-                cvsCtx.lineTo(x + width - radius, y);
-                cvsCtx.arcTo(x + width, y, x + width, y + radius, radius);
-                cvsCtx.lineTo(x + width, y + height - radius);
-                cvsCtx.arcTo(x + width, y + height, x + width - radius, y + height, radius);
-                cvsCtx.lineTo(x + radius, y + height);
-                cvsCtx.arcTo(x, y + height, x, y + height - radius, radius);
-                cvsCtx.lineTo(x, y + radius);
-                cvsCtx.arcTo(x, y, x + radius, y, radius);
-            };
-
-            CanvasRenderingContext2D.prototype.roundedRect_arc = function (x, y, width, height, radius, percent = 1) {
-                const l = width * 2 + height * 2 - radius * 8 + Math.PI * radius * 2;
-                const w = width - radius * 2;
-                const pw = w / l;
-                const h = height - radius * 2;
-                const ph = h / l;
-                const arc = (Math.PI * radius * 2) / 4;
-                const parc = arc / l;
-
-                cvsCtx.moveTo(x + radius, y);
-                cvsCtx.lineTo(x + radius + w * Math.min(percent / pw, 1), y);
-                if (percent <= pw) return;
-                cvsCtx.arc(
-                    x + width - radius,
-                    y + radius,
-                    radius,
-                    Math.PI / -2,
-                    (Math.PI / -2) * (1 - between01((percent - pw) / parc)),
-                    false
-                );
-                if (percent <= pw + parc) return;
-                cvsCtx.lineTo(x + width, y + radius + h * between01((percent - pw - parc) / ph));
-                if (percent <= pw + parc + ph) return;
-                cvsCtx.arc(
-                    x + width - radius,
-                    y + height - radius,
-                    radius,
-                    0,
-                    (Math.PI / 2) * between01((percent - pw - parc - ph) / parc),
-                    false
-                );
-                if (percent <= pw + ph + 2 * parc) return;
-                cvsCtx.lineTo(x + radius + w * (1 - between01((percent - pw - ph - 2 * parc) / pw)), y + height);
-                if (percent <= pw + parc + ph + parc + pw) return;
-                cvsCtx.arc(
-                    x + radius,
-                    y + height - radius,
-                    radius,
-                    Math.PI / 2,
-                    (Math.PI / 2) * (1 + between01((percent - 2 * (pw + parc) - ph) / parc)),
-                    false
-                );
-                if (percent <= 2 * pw + ph + 3 * parc) return;
-                cvsCtx.lineTo(x, y + radius + h * (1 - between01((percent - 2 * pw - ph - 3 * parc) / ph)));
-                if (percent <= 2 * (pw + parc + ph) + parc) return;
-                cvsCtx.arc(
-                    x + radius,
-                    y + radius,
-                    radius,
-                    Math.PI,
-                    (Math.PI / 2) * (2 + between01((percent - 2 * (pw + ph) - 3 * parc) / parc)),
-                    false
-                );
-            };
-
-            function drawRoundedRect(x, y, width, height, radius, percent) {
-                cvsCtx.save();
-                cvsCtx.beginPath();
-                cvsCtx.roundedRect_arcTo(x, y, width, height, radius);
-                cvsCtx.strokeStyle = '#70dfc0';
-                cvsCtx.lineWidth = outlineWidth;
-                cvsCtx.stroke();
-                cvsCtx.beginPath();
-                cvsCtx.roundedRect_arc(x, y, width, height, radius, percent);
-                cvsCtx.strokeStyle = '#2d5152';
-                cvsCtx.lineWidth = outlineWidth * 0.5;
-                cvsCtx.stroke();
-                cvsCtx.restore();
-            }
-
-            draw();
-
-            function draw() {
-                cvsCtx.clearRect(0, 0, cvsSize, cvsSize);
-                percent > 0.995 && (percent = 0);
-                percent += 0.005;
-                renderWave(percent);
-                renderOutline(percent);
-                renderText(percent);
-
-                if (percent > 1) {
-                    console.log(percent);
-                }
-                drawRoundedRect(
-                    cvsQuarterSize,
-                    cvsQuarterSize,
-                    cvsHalfSize,
-                    cvsHalfSize,
-                    cvsQuarterSize * percent,
-                    percent
-                );
-                requestAnimationFrame(draw);
-            }
-
-            function renderOutline(percent) {
-                cvsCtx.save();
-                cvsCtx.beginPath();
-                cvsCtx.arc(cvsHalfSize, cvsHalfSize, circleRadius, -PI_1_2, PI_2 * percent - PI_1_2, false);
-                cvsCtx.strokeStyle = '#70dfc0';
-                cvsCtx.lineWidth = outlineWidth;
-                cvsCtx.stroke();
-                cvsCtx.restore();
-            }
-
-            function renderWave(percent) {
-                cvsCtx.save();
-                setCircleClip();
-                drawWave(percent, percent * φ);
-                cvsCtx.restore();
-            }
-
-            function setCircleClip() {
-                cvsCtx.beginPath();
-                cvsCtx.arc(cvsHalfSize, cvsHalfSize, cvsHalfSize - outlineWidth, 0, PI_2, false);
-                cvsCtx.clip();
-            }
-
-            function drawWave(percent, fi) {
-                let p = 1 - percent;
-                cvsCtx.beginPath();
-                cvsCtx.moveTo(0, p ** 0.5 * A * Math.sin(fi) + p * cvsSize);
-                for (let i = 1; i <= cvsSize; i++) {
-                    cvsCtx.lineTo(i, p ** 0.5 * A * Math.sin(ω * i + fi) + p * cvsSize);
-                }
-                cvsCtx.lineTo(cvsSize, cvsSize);
-                cvsCtx.lineTo(0, cvsSize);
-                cvsCtx.closePath();
-                let fill = cvsCtx.createLinearGradient(0, 0, 0, cvsSize);
-                fill.addColorStop(0, 'rgba(10, 12, 32, 0.5)');
-                fill.addColorStop(0.5, `rgba(${44 - percent * 34}, ${75 - percent * 63}, ${80 - percent * 48}, 0.5)`);
-                fill.addColorStop(1, `rgba(${77 - percent * 67}, ${146 - percent * 134}, ${134 - percent * 102}, 0.5)`);
-                cvsCtx.fillStyle = fill;
-                cvsCtx.fill();
-            }
-
-            function renderText(percent) {
-                cvsCtx.save();
-                cvsCtx.textAlign = 'center';
-                cvsCtx.textBaseline = 'middle';
-                cvsCtx.font = cvsSize / 8 + 'px impact';
-                cvsCtx.fillStyle = '#70dfc0';
-                cvsCtx.fillText(Math.floor(percent * 100) + '%', cvsHalfSize, cvsHalfSize);
-                cvsCtx.restore();
-            }
-
-            window.onresize = function () {
-                cvsSize = $canvas.offsetWidth;
-                cvsHalfSize = cvsSize / 2;
-                outlineWidth = cvsSize / 20;
-                circleRadius = cvsHalfSize - outlineWidth / 2;
-                A = circleRadius / 6;
-                ω = Math.PI / circleRadius;
-                $canvas.width = $canvas.height = cvsSize;
-            };
-
-            function between01(n) {
-                return Math.min(Math.max(n, 0), 1);
-            }
-        </script>
+        <script src="./script.js"></script>
     </body>
 </html>
