@@ -30,7 +30,7 @@ body {
 }
 
 .swiper-pagination-bullet {
-    margin: 3px 0 !important;
+    margin: 4px 0 !important;
     background-color: #666;
     box-shadow: 0 0 10px 0 #000;
     opacity: 1;
@@ -40,8 +40,4 @@ body {
     width: 10px;
     height: 10px;
     background-color: #fff;
-}
-
-svg {
-    background-color: #000;
 }

@@ -13,13 +13,13 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <svg
-                        class="gaussian-blur"
                         width="100%"
                         height="100%"
                         viewBox="0 0 1920 1080"
                         version="1.1"
                         xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                        style="background-color: #000;"
                     >
                         <defs>
                             <filter id="GaussianBlur">
@@ -63,6 +63,7 @@
                         version="1.1"
                         xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                        style="background-color: #000;"
                     >
                         <defs>
                             <filter id="feImage" x="0" y="0" width="100%" height="100%">
@@ -128,6 +129,7 @@
                         version="1.1"
                         xmlns="http://www.w3.org/2000/svg"
                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                        style="background-color: #000;"
                     >
                         <defs>
                             <filter id="blend-normal" x="0" y="0" width="100%" height="100%">
@@ -150,7 +152,7 @@
                                 <feFlood flood-color="green" flood-opacity="1" result="bg" />
                                 <feBlend in="SourceGraphic" in2="bg" mode="lighten" />
                             </filter>
-                            <image id="chrome" xlink:href="./img/chrome.png" x="0" y="365" height="350" width="350" />
+                            <image id="chrome" xlink:href="./img/chrome.png" x="0" y="300" height="350" width="350" />
                         </defs>
 
                         <use xlink:href="#chrome" x="30" filter="url(#blend-normal)" />
@@ -158,6 +160,14 @@
                         <use xlink:href="#chrome" x="785" filter="url(#blend-screen)" />
                         <use xlink:href="#chrome" x="1162.5" filter="url(#blend-darken)" />
                         <use xlink:href="#chrome" x="1540" filter="url(#blend-lighten)" />
+
+                        <g transform="translate(0, 720)" fill="#fff" font-size="30px" text-anchor="middle">
+                            <text x="205">normal</text>
+                            <text x="582.5">multiply</text>
+                            <text x="960">screen</text>
+                            <text x="1337.5">darken</text>
+                            <text x="1715">lighten</text>
+                        </g>
 
                         <text
                             x="30"
@@ -168,6 +178,216 @@
                         >
                             feBlend
                         </text>
+                    </svg>
+                </div>
+                <div class="swiper-slide">
+                    <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 1920 1080"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        style="background-color: #fff;"
+                    >
+                        <defs>
+                            <path id="skyblue" d="M 0 0 L 200 200 L 200 0 Z" fill="#0ff" />
+                            <path id="pink" d="M 0 0 L 0 200 L 200 0 Z" fill="#f0f" />
+                            <path id="skyblueAlpha" d="M 0 0 L 200 200 L 200 0 Z" fill="#0ff" fill-opacity=".5" />
+                            <path id="pinkAlpha" d="M 0 0 L 0 200 L 200 0 Z" fill="#f0f" fill-opacity=".5" />
+                            <filter id="over" filterUnits="objectBoundingBox" x="0" y="0" width="1" height="1">
+                                <feComposite in="SourceGraphic" in2="BackgroundImage" operator="over" />
+                            </filter>
+                            <filter id="in" filterUnits="objectBoundingBox" x="0" y="0" width="1" height="1">
+                                <feComposite in="SourceGraphic" in2="BackgroundImage" operator="in" />
+                            </filter>
+                            <filter id="out" filterUnits="objectBoundingBox" x="0" y="0" width="1" height="1">
+                                <feComposite in="SourceGraphic" in2="BackgroundImage" operator="out" />
+                            </filter>
+                            <filter id="atop" filterUnits="objectBoundingBox" x="0" y="0" width="1" height="1">
+                                <feComposite in="SourceGraphic" in2="BackgroundImage" operator="atop" />
+                            </filter>
+                            <filter id="xor" filterUnits="objectBoundingBox" x="0" y="0" width="1" height="1">
+                                <feComposite in="SourceGraphic" in2="BackgroundImage" operator="xor" />
+                            </filter>
+                            <filter id="arithmetic" filterUnits="objectBoundingBox" x="0" y="0" width="1" height="1">
+                                <feComposite
+                                    in="SourceGraphic"
+                                    in2="BackgroundImage"
+                                    operator="arithmetic"
+                                    k1=".5"
+                                    k2=".5"
+                                    k3=".5"
+                                    k4=".5"
+                                />
+                            </filter>
+                        </defs>
+
+                        <g transform="translate(0, 240)">
+                            <g transform="translate(30, 0)">
+                                <use xlink:href="#skyblue" />
+                                <use xlink:href="#pink" filter="url(#over)" />
+                            </g>
+
+                            <g transform="translate(362, 0)">
+                                <use xlink:href="#skyblue" />
+                                <use xlink:href="#pink" filter="url(#in)" />
+                            </g>
+
+                            <g transform="translate(694, 0)">
+                                <use xlink:href="#skyblue" />
+                                <use xlink:href="#pink" filter="url(#out)" />
+                            </g>
+
+                            <g transform="translate(1026, 0)">
+                                <use xlink:href="#skyblue" />
+                                <use xlink:href="#pink" filter="url(#atop)" />
+                            </g>
+
+                            <g transform="translate(1358, 0)">
+                                <use xlink:href="#skyblue" />
+                                <use xlink:href="#pink" filter="url(#xor)" />
+                            </g>
+
+                            <g transform="translate(1690, 0)">
+                                <use xlink:href="#skyblue" />
+                                <use xlink:href="#pink" filter="url(#arithmetic)" />
+                            </g>
+                        </g>
+
+                        <g transform="translate(0, 540)">
+                            <g transform="translate(30, 0)">
+                                <use xlink:href="#skyblueAlpha" />
+                                <use xlink:href="#pinkAlpha" filter="url(#over)" />
+                            </g>
+
+                            <g transform="translate(362, 0)">
+                                <use xlink:href="#skyblueAlpha" />
+                                <use xlink:href="#pinkAlpha" filter="url(#in)" />
+                            </g>
+
+                            <g transform="translate(694, 0)">
+                                <use xlink:href="#skyblueAlpha" />
+                                <use xlink:href="#pinkAlpha" filter="url(#out)" />
+                            </g>
+
+                            <g transform="translate(1026, 0)">
+                                <use xlink:href="#skyblueAlpha" />
+                                <use xlink:href="#pinkAlpha" filter="url(#atop)" />
+                            </g>
+
+                            <g transform="translate(1358, 0)">
+                                <use xlink:href="#skyblueAlpha" />
+                                <use xlink:href="#pinkAlpha" filter="url(#xor)" />
+                            </g>
+
+                            <g transform="translate(1690, 0)">
+                                <use xlink:href="#skyblueAlpha" />
+                                <use xlink:href="#pinkAlpha" filter="url(#arithmetic)" />
+                            </g>
+                        </g>
+
+                        <g transform="translate(0, 840)" fill="#000" font-size="30px" text-anchor="middle">
+                            <text x="130">over</text>
+                            <text x="462">in</text>
+                            <text x="794">out</text>
+                            <text x="1126">atop</text>
+                            <text x="1458">xor</text>
+                            <text x="1790">arithmetic</text>
+                        </g>
+
+                        <text
+                            x="30"
+                            y="100"
+                            dominant-baseline="middle"
+                            style="fill: #000; font-size: 50px;"
+                            filter="url(#dropShadow)"
+                        >
+                            feComposite
+                        </text>
+                    </svg>
+                </div>
+                <div class="swiper-slide">
+                    <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 1920 1080"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                        <defs>
+                            <g id="colorCircle">
+                                <circle cx="0" cy="0" r="100" fill="#00f" fill-opacity=".5" />
+                                <circle cx="100" cy="0" r="100" fill="#0f0" fill-opacity=".5" />
+                                <circle cx="50" cy="-86.6" r="100" fill="#f00" fill-opacity=".5" />
+                            </g>
+                            <filter id="offsetRed">
+                                <feColorMatrix
+                                    in="SourceGraphic"
+                                    type="matrix"
+                                    values="
+                                    1 1 1 1 0
+                                    0 0 0 0 0
+                                    0 0 0 0 0
+                                    0 0 0 1 0"
+                                />
+                            </filter>
+                            <filter id="lighten">
+                                <feColorMatrix
+                                    in="SourceGraphic"
+                                    type="matrix"
+                                    values="
+                                    5 0 0 0 0
+                                    0 5 0 0 0
+                                    0 0 5 0 0
+                                    0 0 0 1 0"
+                                />
+                            </filter>
+                            <filter id="darken">
+                                <feColorMatrix
+                                    in="SourceGraphic"
+                                    type="matrix"
+                                    values="
+                                    .2  0  0 0 0
+                                     0 .2  0 0 0
+                                     0  0 .2 0 0
+                                     0  0  0 1 0"
+                                />
+                            </filter>
+                            <filter id="gray">
+                                <feColorMatrix
+                                    in="SourceGraphic"
+                                    type="matrix"
+                                    values="
+                                    .5 .5 .5 0 0
+                                    .5 .5 .5 0 0
+                                    .5 .5 .5 0 0
+                                     0  0  0 1 0"
+                                />
+                            </filter>
+                            <filter id="saturate">
+                                <feColorMatrix in="SourceGraphic" type="saturate" values=".3" />
+                            </filter>
+                            <filter id="hueRotate">
+                                <feColorMatrix in="SourceGraphic" type="hueRotate" values="180" />
+                            </filter>
+                            <filter id="luminanceToAlpha">
+                                <feColorMatrix in="SourceGraphic" type="luminanceToAlpha" values="180" />
+                            </filter>
+                        </defs>
+                        <g transform="translate(0, 340)">
+                            <use xlink:href="#colorCircle" x="130" />
+                            <use xlink:href="#colorCircle" x="520" filter="url(#offsetRed)" />
+                            <use xlink:href="#colorCircle" x="910" filter="url(#lighten)" />
+                            <use xlink:href="#colorCircle" x="1300" filter="url(#darken)" />
+                            <use xlink:href="#colorCircle" x="1690" filter="url(#gray)" />
+                        </g>
+                        <g transform="translate(0, 740)">
+                            <use xlink:href="#colorCircle" x="520" filter="url(#saturate)" />
+                            <use xlink:href="#colorCircle" x="910" filter="url(#hueRotate)" />
+                            <use xlink:href="#colorCircle" x="1300" filter="url(#luminanceToAlpha)" />
+                        </g>
                     </svg>
                 </div>
             </div>

@@ -1,13 +1,13 @@
-const mySwiper = new Swiper('.swiper-container', {
-    initialSlide: 2,
-    direction: 'vertical',
-    mousewheel: true,
-    pagination: {
-        el: '.swiper-pagination',
-    },
-});
-
-const $gaussianBlur = document.querySelector('#GaussianBlur');
+const initialSlide = getQueryString('index'),
+    mySwiper = new Swiper('.swiper-container', {
+        initialSlide: isNaN(initialSlide) ? 0 : initialSlide,
+        direction: 'vertical',
+        mousewheel: true,
+        pagination: {
+            el: '.swiper-pagination',
+        },
+    }),
+    $gaussianBlur = document.querySelector('#GaussianBlur');
 
 let stdDeviation = 0;
 requestAnimationFrame(function draw() {
@@ -15,3 +15,8 @@ requestAnimationFrame(function draw() {
     $gaussianBlur.firstElementChild.setAttribute('stdDeviation', stdDeviation ** 2 * 6);
     requestAnimationFrame(draw);
 });
+
+function getQueryString(key) {
+    const result = window.location.search.substring(1).match(new RegExp('(^|&)' + key + '=([^&]*)(&|$)', 'i'));
+    return result !== null ? decodeURI(result[2]) : null;
+}
