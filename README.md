@@ -14,7 +14,7 @@
 10. [SVG 路径动画](http://cuihaojie.top/magic-web/10-SVG%E8%B7%AF%E5%BE%84%E5%8A%A8%E7%94%BB/)
 11. [长阴影](http://cuihaojie.top/magic-web/11-%E9%95%BF%E9%98%B4%E5%BD%B1/)
 12. [canvas 水波加载动画](http://cuihaojie.top/magic-web/12-canvas%E6%B0%B4%E6%B3%A2%E5%8A%A0%E8%BD%BD%E5%8A%A8%E7%94%BB/)
-13. [SVG 滤镜（一）](http://cuihaojie.top/magic-web/13-SVG%E6%BB%A4%E9%95%9C%EF%BC%88%E4%B8%80%EF%BC%89/)
+13. [SVG 滤镜](http://cuihaojie.top/magic-web/13-SVG%E6%BB%A4%E9%95%9C/)
 
 ### SP
 
