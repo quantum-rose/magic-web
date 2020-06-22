@@ -342,18 +342,58 @@
                                     0 0 0 0 0
                                     0 0 0 0 0
                                     0 0 0 1 0"
-                                />
+                                >
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="values"
+                                        values="
+                                        1 0 0 0 0
+                                        0 1 0 0 0
+                                        0 0 1 0 0
+                                        0 0 0 1 0;
+                                        1 1 1 1 0
+                                        0 0 0 0 0
+                                        0 0 0 0 0
+                                        0 0 0 1 0;
+                                        1 0 0 0 0
+                                        0 1 0 0 0
+                                        0 0 1 0 0
+                                        0 0 0 1 0"
+                                        dur="3s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feColorMatrix>
                             </filter>
                             <filter id="lighten">
                                 <feColorMatrix
                                     in="SourceGraphic"
                                     type="matrix"
                                     values="
-                                    5 0 0 0 0
-                                    0 5 0 0 0
-                                    0 0 5 0 0
+                                    40 0 0 0 0
+                                    0 40 0 0 0
+                                    0 0 40 0 0
                                     0 0 0 1 0"
-                                />
+                                >
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="values"
+                                        values="
+                                        1 0 0 0 0
+                                        0 1 0 0 0
+                                        0 0 1 0 0
+                                        0 0 0 1 0;
+                                        40 0 0 0 0
+                                        0 40 0 0 0
+                                        0 0 40 0 0
+                                        0 0 0 1 0;
+                                        1 0 0 0 0
+                                        0 1 0 0 0
+                                        0 0 1 0 0
+                                        0 0 0 1 0"
+                                        dur="3s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feColorMatrix>
                             </filter>
                             <filter id="darken">
                                 <feColorMatrix
@@ -364,7 +404,27 @@
                                      0 .2  0 0 0
                                      0  0 .2 0 0
                                      0  0  0 1 0"
-                                />
+                                >
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="values"
+                                        values="
+                                        1 0 0 0 0
+                                        0 1 0 0 0
+                                        0 0 1 0 0
+                                        0 0 0 1 0;
+                                        .2  0  0 0 0
+                                         0 .2  0 0 0
+                                         0  0 .2 0 0
+                                        0 0 0 1 0;
+                                        1 0 0 0 0
+                                        0 1 0 0 0
+                                        0 0 1 0 0
+                                        0 0 0 1 0"
+                                        dur="3s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feColorMatrix>
                             </filter>
                             <filter id="gray">
                                 <feColorMatrix
@@ -375,18 +435,56 @@
                                     .5 .5 .5 0 0
                                     .5 .5 .5 0 0
                                      0  0  0 1 0"
-                                />
+                                >
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="values"
+                                        values="
+                                        1 0 0 0 0
+                                        0 1 0 0 0
+                                        0 0 1 0 0
+                                        0 0 0 1 0;
+                                        .5 .5 .5 0 0
+                                        .5 .5 .5 0 0
+                                        .5 .5 .5 0 0
+                                         0  0  0 1 0;
+                                        1 0 0 0 0
+                                        0 1 0 0 0
+                                        0 0 1 0 0
+                                        0 0 0 1 0"
+                                        dur="3s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feColorMatrix>
                             </filter>
                             <filter id="saturate">
-                                <feColorMatrix in="SourceGraphic" type="saturate" values=".3" />
+                                <feColorMatrix in="SourceGraphic" type="saturate" values=".3">
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="values"
+                                        values="0;1;0"
+                                        dur="3s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feColorMatrix>
                             </filter>
                             <filter id="hueRotate">
-                                <feColorMatrix in="SourceGraphic" type="hueRotate" values="180" />
+                                <feColorMatrix in="SourceGraphic" type="hueRotate" values="180">
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="values"
+                                        from="0"
+                                        to="360"
+                                        dur="3s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feColorMatrix>
                             </filter>
                             <filter id="luminanceToAlpha">
-                                <feColorMatrix in="SourceGraphic" type="luminanceToAlpha" values="180" />
+                                <feColorMatrix in="SourceGraphic" type="luminanceToAlpha" />
                             </filter>
                         </defs>
+
                         <g transform="translate(0, 440)">
                             <use xlink:href="#colorCircle" x="130" />
                             <use xlink:href="#colorCircle" x="520" filter="url(#offsetRed)" />
@@ -487,6 +585,531 @@
                             filter="url(#dropShadow)"
                         >
                             feComponentTransfer
+                        </text>
+                    </svg>
+                </div>
+                <div class="swiper-slide">
+                    <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 1920 1080"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        style="background-color: #000;"
+                    >
+                        <defs>
+                            <circle id="redCircle" cx="0" cy="0" r="200" stroke="#f00" stroke-width="10" />
+                            <filter id="erode">
+                                <feMorphology in="SourceGraphic" operator="erode" radius="3">
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="radius"
+                                        values="0;6;0"
+                                        dur="1.5s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feMorphology>
+                            </filter>
+                            <filter id="dilate">
+                                <feMorphology in="SourceGraphic" operator="dilate" radius="10">
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="radius"
+                                        values="0;12;0"
+                                        dur="1.5s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feMorphology>
+                            </filter>
+                        </defs>
+
+                        <use xlink:href="#redCircle" x="230" y="540" filter="url(#erode)" />
+                        <use xlink:href="#redCircle" x="780" y="540" filter="url(#dilate)" />
+                        <image
+                            xlink:href="./img/chrome.png"
+                            x="1090"
+                            y="365"
+                            height="350"
+                            width="350"
+                            filter="url(#erode)"
+                        />
+                        <image
+                            xlink:href="./img/chrome.png"
+                            x="1520"
+                            y="365"
+                            height="350"
+                            width="350"
+                            filter="url(#dilate)"
+                        />
+
+                        <text
+                            x="30"
+                            y="100"
+                            dominant-baseline="middle"
+                            style="fill: #fff; font-size: 50px;"
+                            filter="url(#dropShadow)"
+                        >
+                            feMorphology
+                        </text>
+                    </svg>
+                </div>
+                <div class="swiper-slide">
+                    <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 1920 1080"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        style="background-color: #000;"
+                    >
+                        <defs>
+                            <filter id="feConvolveMatrix_1">
+                                <feConvolveMatrix
+                                    kernelMatrix="
+                                    1 1 1
+                                    1 0 -1
+                                    -1 -1 -1"
+                                    bias="0.5"
+                                    preserveAlpha="true"
+                                ></feConvolveMatrix>
+                            </filter>
+                            <filter id="feConvolveMatrix_2">
+                                <feConvolveMatrix
+                                    order="8"
+                                    kernelMatrix="
+                                    1 1 1 1 1 1 1 1
+                                    1 1 1 1 1 1 1 1
+                                    1 1 1 1 1 1 1 1
+                                    1 1 1 1 1 1 1 1
+                                    1 1 1 1 1 1 1 1
+                                    1 1 1 1 1 1 1 1
+                                    1 1 1 1 1 1 1 1
+                                    1 1 1 1 1 1 1 1"
+                                ></feConvolveMatrix>
+                            </filter>
+                            <filter id="feConvolveMatrix_3">
+                                <feConvolveMatrix
+                                    kernelMatrix="
+                                    0 -1 0
+                                    -1 5 -1
+                                    0 -1 0"
+                                ></feConvolveMatrix>
+                            </filter>
+                            <filter id="feConvolveMatrix_4">
+                                <feConvolveMatrix
+                                    kernelMatrix="
+                                    0 1 0
+                                    1 -4 1
+                                    0 1 0"
+                                    result="strokeX"
+                                ></feConvolveMatrix>
+                            </filter>
+                            <image
+                                id="feConvolveMatrixChrome"
+                                xlink:href="./img/chrome.png"
+                                x="0"
+                                y="0"
+                                height="350"
+                                width="350"
+                            />
+                        </defs>
+
+                        <use xlink:href="#feConvolveMatrixChrome" x="104" y="365" filter="url(#feConvolveMatrix_1)" />
+                        <use xlink:href="#feConvolveMatrixChrome" x="558" y="365" filter="url(#feConvolveMatrix_2)" />
+                        <use xlink:href="#feConvolveMatrixChrome" x="1012" y="365" filter="url(#feConvolveMatrix_3)" />
+                        <use xlink:href="#feConvolveMatrixChrome" x="1466" y="365" filter="url(#feConvolveMatrix_4)" />
+
+                        <text
+                            x="30"
+                            y="100"
+                            dominant-baseline="middle"
+                            style="fill: #fff; font-size: 50px;"
+                            filter="url(#dropShadow)"
+                        >
+                            feConvolveMatrix
+                        </text>
+                    </svg>
+                </div>
+                <div class="swiper-slide">
+                    <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 1920 1080"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        style="background-color: #000;"
+                    >
+                        <defs>
+                            <radialGradient id="wave" fcx="50%" fy="50%" r="10%" spreadMethod="reflect">
+                                <stop offset="0" stop-color="#fff" stop-opacity="0" />
+                                <stop offset=".25" stop-color="#fff" stop-opacity=".25" />
+                                <stop offset=".5" stop-color="#fff" stop-opacity=".5" />
+                                <stop offset=".75" stop-color="#fff" stop-opacity=".75" />
+                                <stop offset="1" stop-color="#fff" stop-opacity="1" />
+                            </radialGradient>
+                            <circle id="waveCircle" cx="150" cy="150" r="150" stroke="none" fill="url(#wave)" />
+
+                            <filter
+                                id="filterDiffusePoint"
+                                x="0"
+                                y="0"
+                                width="1"
+                                height="1"
+                                primitiveUnits="objectBoundingBox"
+                            >
+                                <feImage
+                                    xlink:href="#waveCircle"
+                                    x="0"
+                                    y="0"
+                                    width="1"
+                                    height="1"
+                                    preserveAspectRatio="xMidYMid meet"
+                                    result="height"
+                                />
+                                <feDiffuseLighting
+                                    in="height"
+                                    result="light"
+                                    lighting-color="#fff"
+                                    surfaceScale="1"
+                                    diffuseConstant="1"
+                                >
+                                    <fePointLight x=".25" y=".25" z=".05">
+                                        <animate
+                                            attributeType="XML"
+                                            attributeName="x"
+                                            values="-1;2;-1"
+                                            dur="5s"
+                                            repeatCount="indefinite"
+                                        />
+                                        <animate
+                                            attributeType="XML"
+                                            attributeName="y"
+                                            values="0;1;0"
+                                            dur="5s"
+                                            repeatCount="indefinite"
+                                        />
+                                    </fePointLight>
+                                </feDiffuseLighting>
+                                <feComposite
+                                    in="SourceGraphic"
+                                    in2="light"
+                                    operator="arithmetic"
+                                    k1="1"
+                                    k2="0"
+                                    k3="0"
+                                    k4="0"
+                                />
+                            </filter>
+
+                            <filter
+                                id="filterDiffuseDistant"
+                                x="0"
+                                y="0"
+                                width="1"
+                                height="1"
+                                primitiveUnits="objectBoundingBox"
+                            >
+                                <feImage
+                                    xlink:href="#waveCircle"
+                                    x="0"
+                                    y="0"
+                                    width="1"
+                                    height="1"
+                                    preserveAspectRatio="xMidYMid meet"
+                                    result="height"
+                                />
+                                <feDiffuseLighting
+                                    in="height"
+                                    result="light"
+                                    lighting-color="#fff"
+                                    surfaceScale="1"
+                                    diffuseConstant="1"
+                                >
+                                    <feDistantLight azimuth="60" elevation="10">
+                                        <animate
+                                            attributeType="XML"
+                                            attributeName="azimuth"
+                                            values="0;360"
+                                            dur="5s"
+                                            repeatCount="indefinite"
+                                        />
+                                        <animate
+                                            attributeType="XML"
+                                            attributeName="elevation"
+                                            values="0;20;0"
+                                            dur="5s"
+                                            repeatCount="indefinite"
+                                        />
+                                    </feDistantLight>
+                                </feDiffuseLighting>
+                                <feComposite
+                                    in="SourceGraphic"
+                                    in2="light"
+                                    operator="arithmetic"
+                                    k1="1"
+                                    k2="0"
+                                    k3="0"
+                                    k4="0"
+                                />
+                            </filter>
+
+                            <filter
+                                id="filterDiffuseSpot"
+                                x="0"
+                                y="0"
+                                width="1"
+                                height="1"
+                                primitiveUnits="objectBoundingBox"
+                            >
+                                <feImage
+                                    xlink:href="#waveCircle"
+                                    x="0"
+                                    y="0"
+                                    width="1"
+                                    height="1"
+                                    preserveAspectRatio="xMidYMid meet"
+                                    result="height"
+                                />
+                                <feDiffuseLighting
+                                    in="height"
+                                    result="light"
+                                    lighting-color="#fff"
+                                    surfaceScale="1"
+                                    diffuseConstant="1"
+                                >
+                                    <feSpotLight
+                                        x="0"
+                                        y="0"
+                                        z=".1"
+                                        limitingConeAngle="30"
+                                        pointsAtX="1"
+                                        pointsAtY="1"
+                                        pointsAtZ="0"
+                                    >
+                                        <animate
+                                            attributeType="XML"
+                                            attributeName="pointsAtX"
+                                            values="0;.5;0"
+                                            dur="5s"
+                                            repeatCount="indefinite"
+                                        />
+                                        <animate
+                                            attributeType="XML"
+                                            attributeName="pointsAtY"
+                                            values="0;.5;0"
+                                            dur="5s"
+                                            repeatCount="indefinite"
+                                        />
+                                    </feSpotLight>
+                                </feDiffuseLighting>
+                                <feComposite
+                                    in="SourceGraphic"
+                                    in2="light"
+                                    operator="arithmetic"
+                                    k1="1"
+                                    k2="0"
+                                    k3="0"
+                                    k4="0"
+                                />
+                            </filter>
+
+                            <filter
+                                id="filterSpecularPoint"
+                                x="0"
+                                y="0"
+                                width="1"
+                                height="1"
+                                primitiveUnits="objectBoundingBox"
+                            >
+                                <feImage
+                                    xlink:href="#waveCircle"
+                                    x="0"
+                                    y="0"
+                                    width="1"
+                                    height="1"
+                                    preserveAspectRatio="xMidYMid meet"
+                                    result="height"
+                                />
+                                <!-- <feSpecularLighting in="" surfaceScale="" specularConstant="" specularExponent="" kernelUnitLength=""/> -->
+                                <feSpecularLighting
+                                    in="height"
+                                    result="light"
+                                    lighting-color="#fff"
+                                    surfaceScale="1"
+                                    specularConstant="5"
+                                    specularExponent="10"
+                                >
+                                    <fePointLight x=".25" y=".25" z=".05">
+                                        <animate
+                                            attributeType="XML"
+                                            attributeName="x"
+                                            values="-1;2;-1"
+                                            dur="5s"
+                                            repeatCount="indefinite"
+                                        />
+                                        <animate
+                                            attributeType="XML"
+                                            attributeName="y"
+                                            values="0;1;0"
+                                            dur="5s"
+                                            repeatCount="indefinite"
+                                        />
+                                    </fePointLight>
+                                </feSpecularLighting>
+                                <feComposite
+                                    in="SourceGraphic"
+                                    in2="light"
+                                    operator="arithmetic"
+                                    k1="1"
+                                    k2="0"
+                                    k3="0"
+                                    k4="0"
+                                />
+                            </filter>
+
+                            <filter
+                                id="filterSpecularDistant"
+                                x="0"
+                                y="0"
+                                width="1"
+                                height="1"
+                                primitiveUnits="objectBoundingBox"
+                            >
+                                <feImage
+                                    xlink:href="#waveCircle"
+                                    x="0"
+                                    y="0"
+                                    width="1"
+                                    height="1"
+                                    preserveAspectRatio="xMidYMid meet"
+                                    result="height"
+                                />
+
+                                <feSpecularLighting
+                                    in="height"
+                                    result="light"
+                                    lighting-color="#fff"
+                                    surfaceScale="1"
+                                    specularConstant="5"
+                                    specularExponent="10"
+                                >
+                                    <feDistantLight azimuth="60" elevation="10">
+                                        <animate
+                                            attributeType="XML"
+                                            attributeName="azimuth"
+                                            values="0;360"
+                                            dur="5s"
+                                            repeatCount="indefinite"
+                                        />
+                                        <animate
+                                            attributeType="XML"
+                                            attributeName="elevation"
+                                            values="0;20;0"
+                                            dur="5s"
+                                            repeatCount="indefinite"
+                                        />
+                                    </feDistantLight>
+                                </feSpecularLighting>
+                                <feComposite
+                                    in="SourceGraphic"
+                                    in2="light"
+                                    operator="arithmetic"
+                                    k1="1"
+                                    k2="0"
+                                    k3="0"
+                                    k4="0"
+                                />
+                            </filter>
+
+                            <filter
+                                id="filterSpecularSpot"
+                                x="0"
+                                y="0"
+                                width="1"
+                                height="1"
+                                primitiveUnits="objectBoundingBox"
+                            >
+                                <feImage
+                                    xlink:href="#waveCircle"
+                                    x="0"
+                                    y="0"
+                                    width="1"
+                                    height="1"
+                                    preserveAspectRatio="xMidYMid meet"
+                                    result="height"
+                                />
+                                <feSpecularLighting
+                                    in="height"
+                                    result="light"
+                                    lighting-color="#fff"
+                                    surfaceScale="1"
+                                    specularConstant="5"
+                                    specularExponent="10"
+                                >
+                                    <feSpotLight
+                                        x="0"
+                                        y="0"
+                                        z=".1"
+                                        limitingConeAngle="30"
+                                        pointsAtX="1"
+                                        pointsAtY="1"
+                                        pointsAtZ="0"
+                                    >
+                                        <animate
+                                            attributeType="XML"
+                                            attributeName="pointsAtX"
+                                            values="0;.5;0"
+                                            dur="5s"
+                                            repeatCount="indefinite"
+                                        />
+                                        <animate
+                                            attributeType="XML"
+                                            attributeName="pointsAtY"
+                                            values="0;.5;0"
+                                            dur="5s"
+                                            repeatCount="indefinite"
+                                        />
+                                    </feSpotLight>
+                                </feSpecularLighting>
+                                <feComposite
+                                    in="SourceGraphic"
+                                    in2="light"
+                                    operator="arithmetic"
+                                    k1="1"
+                                    k2="0"
+                                    k3="0"
+                                    k4="0"
+                                />
+                            </filter>
+
+                            <circle id="mould" cx="0" cy="0" r="150" fill="gold" />
+                        </defs>
+
+                        <g transform="translate(0, 390)">
+                            <use xlink:href="#mould" x="180" />
+                            <use xlink:href="#mould" x="700" filter="url(#filterDiffusePoint)" />
+                            <use xlink:href="#mould" x="1220" filter="url(#filterDiffuseDistant)" />
+                            <use xlink:href="#mould" x="1740" filter="url(#filterDiffuseSpot)" />
+                        </g>
+
+                        <g transform="translate(0, 740)">
+                            <use xlink:href="#waveCircle" x="30" y="-150" />
+                            <use xlink:href="#mould" x="700" filter="url(#filterSpecularPoint)" />
+                            <use xlink:href="#mould" x="1220" filter="url(#filterSpecularDistant)" />
+                            <use xlink:href="#mould" x="1740" filter="url(#filterSpecularSpot)" />
+                        </g>
+
+                        <text
+                            x="30"
+                            y="100"
+                            dominant-baseline="middle"
+                            style="fill: #fff; font-size: 50px;"
+                            filter="url(#dropShadow)"
+                        >
+                            feDiffuseLighting
                         </text>
                     </svg>
                 </div>
