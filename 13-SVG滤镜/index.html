@@ -570,7 +570,7 @@
                         <use xlink:href="#linearGradientRect" y="850" filter="url(#table)" />
 
                         <g transform="translate(1720, 0)" fill="#fff" font-size="30px" dominant-baseline="middle">
-                            <text x="0" y="300">original</text>
+                            <text x="0" y="300">none</text>
                             <text x="0" y="450">identity</text>
                             <text x="0" y="600">linear</text>
                             <text x="0" y="750">gamma</text>
@@ -892,14 +892,14 @@
                                         <animate
                                             attributeType="XML"
                                             attributeName="pointsAtX"
-                                            values="0;.5;0"
+                                            values="0;.3;0"
                                             dur="5s"
                                             repeatCount="indefinite"
                                         />
                                         <animate
                                             attributeType="XML"
                                             attributeName="pointsAtY"
-                                            values="0;.5;0"
+                                            values="0;.3;0"
                                             dur="5s"
                                             repeatCount="indefinite"
                                         />
@@ -933,7 +933,6 @@
                                     preserveAspectRatio="xMidYMid meet"
                                     result="height"
                                 />
-                                <!-- <feSpecularLighting in="" surfaceScale="" specularConstant="" specularExponent="" kernelUnitLength=""/> -->
                                 <feSpecularLighting
                                     in="height"
                                     result="light"
@@ -987,7 +986,6 @@
                                     preserveAspectRatio="xMidYMid meet"
                                     result="height"
                                 />
-
                                 <feSpecularLighting
                                     in="height"
                                     result="light"
@@ -1061,14 +1059,14 @@
                                         <animate
                                             attributeType="XML"
                                             attributeName="pointsAtX"
-                                            values="0;.5;0"
+                                            values="0;.3;0"
                                             dur="5s"
                                             repeatCount="indefinite"
                                         />
                                         <animate
                                             attributeType="XML"
                                             attributeName="pointsAtY"
-                                            values="0;.5;0"
+                                            values="0;.3;0"
                                             dur="5s"
                                             repeatCount="indefinite"
                                         />
@@ -1088,7 +1086,7 @@
                             <circle id="mould" cx="0" cy="0" r="150" fill="gold" />
                         </defs>
 
-                        <g transform="translate(0, 390)">
+                        <g transform="translate(0, 360)">
                             <use xlink:href="#mould" x="180" />
                             <use xlink:href="#mould" x="700" filter="url(#filterDiffusePoint)" />
                             <use xlink:href="#mould" x="1220" filter="url(#filterDiffuseDistant)" />
@@ -1102,6 +1100,12 @@
                             <use xlink:href="#mould" x="1740" filter="url(#filterSpecularSpot)" />
                         </g>
 
+                        <g transform="translate(0, 980)" fill="#fff" font-size="30px" text-anchor="middle">
+                            <text x="700">fePointLight</text>
+                            <text x="1220">feDistantLight</text>
+                            <text x="1740">feSpotLight</text>
+                        </g>
+
                         <text
                             x="30"
                             y="100"
@@ -1109,7 +1113,7 @@
                             style="fill: #fff; font-size: 50px;"
                             filter="url(#dropShadow)"
                         >
-                            feDiffuseLighting
+                            feDiffuseLighting feSpecularLighting
                         </text>
                     </svg>
                 </div>
