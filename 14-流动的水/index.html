@@ -19,15 +19,15 @@
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
         >
-            <filter id="water" filterUnits="objectBoundingBox" x="0" y="0" width="10000000000%" height="10000000000%">
+            <filter id="water" x="0" y="0" width="10000000000%" height="10000000000%">
                 <feTurbulence
-                    type="fractalNoise"
                     baseFrequency="0.015 0.1"
                     numOctaves="3"
                     seed="2"
-                    result="turbulence"
+                    type="fractalNoise"
+                    result="fractalNoise"
                 />
-                <feOffset in="turbulence" dx="0" dy="0" result="offsetTurbulence">
+                <feOffset in="fractalNoise" dx="0" dy="0" result="offsetFractalNoise">
                     <animate
                         attributeType="XML"
                         attributeName="dx"
@@ -45,10 +45,10 @@
                 </feOffset>
                 <feDisplacementMap
                     in="SourceGraphic"
-                    in2="offsetTurbulence"
+                    in2="offsetFractalNoise"
                     scale="15"
-                    xChannelSelector="G"
-                    yChannelSelector="B"
+                    xChannelSelector="R"
+                    yChannelSelector="G"
                 />
             </filter>
         </svg>

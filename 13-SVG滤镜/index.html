@@ -1342,7 +1342,6 @@
                                     xChannelSelector="R"
                                     yChannelSelector="G"
                                 ></feDisplacementMap>
-                                <animate attributeType="XML" attributeName="" from="" to="" dur="" repeatCount="" />
                             </filter>
                         </defs>
 
@@ -1374,7 +1373,7 @@
                             <path
                                 id="douyinIcon"
                                 d="M937.386667 423.850667a387.84 387.84 0 0 1-232.874667-77.824v352.341333C704.512 878.250667 565.930667 1024 394.922667 1024S85.333333 878.250667 85.333333 698.368c0-179.882667 138.581333-325.632 309.589334-325.632 17.066667 0 33.706667 1.450667 49.92 4.266667v186.624a131.754667 131.754667 0 0 0-48.64-9.216c-76.288 0-138.154667 65.024-138.154667 145.322666 0 80.213333 61.866667 145.322667 138.24 145.322667 76.202667 0 138.069333-65.109333 138.069333-145.322667V0h172.714667c0 134.485333 103.68 243.541333 231.594667 243.541333v180.309334h-1.28"
-                                transform="scale(0.8)"
+                                transform="scale(0.88)"
                             ></path>
                             <use id="douyinBlue" xlink:href="#douyinIcon" x="25" y="25" fill="rgb(0, 255, 255)" />
                             <use id="douyinPink" xlink:href="#douyinIcon" x="50" y="50" fill="rgb(255, 0, 127)" />
@@ -1385,7 +1384,7 @@
                                 <feImage xlink:href="#douyinMaskRect" result="f4" />
                                 <feTurbulence
                                     baseFrequency="0 .08"
-                                    numOctaves="1"
+                                    numOctaves="5"
                                     type="turbulence"
                                     result="turbulence"
                                 >
@@ -1403,7 +1402,15 @@
                                     scale="100"
                                     xChannelSelector="R"
                                     yChannelSelector="G"
-                                ></feDisplacementMap>
+                                >
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="scale"
+                                        values="80;100;80"
+                                        dur=".1s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feDisplacementMap>
                             </filter>
                         </defs>
                         <rect x="0" y="0" width="100%" height="100%" filter="url(#douyin)" />

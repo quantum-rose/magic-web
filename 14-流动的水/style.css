@@ -19,13 +19,14 @@ body {
 
 .container {
     position: relative;
+    margin-bottom: 10vh;
     width: 100%;
     padding-top: 75%;
-    background-image: url(./lake.jpg);
+    background-image: url('./lake.jpg');
     background-size: cover;
     overflow: hidden;
-    box-shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
+    box-shadow: 0 2vmin 5vmin 0 rgba(0, 0, 0, 0.5);
+    border-radius: 1vmin;
 }
 
 .lake {
@@ -33,7 +34,7 @@ body {
     bottom: 0;
     width: 100%;
     padding-top: 48%;
-    background-image: url(./lake.jpg);
+    background-image: url('./lake.jpg');
     background-size: cover;
     background-position: bottom;
     -webkit-filter: url('#water');
