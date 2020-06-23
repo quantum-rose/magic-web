@@ -1,0 +1,41 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+}
+
+.wrapper {
+    margin: auto;
+    width: 60vmin;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    padding-top: 75%;
+    background-image: url(./lake.jpg);
+    background-size: cover;
+    overflow: hidden;
+    box-shadow: 0 20px 50px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+.lake {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-top: 48%;
+    background-image: url(./lake.jpg);
+    background-size: cover;
+    background-position: bottom;
+    -webkit-filter: url('#water');
+    filter: url('#water');
+}

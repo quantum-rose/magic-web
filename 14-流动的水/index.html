@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>流动的水</title>
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="container">
+                <div class="lake"></div>
+            </div>
+        </div>
+        <svg
+            width="0"
+            height="0"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+            <filter id="water" filterUnits="objectBoundingBox" x="0" y="0" width="10000000000%" height="10000000000%">
+                <feTurbulence
+                    type="fractalNoise"
+                    baseFrequency="0.015 0.1"
+                    numOctaves="3"
+                    seed="2"
+                    result="turbulence"
+                />
+                <feOffset in="turbulence" dx="0" dy="0" result="offsetTurbulence">
+                    <animate
+                        attributeType="XML"
+                        attributeName="dx"
+                        values="0;-5000000000"
+                        dur="200000000s"
+                        repeatCount="indefinite"
+                    />
+                    <animate
+                        attributeType="XML"
+                        attributeName="dy"
+                        values="0;-10000000000"
+                        dur="700000000s"
+                        repeatCount="indefinite"
+                    />
+                </feOffset>
+                <feDisplacementMap
+                    in="SourceGraphic"
+                    in2="offsetTurbulence"
+                    scale="15"
+                    xChannelSelector="G"
+                    yChannelSelector="B"
+                />
+            </filter>
+        </svg>
+    </body>
+</html>

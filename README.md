@@ -15,6 +15,7 @@
 11. [长阴影](http://cuihaojie.top/magic-web/11-%E9%95%BF%E9%98%B4%E5%BD%B1/)
 12. [canvas 水波加载动画](http://cuihaojie.top/magic-web/12-canvas%E6%B0%B4%E6%B3%A2%E5%8A%A0%E8%BD%BD%E5%8A%A8%E7%94%BB/)
 13. [SVG 滤镜](http://cuihaojie.top/magic-web/13-SVG%E6%BB%A4%E9%95%9C/)
+14. [流动的水](http://cuihaojie.top/magic-web/14-%E6%B5%81%E5%8A%A8%E7%9A%84%E6%B0%B4/)
 
 ### SP
 
