@@ -11,6 +11,7 @@
     <body>
         <div class="swiper-container">
             <div class="swiper-wrapper">
+                <!-- feGaussianBlur -->
                 <div class="swiper-slide">
                     <svg
                         width="100%"
@@ -66,6 +67,8 @@
                         <use xlink:href="#imageGaussianBlur" x="0" y="0" filter="url(#GaussianBlur)" />
                     </svg>
                 </div>
+
+                <!-- feImage feFlood feTile -->
                 <div class="swiper-slide">
                     <svg
                         width="100%"
@@ -132,6 +135,8 @@
                         </text>
                     </svg>
                 </div>
+
+                <!-- feBlend -->
                 <div class="swiper-slide">
                     <svg
                         width="100%"
@@ -191,6 +196,8 @@
                         </text>
                     </svg>
                 </div>
+
+                <!-- feComposite -->
                 <div class="swiper-slide">
                     <svg
                         width="100%"
@@ -318,6 +325,8 @@
                         </text>
                     </svg>
                 </div>
+
+                <!-- feColorMatrix -->
                 <div class="swiper-slide">
                     <svg
                         width="100%"
@@ -509,6 +518,8 @@
                         </text>
                     </svg>
                 </div>
+
+                <!-- feComponentTransfer -->
                 <div class="swiper-slide">
                     <svg
                         width="100%"
@@ -588,6 +599,8 @@
                         </text>
                     </svg>
                 </div>
+
+                <!-- feMorphology -->
                 <div class="swiper-slide">
                     <svg
                         width="100%"
@@ -654,6 +667,8 @@
                         </text>
                     </svg>
                 </div>
+
+                <!-- feConvolveMatrix -->
                 <div class="swiper-slide">
                     <svg
                         width="100%"
@@ -732,6 +747,8 @@
                         </text>
                     </svg>
                 </div>
+
+                <!-- feDiffuseLighting feSpecularLighting -->
                 <div class="swiper-slide">
                     <svg
                         width="100%"
@@ -743,7 +760,7 @@
                         style="background-color: #000;"
                     >
                         <defs>
-                            <radialGradient id="wave" fcx="50%" fy="50%" r="10%" spreadMethod="reflect">
+                            <radialGradient id="wave" fx="50%" fy="50%" r="10%" spreadMethod="reflect">
                                 <stop offset="0" stop-color="#fff" stop-opacity="0" />
                                 <stop offset=".25" stop-color="#fff" stop-opacity=".25" />
                                 <stop offset=".5" stop-color="#fff" stop-opacity=".5" />
@@ -1115,6 +1132,281 @@
                         >
                             feDiffuseLighting feSpecularLighting
                         </text>
+                    </svg>
+                </div>
+
+                <!-- feTurbulence -->
+                <div class="swiper-slide">
+                    <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 1920 1080"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        style="background-color: #000;"
+                    >
+                        <defs>
+                            <filter
+                                id="turbulence_1_1"
+                                primitiveUnits="objectBoundingBox"
+                                x="0"
+                                y="0"
+                                width="1"
+                                height="1"
+                            >
+                                <feTurbulence baseFrequency=".1" numOctaves="1" type="turbulence">
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="baseFrequency"
+                                        values="0;1;0"
+                                        dur="20s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feTurbulence>
+                            </filter>
+
+                            <filter
+                                id="turbulence_1_2"
+                                primitiveUnits="objectBoundingBox"
+                                x="0"
+                                y="0"
+                                width="1"
+                                height="1"
+                            >
+                                <feTurbulence baseFrequency=".01" numOctaves="1" type="turbulence">
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="numOctaves"
+                                        values="1;5;1"
+                                        dur="5s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feTurbulence>
+                            </filter>
+
+                            <filter
+                                id="turbulence_1_3"
+                                primitiveUnits="objectBoundingBox"
+                                x="0"
+                                y="0"
+                                width="1"
+                                height="1"
+                            >
+                                <feTurbulence baseFrequency=".1" numOctaves="1" type="turbulence">
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="seed"
+                                        values="0;100;0"
+                                        dur="2s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feTurbulence>
+                            </filter>
+
+                            <filter
+                                id="turbulence_2_1"
+                                primitiveUnits="objectBoundingBox"
+                                x="0"
+                                y="0"
+                                width="1"
+                                height="1"
+                            >
+                                <feTurbulence baseFrequency=".1" numOctaves="1" type="fractalNoise">
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="baseFrequency"
+                                        values="0;1;0"
+                                        dur="20s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feTurbulence>
+                            </filter>
+
+                            <filter
+                                id="turbulence_2_2"
+                                primitiveUnits="objectBoundingBox"
+                                x="0"
+                                y="0"
+                                width="1"
+                                height="1"
+                            >
+                                <feTurbulence baseFrequency=".01" numOctaves="1" type="fractalNoise">
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="numOctaves"
+                                        values="1;5;1"
+                                        dur="5s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feTurbulence>
+                            </filter>
+
+                            <filter
+                                id="turbulence_2_3"
+                                primitiveUnits="objectBoundingBox"
+                                x="0"
+                                y="0"
+                                width="1"
+                                height="1"
+                            >
+                                <feTurbulence baseFrequency=".1" numOctaves="1" type="fractalNoise">
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="seed"
+                                        values="1;100;1"
+                                        dur="2s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feTurbulence>
+                            </filter>
+
+                            <rect id="noise" x="0" y="0" width="520" height="300" />
+                        </defs>
+
+                        <g transform="translate(0, 210)">
+                            <use x="30" xlink:href="#noise" filter="url(#turbulence_1_1)" />
+                            <use x="580" xlink:href="#noise" filter="url(#turbulence_1_2)" />
+                            <use x="1130" xlink:href="#noise" filter="url(#turbulence_1_3)" />
+                            <text x="1680" y="150" fill="#fff" font-size="30px" dominant-baseline="middle">
+                                turbulence
+                            </text>
+                        </g>
+
+                        <g transform="translate(0, 540)">
+                            <use x="30" xlink:href="#noise" filter="url(#turbulence_2_1)" />
+                            <use x="580" xlink:href="#noise" filter="url(#turbulence_2_2)" />
+                            <use x="1130" xlink:href="#noise" filter="url(#turbulence_2_3)" />
+                            <text x="1680" y="150" fill="#fff" font-size="30px" dominant-baseline="middle">
+                                fractalNoise
+                            </text>
+                        </g>
+
+                        <g transform="translate(0, 920)" fill="#fff" font-size="30px" text-anchor="middle">
+                            <text x="290">baseFrequency</text>
+                            <text x="840">numOctaves</text>
+                            <text x="1390">seed</text>
+                        </g>
+
+                        <text
+                            x="30"
+                            y="100"
+                            dominant-baseline="middle"
+                            style="fill: #fff; font-size: 50px;"
+                            filter="url(#dropShadow)"
+                        >
+                            feTurbulence
+                        </text>
+                    </svg>
+                </div>
+
+                <!-- feDisplacementMap -->
+                <div class="swiper-slide">
+                    <svg
+                        width="100%"
+                        height="100%"
+                        viewBox="0 0 1920 1080"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        style="background-color: #000;"
+                    >
+                        <defs>
+                            <filter id="displacementMap" x="0" y="0" width="10000000000%" height="10000000000%">
+                                <feTurbulence
+                                    baseFrequency=".1"
+                                    numOctaves="1"
+                                    type="turbulence"
+                                    result="turbulence"
+                                ></feTurbulence>
+                                <feOffset in="turbulence" dx="0" dy="0" result="offsetTurbulence">
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="dx"
+                                        values="0;-100000000"
+                                        dur="1000000s"
+                                        repeatCount="indefinite"
+                                    />
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="dy"
+                                        values="0;-50000000"
+                                        dur="1000000s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feOffset>
+                                <feDisplacementMap
+                                    in="SourceGraphic"
+                                    in2="offsetTurbulence"
+                                    scale="50"
+                                    xChannelSelector="R"
+                                    yChannelSelector="G"
+                                ></feDisplacementMap>
+                                <animate attributeType="XML" attributeName="" from="" to="" dur="" repeatCount="" />
+                            </filter>
+                        </defs>
+
+                        <text
+                            x="960"
+                            y="540"
+                            style="font-size: 200px; fill: #fe6f61;"
+                            dominant-baseline="middle"
+                            text-anchor="middle"
+                            filter="url(#displacementMap)"
+                        >
+                            feDisplacementMap
+                        </text>
+                    </svg>
+                </div>
+
+                <!-- Tik Tok -->
+                <div class="swiper-slide" style="display: flex; background-color: #000;">
+                    <svg
+                        width="70%"
+                        height="70%"
+                        viewBox="0 0 1024 1024"
+                        preserveAspectRatio="xMidYMid meet"
+                        version="1.1"
+                        xmlns="http://www.w3.org/2000/svg"
+                        style="margin: auto;"
+                    >
+                        <defs>
+                            <path
+                                id="douyinIcon"
+                                d="M937.386667 423.850667a387.84 387.84 0 0 1-232.874667-77.824v352.341333C704.512 878.250667 565.930667 1024 394.922667 1024S85.333333 878.250667 85.333333 698.368c0-179.882667 138.581333-325.632 309.589334-325.632 17.066667 0 33.706667 1.450667 49.92 4.266667v186.624a131.754667 131.754667 0 0 0-48.64-9.216c-76.288 0-138.154667 65.024-138.154667 145.322666 0 80.213333 61.866667 145.322667 138.24 145.322667 76.202667 0 138.069333-65.109333 138.069333-145.322667V0h172.714667c0 134.485333 103.68 243.541333 231.594667 243.541333v180.309334h-1.28"
+                                transform="scale(0.8)"
+                            ></path>
+                            <use id="douyinBlue" xlink:href="#douyinIcon" x="25" y="25" fill="rgb(0, 255, 255)" />
+                            <use id="douyinPink" xlink:href="#douyinIcon" x="50" y="50" fill="rgb(255, 0, 127)" />
+                            <filter id="douyin" x="0" y="0" width="100%" height="100%">
+                                <feImage xlink:href="#douyinPink" result="f1" />
+                                <feImage xlink:href="#douyinBlue" result="f2" />
+                                <feBlend in="f1" in2="f2" mode="screen" result="f3" />
+                                <feImage xlink:href="#douyinMaskRect" result="f4" />
+                                <feTurbulence
+                                    baseFrequency="0 .08"
+                                    numOctaves="1"
+                                    type="turbulence"
+                                    result="turbulence"
+                                >
+                                    <animate
+                                        attributeType="XML"
+                                        attributeName="seed"
+                                        values="1;10000000000"
+                                        dur="500000000s"
+                                        repeatCount="indefinite"
+                                    />
+                                </feTurbulence>
+                                <feDisplacementMap
+                                    in="f3"
+                                    in2="turbulence"
+                                    scale="100"
+                                    xChannelSelector="R"
+                                    yChannelSelector="G"
+                                ></feDisplacementMap>
+                            </filter>
+                        </defs>
+                        <rect x="0" y="0" width="100%" height="100%" filter="url(#douyin)" />
                     </svg>
                 </div>
             </div>
