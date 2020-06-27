@@ -10,11 +10,12 @@ let cvsSize = $canvas.offsetWidth * window.devicePixelRatio,
     circleRadius = cvsHalfSize - outlineWidth / 2,
     A = circleRadius / 6, // 振幅，最大为半径的六分之一
     ω = Math.PI / circleRadius, // 角速度，此时周期为2R，在圆内最宽处刚好显示一个完整的周期
-    φ = Math.PI * 16, // 相位，从0加载到100%的过程中，波形向左平移16π，即8个周期
+    φ = Math.PI / 240, // 每16ms波形的相位变化差值
     percent = 0,
     isStaticRoundedRect = false,
     isDynamicRoundedRect = false,
-    isDynamicInsetRoundedRect = false;
+    isDynamicInsetRoundedRect = false,
+    lastTime = 0;
 
 $canvas.width = $canvas.height = cvsSize;
 
@@ -173,15 +174,19 @@ function drawRoundedRect(x, y, width, height, radius, per) {
 draw();
 
 function draw() {
-    cvsCtx.clearRect(0, 0, cvsSize, cvsSize);
-    percent = (percent + 0.00390625) % 1;
+    if (Date.now() - lastTime > 16) {
+        lastTime = Date.now();
 
-    renderWave(percent);
-    renderOutline(percent);
-    renderText(percent);
+        cvsCtx.clearRect(0, 0, cvsSize, cvsSize);
+        // percent = 0.5;
+        percent = (percent + 0.00390625) % 1;
 
-    drawRoundedRect(cvsQuarterSize, cvsQuarterSize, cvsHalfSize, cvsHalfSize, cvsQuarterSize * percent, percent);
+        renderWave(percent);
+        renderOutline(percent);
+        renderText(percent);
 
+        drawRoundedRect(cvsQuarterSize, cvsQuarterSize, cvsHalfSize, cvsHalfSize, cvsQuarterSize * percent, percent);
+    }
     requestAnimationFrame(draw);
 }
 
@@ -198,7 +203,7 @@ function renderOutline(per) {
 function renderWave(per) {
     cvsCtx.save();
     setCircleClip();
-    drawWave(per, per * φ);
+    drawWave(per);
     cvsCtx.restore();
 }
 
@@ -208,8 +213,9 @@ function setCircleClip() {
     cvsCtx.clip();
 }
 
-function drawWave(per, fi) {
-    let p = 1 - per;
+function drawWave(per) {
+    let p = 1 - per,
+        fi = lastTime * φ;
     cvsCtx.beginPath();
     cvsCtx.moveTo(0, p ** 0.5 * A * Math.sin(fi) + p * cvsSize);
     for (let i = 1; i <= cvsSize; i++) {
