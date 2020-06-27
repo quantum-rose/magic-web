@@ -8,6 +8,9 @@ let cvsSize = $canvas.offsetWidth * window.devicePixelRatio,
     cvsQuarterSize = cvsSize / 4,
     outlineWidth = cvsSize / 20,
     circleRadius = cvsHalfSize - outlineWidth / 2,
+    clipCircleRadius = cvsHalfSize - outlineWidth,
+    clipCircleDiameter = clipCircleRadius * 2,
+    waveBottomRight = outlineWidth + clipCircleDiameter,
     A = circleRadius / 6, // 振幅，最大为半径的六分之一
     ω = Math.PI / circleRadius, // 角速度，此时周期为2R，在圆内最宽处刚好显示一个完整的周期
     φ = Math.PI / 240, // 每16ms波形的相位变化差值
@@ -209,7 +212,7 @@ function renderWave(per) {
 
 function setCircleClip() {
     cvsCtx.beginPath();
-    cvsCtx.arc(cvsHalfSize, cvsHalfSize, cvsHalfSize - outlineWidth, 0, PI_2, false);
+    cvsCtx.arc(cvsHalfSize, cvsHalfSize, clipCircleRadius, 0, PI_2, false);
     cvsCtx.clip();
 }
 
@@ -217,14 +220,14 @@ function drawWave(per) {
     let p = 1 - per,
         fi = lastTime * φ;
     cvsCtx.beginPath();
-    cvsCtx.moveTo(0, p ** 0.5 * A * Math.sin(fi) + p * cvsSize);
-    for (let i = 1; i <= cvsSize; i++) {
-        cvsCtx.lineTo(i, p ** 0.5 * A * Math.sin(ω * i + fi) + p * cvsSize);
+    cvsCtx.moveTo(outlineWidth, p ** 0.5 * A * Math.sin(fi) + p * clipCircleDiameter + outlineWidth);
+    for (let i = 1; i <= clipCircleDiameter; i++) {
+        cvsCtx.lineTo(i + outlineWidth, p ** 0.5 * A * Math.sin(ω * i + fi) + p * clipCircleDiameter + outlineWidth);
     }
-    cvsCtx.lineTo(cvsSize, cvsSize);
-    cvsCtx.lineTo(0, cvsSize);
+    cvsCtx.lineTo(waveBottomRight, waveBottomRight);
+    cvsCtx.lineTo(outlineWidth, waveBottomRight);
     cvsCtx.closePath();
-    let fill = cvsCtx.createLinearGradient(0, 0, 0, cvsSize);
+    let fill = cvsCtx.createLinearGradient(outlineWidth, outlineWidth, outlineWidth, waveBottomRight);
     fill.addColorStop(0, 'rgba(10, 12, 32, 0.5)');
     fill.addColorStop(0.5, `rgba(${44 - per * 34}, ${75 - per * 63}, ${80 - per * 48}, 0.5)`);
     fill.addColorStop(1, `rgba(${77 - per * 67}, ${146 - per * 134}, ${134 - per * 102}, 0.5)`);
