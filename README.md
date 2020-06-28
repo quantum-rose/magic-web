@@ -20,3 +20,4 @@
 ### SP
 
 1. [色彩空间](http://cuihaojie.top/magic-web/color-space/)
+2. [饼图](http://cuihaojie.top/magic-web/%E9%A5%BC%E5%9B%BE/)
