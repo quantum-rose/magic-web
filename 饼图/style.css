@@ -24,6 +24,8 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 1em;
+    font-size: 1.2vw;
 }
 
 .example {
@@ -34,30 +36,9 @@ body {
     color: #fff;
 }
 
-.pie-conic-gradient {
-    width: 10vw;
-    height: 10vw;
-    border-radius: 50%;
-    background-image: conic-gradient(
-        #37c 30deg,
-        #3c7 30deg,
-        #3c7 65deg,
-        orange 65deg,
-        orange 110deg,
-        #f73 110deg,
-        #f73 200deg,
-        #ccc 200deg
-    );
-}
-
-.pie-transform {
-    width: 10vw;
-    height: 10vw;
-    position: relative;
-}
-
-.pie-transform * {
-    position: absolute;
-    top: 50%;
-    left: 50%;
+.pie-conic-gradient,
+.pie-svg-path,
+.pie-canvas {
+    width: 20vw;
+    height: 20vw;
 }
