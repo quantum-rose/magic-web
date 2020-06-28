@@ -1,0 +1,63 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    background-color: #000;
+}
+
+.page {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.example {
+    margin-bottom: 1.5em;
+}
+
+.desc {
+    color: #fff;
+}
+
+.pie-conic-gradient {
+    width: 10vw;
+    height: 10vw;
+    border-radius: 50%;
+    background-image: conic-gradient(
+        #37c 30deg,
+        #3c7 30deg,
+        #3c7 65deg,
+        orange 65deg,
+        orange 110deg,
+        #f73 110deg,
+        #f73 200deg,
+        #ccc 200deg
+    );
+}
+
+.pie-transform {
+    width: 10vw;
+    height: 10vw;
+    position: relative;
+}
+
+.pie-transform * {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
