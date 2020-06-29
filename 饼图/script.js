@@ -18,6 +18,7 @@ const data = [
     ],
     $pieConicGradient = document.querySelector('.pie-conic-gradient'),
     $pieSvgPath = document.querySelector('.pie-svg-path'),
+    $pieSvgDash = document.querySelector('.pie-svg-dash'),
     $pieCanvas = document.querySelector('.pie-canvas');
 
 class PieConicGradient {
@@ -38,8 +39,12 @@ class PieConicGradient {
         });
         this.elem.style.backgroundImage = `conic-gradient(${gradientArr.join(',')}, rgba(0, 0, 0, 0) ${θ}deg)`;
     }
+    update(data) {
+        this.data = data;
+        this._render();
+    }
 }
-new PieConicGradient($pieConicGradient, data);
+const pieConicGradient = new PieConicGradient($pieConicGradient, data);
 
 class PieSvgPath {
     elem = null;
@@ -60,18 +65,62 @@ class PieSvgPath {
             let θper = Math.PI * 2 * item.per,
                 endX = Math.cos(θ) * 50 + 50,
                 endY = Math.sin(θ) * 50 + 50;
-            pathArr.push(
-                `<path d="M 50 50 L ${x} ${y} A 50 50 0 ${θper > Math.PI ? 1 : 0} 1 ${endX} ${endY}" fill="${
-                    item.fill
-                }" />`
-            );
+            pathArr.push(`
+                <path 
+                    d="M 50 50 L ${x} ${y} A 50 50 0 ${θper > Math.PI ? 1 : 0} 1 ${endX} ${endY} Z"
+                    fill="${item.fill}"
+                />
+            `);
             x = endX;
             y = endY;
         });
         this.elem.innerHTML = pathArr.join('');
     }
+    update(data) {
+        this.data = data;
+        this._render();
+    }
 }
-new PieSvgPath($pieSvgPath, data);
+const pieSvgPath = new PieSvgPath($pieSvgPath, data);
+
+class PieSvgDash {
+    elem = null;
+    data = [];
+    constructor(elem, data) {
+        this.elem = elem;
+        this.data = data;
+        this.elem.setAttribute('viewBox', '0 0 100 100');
+        this._render();
+    }
+    _render() {
+        let circleArr = [`<circle cx="50" cy="50" r="25" stroke-width="50" stroke="#ccc" />`],
+            C = Math.PI * 2 * 25,
+            length = 0,
+            lengthPer = 0;
+        this.data.forEach(item => {
+            lengthPer = C * item.per;
+            circleArr.push(`
+                <circle
+                    cx="50"
+                    cy="50"
+                    r="25"
+                    stroke-width="50"
+                    stroke="${item.fill}"
+                    stroke-dasharray="0 ${length} ${lengthPer} ${C}"
+                    fill-opacity="0"
+                    transform="rotate(-90, 50, 50)"
+                />
+            `);
+            length += lengthPer;
+        });
+        this.elem.innerHTML = circleArr.join('');
+    }
+    update(data) {
+        this.data = data;
+        this._render();
+    }
+}
+const pieSvgDash = new PieSvgDash($pieSvgDash, data);
 
 class PieCanvas {
     elem = null;
@@ -81,7 +130,6 @@ class PieCanvas {
         this.elem = elem;
         this.cvsCtx = this.elem.getContext('2d');
         this.data = data;
-
         this.elem.width = this.elem.height = this.elem.offsetWidth * window.devicePixelRatio;
         this._render();
     }
@@ -89,6 +137,7 @@ class PieCanvas {
         let cvsCtx = this.cvsCtx,
             halfCvsSize = this.elem.width / 2,
             θ = -Math.PI / 2; // 饼图起始位置，x 轴正方向为 0，y 轴正方向为 π/2
+        cvsCtx.clearRect(0, 0, this.elem.width, this.elem.height);
         cvsCtx.beginPath();
         cvsCtx.fillStyle = '#ccc';
         cvsCtx.arc(halfCvsSize, halfCvsSize, halfCvsSize, 0, Math.PI * 2, false);
@@ -102,5 +151,29 @@ class PieCanvas {
             cvsCtx.fill();
         });
     }
+    update(data) {
+        this.data = data;
+        this._render();
+    }
 }
-new PieCanvas($pieCanvas, data);
+const pieCanvas = new PieCanvas($pieCanvas, data);
+
+(function () {
+    let lastTime = 0,
+        percent = 0;
+    requestAnimationFrame(function update() {
+        if (Date.now() - lastTime > 16) {
+            lastTime = Date.now();
+            percent = (percent + 0.005) % 1;
+            data[0].per = (20 / 360) * percent;
+            data[1].per = (50 / 360) * percent;
+            data[2].per = (100 / 360) * percent;
+            data[3].per = (190 / 360) * percent;
+            pieConicGradient.update(data);
+            pieSvgPath.update(data);
+            pieSvgDash.update(data);
+            pieCanvas.update(data);
+        }
+        requestAnimationFrame(update);
+    });
+})();

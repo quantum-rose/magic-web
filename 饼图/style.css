@@ -38,6 +38,7 @@ body {
 
 .pie-conic-gradient,
 .pie-svg-path,
+.pie-svg-dash,
 .pie-canvas {
     width: 20vw;
     height: 20vw;
