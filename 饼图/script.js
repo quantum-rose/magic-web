@@ -49,32 +49,38 @@ const pieConicGradient = new PieConicGradient($pieConicGradient, data);
 class PieSvgPath {
     elem = null;
     data = [];
+    pies = [];
     constructor(elem, data) {
         this.elem = elem;
         this.data = data;
         this.elem.setAttribute('viewBox', '0 0 100 100');
+        this.elem.innerHTML = `<circle cx="50" cy="50" r="50" fill="#ccc" />`;
         this._render();
     }
     _render() {
-        let pathArr = [`<circle cx="50" cy="50" r="50" fill="#ccc" />`],
-            θ = -Math.PI / 2, // 饼图起始位置，x 轴正方向为 0，y 轴正方向为 π/2
+        let θ = -Math.PI / 2, // 饼图起始位置，x 轴正方向为 0，y 轴正方向为 π/2
             x = 50,
-            y = 0;
-        this.data.forEach(item => {
+            y = 0,
+            pie = null,
+            θper = 0,
+            endX = 0,
+            endY = 0;
+        this.pies.length = this.data.length;
+        this.data.forEach((item, i) => {
+            if (!this.pies[i]) {
+                this.pies[i] = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                this.elem.appendChild(this.pies[i]);
+            }
             θ += Math.PI * 2 * item.per;
-            let θper = Math.PI * 2 * item.per,
-                endX = Math.cos(θ) * 50 + 50,
-                endY = Math.sin(θ) * 50 + 50;
-            pathArr.push(`
-                <path 
-                    d="M 50 50 L ${x} ${y} A 50 50 0 ${θper > Math.PI ? 1 : 0} 1 ${endX} ${endY} Z"
-                    fill="${item.fill}"
-                />
-            `);
+            θper = Math.PI * 2 * item.per;
+            endX = Math.cos(θ) * 50 + 50;
+            endY = Math.sin(θ) * 50 + 50;
+            pie = this.pies[i];
+            pie.setAttribute('d', `M 50 50 L ${x} ${y} A 50 50 0 ${θper > Math.PI ? 1 : 0} 1 ${endX} ${endY} Z`);
+            pie.setAttribute('fill', item.fill);
             x = endX;
             y = endY;
         });
-        this.elem.innerHTML = pathArr.join('');
     }
     update(data) {
         this.data = data;
@@ -86,34 +92,37 @@ const pieSvgPath = new PieSvgPath($pieSvgPath, data);
 class PieSvgDash {
     elem = null;
     data = [];
+    pies = [];
     constructor(elem, data) {
         this.elem = elem;
         this.data = data;
         this.elem.setAttribute('viewBox', '0 0 100 100');
+        this.elem.innerHTML = `<circle cx="50" cy="50" r="25" stroke-width="50" stroke="#ccc" />`;
         this._render();
     }
     _render() {
-        let circleArr = [`<circle cx="50" cy="50" r="25" stroke-width="50" stroke="#ccc" />`],
-            C = Math.PI * 2 * 25,
+        let C = Math.PI * 2 * 25,
             length = 0,
-            lengthPer = 0;
-        this.data.forEach(item => {
+            lengthPer = 0,
+            pie = null;
+        this.pies.length = this.data.length;
+        this.data.forEach((item, i) => {
+            if (!this.pies[i]) {
+                this.pies[i] = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                this.elem.appendChild(this.pies[i]);
+            }
             lengthPer = C * item.per;
-            circleArr.push(`
-                <circle
-                    cx="50"
-                    cy="50"
-                    r="25"
-                    stroke-width="50"
-                    stroke="${item.fill}"
-                    stroke-dasharray="0 ${length} ${lengthPer} ${C}"
-                    fill-opacity="0"
-                    transform="rotate(-90, 50, 50)"
-                />
-            `);
+            pie = this.pies[i];
+            pie.setAttribute('cx', 50);
+            pie.setAttribute('cy', 50);
+            pie.setAttribute('r', 25);
+            pie.setAttribute('stroke', item.fill);
+            pie.setAttribute('stroke-width', 50);
+            pie.setAttribute('stroke-dasharray', `0 ${length} ${lengthPer} ${C}`);
+            pie.setAttribute('fill-opacity', 0);
+            pie.setAttribute('transform', 'rotate(-90, 50, 50)');
             length += lengthPer;
         });
-        this.elem.innerHTML = circleArr.join('');
     }
     update(data) {
         this.data = data;
@@ -132,6 +141,10 @@ class PieCanvas {
         this.data = data;
         this.elem.width = this.elem.height = this.elem.offsetWidth * window.devicePixelRatio;
         this._render();
+        window.addEventListener('resize', () => {
+            this.elem.width = this.elem.height = this.elem.offsetWidth * window.devicePixelRatio;
+            this._render();
+        });
     }
     _render() {
         let cvsCtx = this.cvsCtx,
