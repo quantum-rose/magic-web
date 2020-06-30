@@ -10,11 +10,13 @@ body {
 
 body {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: #000;
 }
 
 .page {
-    margin: auto;
     display: flex;
     justify-content: center;
 }
@@ -24,6 +26,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 5vw;
     padding: 1em;
     font-size: 1.2vw;
 }
@@ -42,4 +45,43 @@ body {
 .pie-canvas {
     width: 20vw;
     height: 20vw;
+}
+
+#play-pause {
+    display: none;
+}
+
+.play-pause {
+    display: flex;
+    width: 45px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.play-pause::after {
+    content: '';
+    --duration: 0.2s;
+    display: block;
+    margin: auto;
+    width: 0;
+    height: 0;
+    border: 1.25vw solid transparent;
+    border-right-width: 0;
+    border-left-width: 2.25vw;
+    border-left-color: #fff;
+    transform: translateX(10%);
+    transition: width var(--duration), height var(--duration), border-left-width var(--duration),
+        border-right-width var(--duration), border-right-color var(--duration), border-top-width var(--duration),
+        border-bottom-width var(--duration), transform var(--duration);
+}
+
+#play-pause:checked ~ .play-pause::after {
+    width: 0.75vw;
+    height: 2.5vw;
+    border-left-width: 0.75vw;
+    border-right-width: 0.75vw;
+    border-right-color: #fff;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    transform: translateX(0);
 }

@@ -172,10 +172,11 @@ class PieCanvas {
 const pieCanvas = new PieCanvas($pieCanvas, data);
 
 (function () {
-    let lastTime = 0,
+    let $playPause = document.querySelector('#play-pause'),
+        lastTime = 0,
         percent = 0;
     requestAnimationFrame(function update() {
-        if (Date.now() - lastTime > 16) {
+        if (Date.now() - lastTime > 16 && $playPause.checked) {
             lastTime = Date.now();
             percent = (percent + 0.005) % 1;
             data[0].per = (20 / 360) * percent;
