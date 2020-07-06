@@ -89,24 +89,82 @@ const cvs = document.querySelector('#tree'),
 
 cvs.width = cvs.offsetWidth * window.devicePixelRatio;
 cvs.height = cvs.offsetHeight * window.devicePixelRatio;
+cvs.style.width = cvs.width + 'px';
+cvs.style.height = cvs.height + 'px';
 
 cvsCtx.transform(1, 0, 0, -1, cvs.width / 2, cvs.height);
 
-function drawTree(cvsCtx, start, length, width, dir) {
-    const vec = new Vector2D().scale(length).rotate(dir).add(start);
-    cvsCtx.beginPath();
-    cvsCtx.strokeStyle = '#fff';
-    cvsCtx.lineWidth = width;
-    cvsCtx.moveTo(start.x, start.y);
-    console.log(start.x, start.y);
-    cvsCtx.lineTo(vec.x, vec.y);
-    console.log(vec.x, vec.y);
-    cvsCtx.stroke();
+function drawBranch(cvsCtx, totalLength, start, end, lineWidth, strokeStyle, callback) {
+    const deltaX = end.x - start.x;
+    const deltaY = end.y - start.y;
+    let length = 0;
+    let lastTime = 0;
 
-    if (width >= 1) {
-        drawTree(cvsCtx, vec, length * 0.8, width * 0.8, dir + Math.PI / 8);
-        drawTree(cvsCtx, vec, length * 0.8, width * 0.8, dir + Math.PI / -8);
-    }
+    requestAnimationFrame(function draw() {
+        if (Date.now() - lastTime > 16) {
+            lastTime = Date.now();
+            length += 10;
+            length > totalLength && (length = totalLength);
+            const progress = length / totalLength;
+
+            cvsCtx.beginPath();
+            cvsCtx.strokeStyle = strokeStyle;
+            cvsCtx.lineWidth = lineWidth;
+            cvsCtx.lineCap = 'round';
+            cvsCtx.moveTo(start.x, start.y);
+            cvsCtx.lineTo(start.x + deltaX * progress, start.y + deltaY * progress);
+            cvsCtx.stroke();
+        }
+        if (length !== totalLength) {
+            requestAnimationFrame(draw);
+        } else {
+            callback();
+        }
+    });
 }
 
-drawTree(cvsCtx, new Vector2D(0, 0), cvs.width / 10, 10, -Math.PI / 2);
+function drawTree(cvsCtx, start, length, width, dir, bias) {
+    const end = new Vector2D().scale(length).rotate(dir).add(start);
+
+    drawBranch(cvsCtx, length, start, end, width, '#000', function () {
+        if (width >= 1) {
+            drawTree(
+                cvsCtx,
+                end,
+                length * 0.8,
+                width * 0.8,
+                dir + Math.PI * 0.125 + bias * (0.5 - Math.random()),
+                bias * 0.9
+            );
+            drawTree(
+                cvsCtx,
+                end,
+                length * 0.8,
+                width * 0.8,
+                dir - Math.PI * 0.125 + bias * (0.5 - Math.random()),
+                bias * 0.9
+            );
+        }
+
+        if (width < 5 && Math.random() < 0.2) {
+            cvsCtx.save();
+            cvsCtx.strokeStyle = '#c72c35';
+            cvsCtx.lineWidth = Math.random() * 10 + 3;
+            cvsCtx.lineCap = 'round';
+            cvsCtx.beginPath();
+            cvsCtx.moveTo(end.x, end.y - 1);
+            cvsCtx.lineTo(end.x, end.y + 1);
+            cvsCtx.stroke();
+            cvsCtx.restore();
+        }
+    });
+}
+
+drawTree(
+    cvsCtx,
+    new Vector2D(0, 0),
+    cvs.height * 0.2,
+    cvs.height * 0.02,
+    Math.PI * -0.5 + (0.5 - Math.random()),
+    Math.PI / 3
+);
