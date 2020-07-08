@@ -89,8 +89,8 @@ const cvs = document.querySelector('#tree'),
 
 cvs.width = cvs.offsetWidth * window.devicePixelRatio;
 cvs.height = cvs.offsetHeight * window.devicePixelRatio;
-cvs.style.width = cvs.width + 'px';
-cvs.style.height = cvs.height + 'px';
+cvs.style.width = cvs.offsetWidth + 'px';
+cvs.style.height = cvs.offsetHeight + 'px';
 
 cvsCtx.transform(1, 0, 0, -1, cvs.width / 2, cvs.height);
 

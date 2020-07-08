@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    user-select: none;
 }
 
 html,
@@ -13,4 +14,61 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #eee;
+}
+
+#calculator {
+    --button-width: 12vmin;
+    --button-height: 12vmin;
+    display: grid;
+    grid-template-areas:
+        'result result result result'
+        'ac sign percent divide'
+        'number-7 number-8 number-9 multiply'
+        'number-4 number-5 number-6 subtract'
+        'number-1 number-2 number-3 add'
+        'number-0 number-0 dot equal';
+    grid-template-columns: repeat(4, var(--button-width));
+    grid-template-rows: repeat(6, var(--button-height));
+    box-shadow: -1vmin -1vmin 2vmin -1vmin #fff, 1vmin 1vmin 2vmin -1vmin rgba(0, 0, 0, 0.1);
+    border-radius: 3vmin;
+    padding: 4vmin;
+    overflow: hidden;
+}
+
+#calculator button {
+    cursor: pointer;
+    margin: 1vmin;
+    border: none;
+    outline: none;
+    border-radius: calc(var(--button-height) / 2);
+    font-size: 4vmin;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #999;
+    background-image: linear-gradient(135deg, rgb(230, 230, 230) 0%, rgba(246, 246, 246, 1) 100%);
+    box-shadow: -0.5vmin -0.5vmin 2vmin -0.5vmin #fff, 0.5vmin 0.5vmin 2vmin -0.5vmin rgba(0, 0, 0, 0.1);
+}
+
+#calculator button:active {
+    box-shadow: -0.5vmin -0.5vmin 2vmin -0.5vmin #fff inset, 0.5vmin 0.5vmin 2vmin -0.5vmin rgba(0, 0, 0, 0.1) inset;
+}
+
+#calculator .result {
+    margin: 0 1vmin 1vmin;
+    box-shadow: -1vmin -1vmin 2vmin -1vmin #fff inset, 1vmin 1vmin 2vmin -1vmin rgba(0, 0, 0, 0.1) inset;
+    border-radius: 1vmin;
+    overflow: hidden;
+}
+
+#calculator .screen {
+    display: flex;
+    flex-direction: row-reverse;
+    width: calc(100% - 1.8vmin);
+    height: calc(100% + 30px);
+    margin: 0 auto;
+    overflow-x: scroll;
+    color: #666;
+    font-size: 8vmin;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: calc(var(--button-height) - 1vmin);
+    white-space: nowrap;
 }
