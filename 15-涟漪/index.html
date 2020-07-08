@@ -12,6 +12,7 @@
             html,
             body {
                 height: 100%;
+                background-color: #eee;
             }
 
             .pond {
@@ -20,11 +21,17 @@
                 background-size: cover;
                 background-position: center;
             }
+
+            #cvs {
+                background-color: #fff;
+            }
         </style>
     </head>
     <body>
-        <div class="pond"></div>
-        <script src="./ripple-min.js"></script>
+        <!-- <div class="pond"></div> -->
+        <canvas id="cvs" width="512" height="512"></canvas>
+
+        <script src="./script.js"></script>
         <script>
             rippleEffect(document.querySelector('.pond'));
         </script>
