@@ -1,6 +1,11 @@
 * {
     margin: 0;
     padding: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -moz-user-focus: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
 }
 
@@ -14,15 +19,17 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #eee;
+    overflow: hidden;
 }
 
 #calculator {
     --button-width: 12vmin;
     --button-height: 12vmin;
+
     display: grid;
     grid-template-areas:
         'result result result result'
-        'ac sign percent divide'
+        'clear sign percent divide'
         'number-7 number-8 number-9 multiply'
         'number-4 number-5 number-6 subtract'
         'number-1 number-2 number-3 add'
@@ -63,11 +70,12 @@ body {
     display: flex;
     flex-direction: row-reverse;
     width: calc(100% - 1.8vmin);
-    height: calc(100% + 30px);
+    height: 100%;
+    padding-bottom: 30px;
     margin: 0 auto;
     overflow-x: scroll;
     color: #666;
-    font-size: 8vmin;
+    font-size: 6.9vmin;
     font-family: Arial, Helvetica, sans-serif;
     line-height: calc(var(--button-height) - 1vmin);
     white-space: nowrap;
