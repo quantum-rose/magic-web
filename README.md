@@ -22,3 +22,4 @@
 1. [色彩空间](http://cuihaojie.top/magic-web/color-space/)
 2. [饼图](http://cuihaojie.top/magic-web/%E9%A5%BC%E5%9B%BE/)
 3. [随机树](http://cuihaojie.top/magic-web/%E9%9A%8F%E6%9C%BA%E6%A0%91/)
+4. [新拟态风格计算器](http://cuihaojie.top/magic-web/%E6%96%B0%E6%8B%9F%E6%80%81%E9%A3%8E%E6%A0%BC%E8%AE%A1%E7%AE%97%E5%99%A8/)
