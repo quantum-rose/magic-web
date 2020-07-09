@@ -35,10 +35,10 @@ body {
         'number-1 number-2 number-3 add'
         'number-0 number-0 dot equal';
     grid-template-columns: repeat(4, var(--button-width));
-    grid-template-rows: repeat(6, var(--button-height));
+    grid-template-rows: calc(var(--button-height) + 4vmin) repeat(5, var(--button-height));
     box-shadow: -1vmin -1vmin 2vmin -1vmin #fff, 1vmin 1vmin 2vmin -1vmin rgba(0, 0, 0, 0.1);
     border-radius: 3vmin;
-    padding: 4vmin;
+    padding: 3vmin;
     overflow: hidden;
 }
 
@@ -56,11 +56,12 @@ body {
 }
 
 #calculator button:active {
+    font-size: 3.6vmin;
     box-shadow: -0.5vmin -0.5vmin 2vmin -0.5vmin #fff inset, 0.5vmin 0.5vmin 2vmin -0.5vmin rgba(0, 0, 0, 0.1) inset;
 }
 
 #calculator .result {
-    margin: 0 1vmin 1vmin;
+    margin: 1vmin 1vmin 3vmin;
     box-shadow: -1vmin -1vmin 2vmin -1vmin #fff inset, 1vmin 1vmin 2vmin -1vmin rgba(0, 0, 0, 0.1) inset;
     border-radius: 1vmin;
     overflow: hidden;
@@ -77,6 +78,6 @@ body {
     color: #666;
     font-size: 6.9vmin;
     font-family: Arial, Helvetica, sans-serif;
-    line-height: calc(var(--button-height) - 1vmin);
+    line-height: var(--button-height);
     white-space: nowrap;
 }

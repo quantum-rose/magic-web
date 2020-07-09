@@ -8,11 +8,14 @@ new Vue({
     },
     computed: {
         result() {
-            return this.expression === 'Infinity'
+            return this.error
                 ? '不能除以0'
                 : this.expression.replace(/\d+(\.\d*)?/g, match =>
-                      match.replace(/(?<=^\d+)(?=(\d{3})+$|(\d{3})+\.)/g, ',')
+                      match.replace(/(?<=^\d+)(?=(\d{3})+(\.\d*)?$)/g, ',')
                   );
+        },
+        error() {
+            return /Infinity|NaN/.test(this.expression);
         },
     },
     methods: {
@@ -21,21 +24,24 @@ new Vue({
         },
         toggleSign() {
             if (/\d/.test(this.expression.slice(-1))) {
-                this.expression = this.expression.replace(/\d+(\.\d*)?$/g, match => (match * -1).toFixed(10) - 0 + '');
+                this.expression = this.expression
+                    .replace(/((?<=[×÷])|\+|-|^)\d+(\.\d*)?$|[+\-]?\d(\.\d+)?e-?\d+$/, match =>
+                        this.computer(match + '*-1').replace(/^(?=\d)/, '+')
+                    )
+                    .replace(/^\+/, '');
             }
         },
         percentage() {
             if (/\d/.test(this.expression.slice(-1))) {
-                this.expression = this.expression.replace(
-                    /\d+(\.\d*)?$/g,
-                    match => (match * 0.01).toFixed(10) - 0 + ''
+                this.expression = this.expression.replace(/(?<=[+\-×÷]|^)\d+(\.\d*)?$|\d(\.\d+)?e-?\d+$/, match =>
+                    this.computer(match + '*0.01')
                 );
             }
         },
         append(character) {
-            this.expression === 'Infinity' && this.clear();
+            this.error && this.clear();
             if (character === 0) {
-                if (!/^0$|[+\-×÷]0$/.test(this.expression)) {
+                if (!/(^|[+\-×÷])0$/.test(this.expression)) {
                     this.expression += '0';
                 }
             } else if (/[1-9]/.test(character)) {
@@ -52,8 +58,8 @@ new Vue({
                 } else {
                     this.expression += character;
                 }
-            } else {
-                if (/^\d+$|[+\-×÷]\d+$/.test(this.expression)) {
+            } else if (character === '.') {
+                if (/(^|[+\-×÷])\d+$/.test(this.expression)) {
                     this.isCalculated = false;
                     this.expression += '.';
                 } else if (/[+\-×÷]/.test(this.expression.slice(-1))) {
@@ -63,9 +69,12 @@ new Vue({
         },
         calculate() {
             if (/[\d.]/.test(this.expression.slice(-1))) {
-                this.expression = eval(this.expression.replace(/×/g, '*').replace(/÷/g, '/')).toFixed(10) - 0 + '';
+                this.expression = this.computer(this.expression);
                 this.isCalculated = true;
             }
+        },
+        computer(expression) {
+            return new Function(`return  ${expression.replace(/×/g, '*').replace(/÷/g, '/')}`)().toFixed(10) - 0 + '';
         },
     },
 });
