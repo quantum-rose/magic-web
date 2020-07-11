@@ -28,7 +28,7 @@ new Vue({
                     .replace(/((?<=[×÷])|\+|-|^)\d+(\.\d*)?$|[+\-]?\d(\.\d+)?e-?\d+$/, match =>
                         this.computer(match + '*-1').replace(/^(?=\d)/, '+')
                     )
-                    .replace(/^\+/, '');
+                    .replace(/(^|(?<=[×÷]))\+/, '');
             }
         },
         percentage() {
@@ -74,7 +74,7 @@ new Vue({
             }
         },
         computer(expression) {
-            return new Function(`return  ${expression.replace(/×/g, '*').replace(/÷/g, '/')}`)().toFixed(10) - 0 + '';
+            return new Function(`return ${expression.replace(/×/g, '*').replace(/÷/g, '/')}`)().toFixed(10) - 0 + '';
         },
     },
 });
