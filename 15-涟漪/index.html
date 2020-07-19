@@ -13,82 +13,40 @@
             html,
             body {
                 height: 100%;
-                background-color: #eee;
             }
 
-            .pond {
-                height: 100%;
+            body {
+                display: flex;
+                overflow: hidden;
+            }
+
+            #pond {
+                margin: -25px;
+                width: calc(100% + 50px);
+                height: calc(100% + 50px);
                 background-image: url('./water.jpg');
                 background-size: cover;
                 background-position: center;
-                /* filter: url(#wave); */
             }
 
-            .hidden {
-                height: 0;
+            #box {
+                position: fixed;
+                right: 0;
+                bottom: 0;
+                width: 500px;
+                height: 500px;
+                background-color: #fff;
+                background-image: linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%),
+                    linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%);
+                background-size: 32px 32px;
+                background-position: 0 0, 16px 16px;
             }
         </style>
     </head>
     <body>
-        <div class="hidden">
-            <canvas id="cvs" width="612" height="612"></canvas>
+        <div id="pond"></div>
+        <div id="box"></div>
 
-            <svg
-                width="0"
-                height="0"
-                viewBox="0 0 600 600"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-                <filter id="wave" x="0" y="0" width="100%" height="100%">
-                    <feImage id="wave-img" xlink:href="" result="img">
-                        <!-- <animate
-                            attributeType="XML"
-                            attributeName="width"
-                            from="0"
-                            to="100%"
-                            dur="3s"
-                            repeatCount="indefinite"
-                        />
-                        <animate
-                            attributeType="XML"
-                            attributeName="height"
-                            from="0"
-                            to="100%"
-                            dur="3s"
-                            repeatCount="indefinite"
-                        /> -->
-                    </feImage>
-                    <feDisplacementMap
-                        in="SourceGraphic"
-                        in2="img"
-                        scale="50"
-                        xChannelSelector="R"
-                        yChannelSelector="G"
-                    >
-                        <!-- <animate
-                            attributeType="XML"
-                            attributeName="scale"
-                            from="50"
-                            to="0"
-                            dur="3s"
-                            repeatCount="indefinite"
-                        /> -->
-                    </feDisplacementMap>
-
-                    <feComposite operator="in" in2="img"></feComposite>
-                    <feComposite in2="SourceGraphic"></feComposite>
-                </filter>
-            </svg>
-        </div>
-
-        <div class="pond"></div>
-
-        <script src="./ripple-min.js"></script>
-        <script>
-            // rippleEffect(document.querySelector('.pond'));
-        </script>
         <script src="./script.js"></script>
     </body>
 </html>
