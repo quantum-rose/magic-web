@@ -1,4 +1,78 @@
-function wave(elem) {
+(function (window) {
+    class Wave {
+        constructor(elem) {
+            this.elem = elem;
+            this.id = 'wave' + Date.now();
+            this.init();
+        }
+
+        init() {
+            document.body.insertAdjacentHTML(
+                'afterbegin',
+                `<svg
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    style="position: absolute; height: 0; clip: rect(0 0 0 0);"
+                >
+                    <defs>
+                        <filter id="${this.id}">
+                            <feImage
+                                x="0"
+                                y="0"
+                                width="512"
+                                height="512"
+                                result="img"
+                                xlink:href="${this.backgroundImage}"
+                            ></feImage>
+                            <feDisplacementMap
+                                in="SourceGraphic"
+                                in2="img"
+                                scale="0"
+                                xChannelSelector="R"
+                                yChannelSelector="G"
+                                color-interpolation-filters="sRGB"
+                            ></feDisplacementMap>
+                            <feComposite operator="in" in2="img"></feComposite>
+                            <feComposite in2="SourceGraphic"></feComposite>
+                        </filter>
+                    </defs>
+                </svg>`
+            );
+            this.$feImage = document.querySelector(`#${this.id} feImage`);
+            this.$feDisplacementMap = document.querySelector(`#${this.id} feDisplacementMap`);
+
+            let clicked = false;
+            this.elem.addEventListener('click', e => {
+                if (clicked) return;
+                clicked = true;
+                this.elem.style.filter = `url(#${this.id})`;
+                let lastTime = 0;
+                let percent = 0;
+                const draw = () => {
+                    if (Date.now() - lastTime > 16) {
+                        lastTime = Date.now();
+                        percent = Math.min(percent + 0.01, 1);
+                        const size = 1920 * percent;
+                        this.$feImage.setAttribute('x', e.layerX - size / 2);
+                        this.$feImage.setAttribute('y', e.layerY - size / 2);
+                        this.$feImage.setAttribute('width', size);
+                        this.$feImage.setAttribute('height', size);
+                        this.$feDisplacementMap.setAttribute('scale', 50 * (1 - percent));
+                    }
+
+                    if (percent !== 1) {
+                        requestAnimationFrame(draw);
+                    } else {
+                        clicked = false;
+                        this.elem.style.filter = '';
+                    }
+                };
+                draw();
+            });
+        }
+    }
+
     const radius = 256;
     const cvs = document.createElement('canvas');
     cvs.width = cvs.height = radius * 2;
@@ -53,71 +127,10 @@ function wave(elem) {
     cvsCtx.fill();
     cvsCtx.restore();
 
-    const id = 'wave' + Date.now();
-    document.body.insertAdjacentHTML(
-        'afterbegin',
-        `<svg
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            style="position: absolute; height: 0; clip: rect(0 0 0 0);"
-        >
-            <defs>
-                <filter id="${id}">
-                    <feImage
-                        x="0"
-                        y="0"
-                        width="512"
-                        height="512"
-                        result="img"
-                        xlink:href="${cvs.toDataURL()}"
-                    ></feImage>
-                    <feDisplacementMap
-                        in="SourceGraphic"
-                        in2="img"
-                        scale="0"
-                        xChannelSelector="R"
-                        yChannelSelector="G"
-                        color-interpolation-filters="sRGB"
-                    ></feDisplacementMap>
-                    <feComposite operator="in" in2="img"></feComposite>
-                    <feComposite in2="SourceGraphic"></feComposite>
-                </filter>
-            </defs>
-        </svg>`
-    );
+    Wave.prototype.backgroundImage = cvs.toDataURL();
 
-    const $feImage = document.querySelector(`#${id} feImage`);
-    const $feDisplacementMap = document.querySelector(`#${id} feDisplacementMap`);
+    window.Wave = Wave;
+})(window);
 
-    let clicked = false;
-    elem.addEventListener('click', function (e) {
-        if (clicked) return;
-        clicked = true;
-        elem.style.filter = `url(#${id})`;
-        let lastTime = 0;
-        let percent = 0;
-        requestAnimationFrame(function draw() {
-            if (Date.now() - lastTime > 16) {
-                lastTime = Date.now();
-                percent = Math.min(percent + 0.01, 1);
-                const size = 1000 * percent;
-                $feImage.setAttribute('x', e.layerX - size / 2);
-                $feImage.setAttribute('y', e.layerY - size / 2);
-                $feImage.setAttribute('width', size);
-                $feImage.setAttribute('height', size);
-                $feDisplacementMap.setAttribute('scale', 50 * (1 - percent));
-            }
-
-            if (percent !== 1) {
-                requestAnimationFrame(draw);
-            } else {
-                clicked = false;
-                elem.style.filter = '';
-            }
-        });
-    });
-}
-
-wave(document.querySelector('#pond'));
-wave(document.querySelector('#box'));
+new Wave(document.querySelector('#pond'));
+new Wave(document.querySelector('#box'));
