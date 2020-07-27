@@ -1,8 +1,48 @@
-(function (window) {
+const mySwiper = new Swiper('.swiper-container', {
+    direction: 'vertical', // 垂直切换选项
+    mousewheel: true,
+    pagination: {
+        el: '.swiper-pagination',
+    },
+});
+
+(function (document) {
+    const $svg = document.querySelector('#svg');
+    const $ripple = document.querySelector('.ripple');
+    const $ripples = document.querySelector('#ripples');
+
+    $svg.addEventListener('click', function (e) {
+        const matrix = $svg.getScreenCTM().inverse();
+        const screenPoint = $svg.createSVGPoint();
+        screenPoint.x = e.clientX;
+        screenPoint.y = e.clientY;
+        const svgPoint = screenPoint.matrixTransform(matrix);
+
+        const $newRipple = $ripple.cloneNode(true);
+        $newRipple.classList.remove('ripple');
+        $newRipple.setAttribute('transform', `translate(${svgPoint.x}, ${svgPoint.y})`);
+        $ripples.appendChild($newRipple);
+
+        const $animates = $newRipple.querySelectorAll('animate');
+        let animationendCount = 0;
+        const animationend = function () {
+            if (++animationendCount == $animates.length) {
+                $newRipple.remove();
+            }
+        };
+        $animates.forEach(item => {
+            item.beginElement();
+            item.onend = animationend;
+        });
+    });
+})(document);
+
+(function (window, document) {
     class Wave {
         constructor(elem) {
             this.elem = elem;
             this.id = 'wave' + Date.now();
+            this.clicked = false;
             this.init();
         }
 
@@ -20,8 +60,8 @@
                             <feImage
                                 x="0"
                                 y="0"
-                                width="512"
-                                height="512"
+                                width="0"
+                                height="0"
                                 result="img"
                                 xlink:href="${this.backgroundImage}"
                             ></feImage>
@@ -42,10 +82,9 @@
             this.$feImage = document.querySelector(`#${this.id} feImage`);
             this.$feDisplacementMap = document.querySelector(`#${this.id} feDisplacementMap`);
 
-            let clicked = false;
             this.elem.addEventListener('click', e => {
-                if (clicked) return;
-                clicked = true;
+                if (this.clicked) return;
+                this.clicked = true;
                 this.elem.style.filter = `url(#${this.id})`;
                 let lastTime = 0;
                 let percent = 0;
@@ -53,9 +92,9 @@
                     if (Date.now() - lastTime > 16) {
                         lastTime = Date.now();
                         percent = Math.min(percent + 0.01, 1);
-                        const size = 1920 * percent;
-                        this.$feImage.setAttribute('x', e.layerX - size / 2);
-                        this.$feImage.setAttribute('y', e.layerY - size / 2);
+                        const size = 1000 * percent;
+                        this.$feImage.setAttribute('x', e.offsetX - size / 2);
+                        this.$feImage.setAttribute('y', e.offsetY - size / 2);
                         this.$feImage.setAttribute('width', size);
                         this.$feImage.setAttribute('height', size);
                         this.$feDisplacementMap.setAttribute('scale', 50 * (1 - percent));
@@ -64,7 +103,7 @@
                     if (percent !== 1) {
                         requestAnimationFrame(draw);
                     } else {
-                        clicked = false;
+                        this.clicked = false;
                         this.elem.style.filter = '';
                     }
                 };
@@ -130,7 +169,7 @@
     Wave.prototype.backgroundImage = cvs.toDataURL();
 
     window.Wave = Wave;
-})(window);
+})(window, document);
 
 new Wave(document.querySelector('#pond'));
 new Wave(document.querySelector('#box'));

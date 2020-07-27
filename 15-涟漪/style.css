@@ -1,0 +1,57 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    overflow: hidden;
+}
+
+.swiper-pagination {
+    padding: 4px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.65);
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 1);
+}
+
+.swiper-pagination-bullet {
+    background-color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #fff;
+    box-shadow: 0 0 4px 2px rgba(255, 255, 255, 0.5);
+}
+
+#pond {
+    margin: -25px;
+    width: calc(100% + 50px);
+    height: calc(100% + 50px);
+    background-image: url('./water.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+#box {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 500px;
+    height: 500px;
+    background-color: #fff;
+    background-image: linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%),
+        linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%);
+    background-size: 32px 32px;
+    background-position: 0 0, 16px 16px;
+}
