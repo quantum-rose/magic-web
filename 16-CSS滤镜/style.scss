@@ -13,17 +13,24 @@ body {
     height: 100%;
 }
 
+.d-flex {
+    display: flex;
+}
+
 .filter {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
     padding: 15px;
-    width: 1200px;
     font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
 
     .deer {
         width: 25vw;
-        margin-bottom: 1vw;
+        height: 25vw / 1024 * 954;
+        min-width: calc(320px + 5em);
+        min-height: calc((320px + 5em) / 1024 * 954);
+        margin-bottom: 15px;
     }
 
     .input-item {
@@ -33,21 +40,77 @@ body {
         .label {
             margin-right: 1em;
             width: 4em;
-            line-height: 1.5;
+            line-height: 2;
             text-align-last: justify;
             font-weight: 700;
         }
 
         input {
-            margin-right: 1em;
-            width: calc(25vw - 6em);
+            margin: 0;
+            width: calc(25vw - 5em);
+            min-width: 320px;
+            font-size: 16px;
+
+            &[type='range'],
+            &[type='color'],
+            &[type='number']::-webkit-inner-spin-button {
+                cursor: pointer;
+            }
+
+            &[type='range']::-webkit-slider-thumb {
+                cursor: grab;
+            }
+
+            &[type='range']:active::-webkit-slider-thumb {
+                cursor: grabbing;
+            }
         }
 
-        &.drop-shadow input {
-            margin-right: 0.95em;
-            width: 3vw;
+        .code {
+            margin-left: 1em;
+            padding: 0.25em 0.75em;
+            border-radius: 0.25em;
+            line-height: 1.5;
+            color: #ffffff;
+            font-size: 12px;
+            letter-spacing: 1px;
+            background-color: #282c34;
         }
     }
+
+    .drop-shadow {
+        .params {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: calc(25vw - 5em);
+            min-width: 320px;
+
+            & > * {
+                display: inline-flex;
+                align-items: center;
+            }
+
+            .param {
+                margin-right: 0.3em;
+                font-size: 14px;
+            }
+
+            input {
+                width: 3vw;
+                min-width: 48px;
+                font-size: 12px;
+            }
+
+            .drop-shadow-color input {
+                margin-right: 0;
+            }
+        }
+    }
+}
+
+.blend-mode {
+    width: 50%;
 }
 
 .box {
