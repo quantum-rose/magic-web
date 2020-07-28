@@ -19,7 +19,6 @@ const mySwiper = new Swiper('.swiper-container', {
         const svgPoint = screenPoint.matrixTransform(matrix);
 
         const $newRipple = $ripple.cloneNode(true);
-        $newRipple.classList.remove('ripple');
         $newRipple.setAttribute('transform', `translate(${svgPoint.x}, ${svgPoint.y})`);
         $ripples.appendChild($newRipple);
 
@@ -31,8 +30,8 @@ const mySwiper = new Swiper('.swiper-container', {
             }
         };
         $animates.forEach(item => {
-            item.beginElement();
             item.onend = animationend;
+            item.beginElement();
         });
     });
 })(document);
