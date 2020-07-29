@@ -10,50 +10,25 @@
     <body>
         <div id="app">
             <swiper class="swiper" ref="mySwiper" :options="swiperOptions">
+                <!-- 滤镜 -->
                 <swiper-slide class="d-flex">
                     <div class="filter">
                         <img src="./img/deer.jpg" alt="deer" class="deer" :style="{filter: filterStyle}" />
                         <div class="input-group">
                             <div class="body swiper-no-swiping">
-                                <div class="input-item blur">
-                                    <div class="label">高斯模糊</div>
-                                    <input
-                                        type="range"
-                                        name="blur"
-                                        id="blur"
-                                        v-model.number="blur"
-                                        min="0"
-                                        max="20"
-                                        step="1"
-                                    />
-                                    <div class="code" v-text="`blur(${blur}px)`"></div>
-                                </div>
-                                <div class="input-item brightness">
-                                    <div class="label">亮度</div>
-                                    <input
-                                        type="range"
-                                        name="brightness"
-                                        id="brightness"
-                                        v-model.number="brightness"
-                                        min="0"
-                                        max="2"
-                                        step="0.01"
-                                    />
-                                    <div class="code" v-text="`brightness(${brightness})`"></div>
-                                </div>
-                                <div class="input-item contrast">
-                                    <div class="label">对比度</div>
-                                    <input
-                                        type="range"
-                                        name="contrast"
-                                        id="contrast"
-                                        v-model.number="contrast"
-                                        min="0"
-                                        max="6"
-                                        step="0.01"
-                                    />
-                                    <div class="code" v-text="`contrast(${contrast})`"></div>
-                                </div>
+                                <template v-for="(item, index) in filterRange">
+                                    <div class="input-item blur">
+                                        <div class="label" v-text="item.label"></div>
+                                        <input
+                                            type="range"
+                                            v-model.number="item.value"
+                                            :min="item.min"
+                                            :max="item.max"
+                                            :step="item.step"
+                                        />
+                                        <div class="code" v-text="filterCode[index]"></div>
+                                    </div>
+                                </template>
                                 <div class="input-item drop-shadow">
                                     <div class="label">投影</div>
                                     <div class="params">
@@ -79,89 +54,61 @@
                                         v-text="`drop-shadow(${dropShadow.x}px ${dropShadow.y}px ${dropShadow.blur}px ${dropShadow.color})`"
                                     ></div>
                                 </div>
-                                <div class="input-item grayscale">
-                                    <div class="label">灰度</div>
-                                    <input
-                                        type="range"
-                                        name="grayscale"
-                                        id="grayscale"
-                                        v-model.number="grayscale"
-                                        min="0"
-                                        max="1"
-                                        step="0.01"
-                                    />
-                                    <div class="code" v-text="`grayscale(${grayscale})`"></div>
-                                </div>
-                                <div class="input-item hue-rotate">
-                                    <div class="label">色相旋转</div>
-                                    <input
-                                        type="range"
-                                        name="hueRotate"
-                                        id="hueRotate"
-                                        v-model.number="hueRotate"
-                                        min="0"
-                                        max="360"
-                                        step="1"
-                                    />
-                                    <div class="code" v-text="`hue-rotate(${hueRotate}deg)`"></div>
-                                </div>
-                                <div class="input-item invert">
-                                    <div class="label">反色</div>
-                                    <input
-                                        type="range"
-                                        name="invert"
-                                        id="invert"
-                                        v-model.number="invert"
-                                        min="0"
-                                        max="1"
-                                        step="0.01"
-                                    />
-                                    <div class="code" v-text="`invert(${invert})`"></div>
-                                </div>
-                                <div class="input-item opacity">
-                                    <div class="label">透明度</div>
-                                    <input
-                                        type="range"
-                                        name="opacity"
-                                        id="opacity"
-                                        v-model.number="opacity"
-                                        min="0"
-                                        max="1"
-                                        step="0.01"
-                                    />
-                                    <div class="code" v-text="`opacity(${opacity})`"></div>
-                                </div>
-                                <div class="input-item saturate">
-                                    <div class="label">饱和度</div>
-                                    <input
-                                        type="range"
-                                        name="saturate"
-                                        id="saturate"
-                                        v-model.number="saturate"
-                                        min="0"
-                                        max="20"
-                                        step="0.01"
-                                    />
-                                    <div class="code" v-text="`saturate(${saturate})`"></div>
-                                </div>
-                                <div class="input-item sepia">
-                                    <div class="label">泛黄</div>
-                                    <input
-                                        type="range"
-                                        name="sepia"
-                                        id="sepia"
-                                        v-model.number="sepia"
-                                        min="0"
-                                        max="1"
-                                        step="0.01"
-                                    />
-                                    <div class="code" v-text="`sepia(${sepia})`"></div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </swiper-slide>
-                <swiper-slide>123</swiper-slide>
+
+                <!-- 混合模式 -->
+                <swiper-slide class="d-flex">
+                    <div class="blend-mode">
+                        <div class="img-group">
+                            <div class="mix-blend-mode">
+                                <div class="img">
+                                    <img src="./img//bg.png" alt="color" />
+                                    <img
+                                        src="./img/deer.jpg"
+                                        alt="deer"
+                                        class="deer"
+                                        :style="{mixBlendMode: blendMode}"
+                                    />
+                                </div>
+                                <div class="code" v-text="`mix-blend-mode: ${blendMode}`"></div>
+                            </div>
+                            <div class="background-blend-mode">
+                                <div class="img" :style="{backgroundBlendMode: blendMode}"></div>
+                                <div class="code" v-text="`background-blend-mode: ${blendMode}`"></div>
+                            </div>
+                        </div>
+                        <div class="input-group swiper-no-swiping">
+                            <label v-for="item in blendModeRadio" :key="item.value" class="input-item">
+                                <input type="radio" name="blendMode" :value="item.value" v-model="blendMode" />
+                                <div class="label" :data-label="item.label + ' ' + item.value"></div>
+                            </label>
+                        </div>
+                    </div>
+                </swiper-slide>
+
+                <!-- 艺术效果 -->
+                <swiper-slide class="art">
+                    <div class="deer normal"></div>
+                    <div class="deer pencil"></div>
+                    <div class="deer color-pencil"></div>
+                    <div class="deer chalk"></div>
+                    <div class="deer color-chalk"></div>
+                    <div class="deer relief"></div>
+                </swiper-slide>
+
+                <!-- 水墨画 -->
+                <swiper-slide class="d-flex shuimo">
+                    <div class="img">
+                        <div class="layer layer-1"></div>
+                        <div class="layer layer-2"></div>
+                        <div class="layer layer-3"></div>
+                        <div class="layer layer-4"></div>
+                        <div class="layer layer-5"></div>
+                    </div>
+                </swiper-slide>
                 <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
         </div>
