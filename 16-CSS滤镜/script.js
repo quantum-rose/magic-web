@@ -11,7 +11,7 @@ new Vue({
     data: {
         swiperOptions: {
             initialSlide: isNaN(initialSlide) ? 0 : initialSlide,
-            direction: 'vertical', // 垂直切换选项
+            direction: 'vertical',
             mousewheel: true,
             pagination: {
                 el: '.swiper-pagination',

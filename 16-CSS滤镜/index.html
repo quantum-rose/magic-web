@@ -16,19 +16,17 @@
                         <img src="./img/deer.jpg" alt="deer" class="deer" :style="{filter: filterStyle}" />
                         <div class="input-group">
                             <div class="body swiper-no-swiping">
-                                <template v-for="(item, index) in filterRange">
-                                    <div class="input-item blur">
-                                        <div class="label" v-text="item.label"></div>
-                                        <input
-                                            type="range"
-                                            v-model.number="item.value"
-                                            :min="item.min"
-                                            :max="item.max"
-                                            :step="item.step"
-                                        />
-                                        <div class="code" v-text="filterCode[index]"></div>
-                                    </div>
-                                </template>
+                                <div v-for="(item, index) in filterRange" class="input-item blur">
+                                    <div class="label" v-text="item.label"></div>
+                                    <input
+                                        type="range"
+                                        v-model.number="item.value"
+                                        :min="item.min"
+                                        :max="item.max"
+                                        :step="item.step"
+                                    />
+                                    <div class="code" v-text="filterCode[index]"></div>
+                                </div>
                                 <div class="input-item drop-shadow">
                                     <div class="label">投影</div>
                                     <div class="params">
