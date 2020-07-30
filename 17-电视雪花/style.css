@@ -1,0 +1,482 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    margin: 0;
+}
+
+.wrapper {
+    position: relative;
+    margin: auto;
+    width: 46vw;
+    height: 30vw;
+    perspective: 100vw;
+}
+
+.antenna {
+    position: absolute;
+    bottom: calc(100% - 0.3vw);
+    right: 4vw;
+    width: 0.5vw;
+    height: 12vw;
+    border-radius: 0.1vw;
+    background-image: linear-gradient(to right, rgb(160, 160, 160), rgb(233, 233, 233), rgb(192, 192, 192));
+    transform-origin: bottom center;
+    transform: rotate(-77.5deg);
+    box-shadow: 0 -0.2vw 0.1vw -0.1vw #000;
+}
+
+.antenna::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 0.05vw;
+    width: 0.4vw;
+    height: 13.5vw;
+    border-radius: 0.1vw;
+    background-image: linear-gradient(to right, rgb(160, 160, 160), rgb(233, 233, 233), rgb(192, 192, 192));
+    box-shadow: 0 -0.2vw 0.1vw -0.1vw #000;
+}
+
+.antenna::after {
+    content: '';
+    position: absolute;
+    bottom: calc(100% + 13.5vw);
+    left: 0.1vw;
+    width: 0.3vw;
+    height: 11vw;
+    border-radius: 0.15vw;
+    background-image: linear-gradient(to right, rgb(160, 160, 160), rgb(233, 233, 233), rgb(192, 192, 192));
+}
+
+.tv-border {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 3vw;
+    padding: 0.25vw;
+    background-image: linear-gradient(135deg, rgb(222, 222, 222) 25%, rgb(243, 243, 243) 30%, rgb(222, 222, 222) 35%);
+    box-shadow: 0 0 0.1vw 0 #222;
+}
+
+.tv-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 3vw;
+    background-image: linear-gradient(to right, hsl(353, 36%, 49%) 66%, hsl(353, 36%, 60%) 66%);
+    background-size: 1vw;
+    box-shadow: 0 0 2vw 0.2vw rgba(0, 0, 0, 0.7) inset;
+    overflow: hidden;
+}
+
+.screen-wrapper {
+    position: absolute;
+    top: 1vw;
+    left: 1vw;
+    width: 34vw;
+    height: 27.5vw;
+    border-radius: 5vw;
+    padding: 0.25vw;
+    background-image: linear-gradient(135deg, rgb(200, 200, 200) 25%, rgb(222, 222, 222) 30%, rgb(200, 200, 200) 35%);
+    box-shadow: 0 0 1vw 0.02vw #222;
+}
+
+.screen-border {
+    width: 100%;
+    height: 100%;
+    border-radius: 5vw;
+    padding: 1.2vw 1.5vw 0.75vw;
+    background-image: linear-gradient(140deg, #333 49%, #999 51%);
+    box-shadow: 1vw 1vw 2vw 1vw #222 inset, -1vw -1vw 2vw 1vw #666 inset;
+    perspective: 100vw;
+}
+
+.screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 4vw;
+    background-color: #fff;
+    box-shadow: 0 0 2vw 0.1vw #333, 0 0 8vw 2vw #111 inset;
+    transform: rotateX(-8deg);
+    overflow: hidden;
+}
+
+.screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at center, rgba(200, 200, 200, 0.5), rgba(51, 51, 51, 0.5)),
+        linear-gradient(to right, rgba(51, 51, 51, 0.5), rgba(53, 37, 37, 0) 50%);
+}
+
+#cvs {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 2vw 0.1vw #333, 0 0 8vw 2vw #111 inset;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10vw;
+    height: 100%;
+    background-color: #525053;
+    box-shadow: 0 0 1vw 0.1vw #111, 0 0 1vw 0.1vw #111 inset;
+}
+
+.panel {
+    flex: 1;
+    padding: 1.3vw 1vw 1.5vw 0.8vw;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.5), rgba(0, 0, 0, 0) 10%);
+}
+
+.panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 30%;
+    background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0) 50%);
+}
+
+.controller-wrapper {
+    z-index: 1;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 1vw;
+    background-color: #ccc;
+    box-shadow: 0 0 0.1vw rgba(0, 0, 0, 0.4), 0.5vw 1.5vw 1vw 0 rgba(0, 0, 0, 0.5);
+    padding: 0.6vw 0.6vw 0.6vw 0.6vw;
+}
+
+.controller-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.5vw;
+    background-image: linear-gradient(130deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+    box-shadow: 0.3vw 0.3vw 0.3vw 0.6vw rgba(0, 0, 0, 0.5), 0 0 0.1vw 0 rgba(0, 0, 0, 0.5) inset;
+    perspective: 30vw;
+}
+
+.controller-box::before {
+    content: '';
+    position: absolute;
+    top: 1.5vw;
+    left: 50%;
+    width: 6vw;
+    height: 20vw;
+    border-radius: 3vw;
+    background-image: linear-gradient(160deg, #555, #444);
+    transform-origin: top center;
+    transform: translate3d(-50%, 0, 0) rotateX(-45deg);
+}
+
+.controller-top-wrapper {
+    position: absolute;
+    top: 1.2vw;
+    left: 50%;
+    width: 5vw;
+    height: 5vw;
+    border-radius: 50%;
+    padding: 0.2vw;
+    transform: translate3d(-50%, 0, 0);
+    background-image: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 1) 5%,
+        rgba(168, 168, 168, 1) 30%
+    );
+    box-shadow: 0 0 0 0.3vw #555, 0.5vw 1vw 2vw 0 rgba(0, 0, 0, 0.7);
+}
+
+.controller-top-wrapper .controller {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-color: #333;
+    box-shadow: 0 0 0.2vw 0 #333;
+    overflow: hidden;
+}
+
+.controller-top-wrapper .controller::before {
+    content: '';
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0.75vw 0.75vw 1.5vw 0 #333 inset;
+}
+
+.controller-top-wrapper .controller::after {
+    content: '';
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0) rotate(35deg);
+    width: 0.5vw;
+    height: 4.4vw;
+    border-radius: 0.25vw;
+    background-image: linear-gradient(#ccc 30%, #eee 43%, #eee 66%, #666);
+}
+
+.controller-top-wrapper [class^='scale'] {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.2vw;
+    height: 3.7vw;
+    border-radius: 50%;
+    background-image: linear-gradient(rgba(204, 204, 204, 1) 15%, rgba(204, 204, 204, 0) 15% 85%, #ccc 85%);
+}
+
+.controller-top-wrapper .scale-1 {
+    transform: translate3d(-50%, -50%, 0);
+}
+
+.controller-top-wrapper .scale-2 {
+    transform: translate3d(-50%, -50%, 0) rotate(30deg);
+}
+
+.controller-top-wrapper .scale-3 {
+    transform: translate3d(-50%, -50%, 0) rotate(60deg);
+}
+
+.controller-top-wrapper .scale-4 {
+    transform: translate3d(-50%, -50%, 0) rotate(90deg);
+}
+
+.controller-top-wrapper .scale-5 {
+    transform: translate3d(-50%, -50%, 0) rotate(120deg);
+}
+
+.controller-top-wrapper .scale-6 {
+    transform: translate3d(-50%, -50%, 0) rotate(150deg);
+}
+
+.controller-bottom-wrapper {
+    position: absolute;
+    top: 10vw;
+    left: 50%;
+    width: 3.7vw;
+    height: 3.7vw;
+    border-radius: 50%;
+    padding: 0.4vw;
+    transform: translate3d(-50%, 0, 0);
+    background-image: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 1) 10%,
+        rgba(168, 168, 168, 1) 30%
+    );
+    box-shadow: 0 0 0 0.3vw #555, 0.5vw 1vw 2vw 0 rgba(0, 0, 0, 0.7);
+}
+
+.controller-bottom-wrapper .controller {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    background-color: #333;
+    box-shadow: 0 0 0.2vw 0 #333;
+    overflow: hidden;
+}
+
+.controller-bottom-wrapper .controller::before {
+    content: '';
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0.5vw 0.5vw 1vw 0 #333 inset;
+}
+
+.controller-bottom-wrapper .controller::after {
+    content: '';
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0) rotate(65deg);
+    width: 0.4vw;
+    height: 2.6vw;
+    border-radius: 0.25vw;
+    background-image: linear-gradient(#999 30%, #ccc 43%, #999 66%, #666 80%);
+}
+
+.controller-bottom-wrapper [class^='scale'] {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.2vw;
+    height: 2.5vw;
+    border-radius: 50%;
+    background-image: linear-gradient(rgba(204, 204, 204, 1) 20%, rgba(204, 204, 204, 0) 20% 80%, #ccc 80%);
+}
+
+.controller-bottom-wrapper .scale-1 {
+    transform: translate3d(-50%, -50%, 0);
+}
+
+.controller-bottom-wrapper .scale-2 {
+    transform: translate3d(-50%, -50%, 0) rotate(45deg);
+}
+
+.controller-bottom-wrapper .scale-3 {
+    transform: translate3d(-50%, -50%, 0) rotate(90deg);
+}
+
+.controller-bottom-wrapper .scale-4 {
+    transform: translate3d(-50%, -50%, 0) rotate(135deg);
+}
+
+.controller-box [class^='screw'] {
+    position: absolute;
+    width: 0.5vw;
+    height: 0.5vw;
+    border-radius: 50%;
+    box-shadow: 0.1vw 0.1vw 0.1vw 0 rgba(255, 255, 255, 0.5) inset, -0.1vw -0.1vw 0.1vw 0 rgba(0, 0, 0, 0.5) inset;
+}
+
+.screw-1 {
+    top: 0.5vw;
+    left: 0.5vw;
+}
+
+.screw-2 {
+    top: 0.5vw;
+    right: 0.5vw;
+}
+
+.screw-3 {
+    bottom: 0.5vw;
+    right: 0.5vw;
+}
+
+.screw-4 {
+    bottom: 0.5vw;
+    left: 0.5vw;
+}
+
+.speaker {
+    position: relative;
+    padding-top: 100%;
+    border-radius: 0.5vw;
+    background-image: linear-gradient(135deg, #666, #333);
+    overflow: hidden;
+}
+
+.speaker::before {
+    content: '';
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    background-image: radial-gradient(
+        circle at center,
+        #959595 0%,
+        #5c5c5c 15%,
+        #5c5c5c 16%,
+        #6a6967 26%,
+        #414141 32%,
+        #414141 33%,
+        #767779 50%,
+        #767779 51%,
+        #2a2f33 58%,
+        rgba(42, 47, 51, 1) 64%,
+        rgba(42, 47, 51, 0) 65%
+    );
+    border-radius: 50%;
+    box-shadow: 1vw 1vw 4vw 0 rgba(0, 0, 0, 0.7) inset, -1vw -1vw 2vw 0 rgba(233, 233, 233, 0.2) inset;
+}
+
+.screw {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 5%;
+    height: 5%;
+    border-radius: 50%;
+    box-shadow: 0.1vw 0.1vw 0.1vw 0 rgba(0, 0, 0, 0.5) inset, -0.1vw -0.1vw 0.1vw 0 rgba(233, 233, 233, 0.5) inset;
+}
+
+.screw::before,
+.screw::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    box-shadow: inherit;
+}
+
+.screw::before {
+    left: 1700%;
+}
+
+.screw::after {
+    top: 1700%;
+}
+
+.base {
+    z-index: -1;
+    position: absolute;
+    top: 100%;
+    left: 10%;
+    width: 80%;
+    height: 1.4vw;
+    border-radius: 0 0 1vw 1vw;
+    background-image: linear-gradient(#222, #666);
+}
+
+.base::before {
+    content: '';
+    position: absolute;
+    top: -1vw;
+    left: -2.5%;
+    width: 105%;
+    height: 2vw;
+    border-radius: 50%;
+    background-image: linear-gradient(rgb(34, 34, 34), rgba(34, 34, 34, 0)),
+        linear-gradient(to right, rgba(34, 34, 34, 1) 2.5%, rgba(34, 34, 34, 0) 2.5% 97.5%, rgba(34, 34, 34, 1) 97.5%);
+}
+
+.shadow {
+    position: absolute;
+    z-index: -2;
+    top: 60%;
+    left: 50%;
+    width: 80%;
+    height: 90%;
+    border-radius: 50%;
+    background-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4));
+    transform: translate3d(-50%, 0, 0) rotateX(97deg);
+    box-shadow: 0 0 10vw 0 rgba(0, 0, 0);
+}
