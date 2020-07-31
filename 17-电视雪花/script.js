@@ -45,11 +45,11 @@ function drawNoise() {
 }
 
 function drawText() {
-    cvsCtx.fillStyle = '#000';
+    cvsCtx.fillStyle = '#000000';
     cvsCtx.fillRect(0, 0, w, h);
 
     cvsCtx.fillStyle = '#ffffff';
-    cvsCtx.font = `bold ${fontSize}px    Helvetica`;
+    cvsCtx.font = `bold ${fontSize}px Helvetica`;
     cvsCtx.textAlign = 'center';
     cvsCtx.textBaseline = 'middle';
 
@@ -67,12 +67,9 @@ function drawText() {
 function drawStripe() {
     cvsCtx.beginPath();
     const f = cvsCtx.createLinearGradient(0, -stripeOffset, 0, 2 * h - stripeOffset);
-    for (let i = 0; i <= 256; i++) {
-        if (i % 2 === 0) {
-            f.addColorStop(i / 256, 'rgba(255, 255, 255, 0.1)');
-        } else {
-            f.addColorStop(i / 256, 'rgba(255, 255, 255, 0)');
-        }
+    for (let i = 0; i < 256; i += 2) {
+        f.addColorStop(i / 256, 'rgba(255, 255, 255, 0.1)');
+        f.addColorStop((i + 1) / 256, 'rgba(255, 255, 255, 0)');
     }
     cvsCtx.fillStyle = f;
     cvsCtx.fillRect(0, 0, w, h);
