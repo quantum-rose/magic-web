@@ -12,16 +12,16 @@ function intRandom(start, end) {
     return Math.round(Math.random() * (end - start) + start);
 }
 
-let w = ($cvs.width = $cvs.offsetWidth);
-let h = ($cvs.height = $cvs.offsetHeight);
+let w = ($cvs.width = $cvs.offsetWidth * window.devicePixelRatio);
+let h = ($cvs.height = $cvs.offsetHeight * window.devicePixelRatio);
 let fontSize = w / 4;
 let textOffset = w / 100;
 let stripeOffset = 0;
 let cutLine;
 
 window.addEventListener('resize', function () {
-    w = $cvs.width = $cvs.offsetWidth;
-    h = $cvs.height = $cvs.offsetHeight;
+    w = $cvs.width = $cvs.offsetWidth * window.devicePixelRatio;
+    h = $cvs.height = $cvs.offsetHeight * window.devicePixelRatio;
     fontSize = w / 4;
     textOffset = w / 100;
 });
