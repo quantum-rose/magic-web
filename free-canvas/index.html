@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+        />
+        <title>参数方程</title>
+        <style>
+            html,
+            body {
+                height: 100%;
+            }
+
+            body {
+                margin: 0;
+                overflow: hidden;
+            }
+
+            #cvs {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                cursor: grab;
+            }
+
+            #cvs:active {
+                cursor: grabbing;
+            }
+
+            .reset {
+                position: fixed;
+                bottom: 30px;
+                right: 30px;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: #fff;
+                background-image: radial-gradient(
+                        closest-side at center,
+                        rgba(0, 0, 0, 1) 6px,
+                        rgba(255, 255, 255, 1) 7px,
+                        rgba(255, 255, 255, 1) 12px,
+                        rgba(0, 0, 0, 0) 13px,
+                        rgba(0, 0, 0, 0) 15px,
+                        rgba(0, 0, 0, 1) 16px,
+                        rgba(0, 0, 0, 1) 17px,
+                        rgba(0, 0, 0, 0) 18px
+                    ),
+                    linear-gradient(
+                        rgba(0, 0, 0, 0) 19px,
+                        rgba(0, 0, 0, 1) 20px,
+                        rgba(0, 0, 0, 1) 21px,
+                        rgba(0, 0, 0, 0) 22px
+                    ),
+                    linear-gradient(
+                        to right,
+                        rgba(0, 0, 0, 0) 19px,
+                        rgba(0, 0, 0, 1) 20px,
+                        rgba(0, 0, 0, 1) 21px,
+                        rgba(0, 0, 0, 0) 22px
+                    );
+                cursor: pointer;
+                transition: transform 0.2s ease-out;
+            }
+
+            .reset:hover {
+                transform: scale(1.1);
+            }
+        </style>
+    </head>
+    <body>
+        <canvas id="cvs"></canvas>
+
+        <div class="reset"></div>
+
+        <script src="./script.js" type="module"></script>
+    </body>
+</html>
