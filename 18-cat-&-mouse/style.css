@@ -1,0 +1,89 @@
+:root {
+    --cat-width: 20vw;
+    --ear-width: 30%;
+    --eye-bottom: 80%;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    position: relative;
+    margin: 0;
+}
+
+.cat {
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - var(--cat-width) / 2);
+    width: var(--cat-width);
+    height: var(--cat-width);
+}
+
+.head {
+    position: absolute;
+    bottom: 65%;
+    left: 22.5%;
+    width: 55%;
+    height: 50%;
+    background-color: #000;
+    border-radius: 50% / 60% 60% 40% 40%;
+}
+
+.ear-l {
+    position: absolute;
+    bottom: 90%;
+    right: 50%;
+    width: var(--ear-width);
+    height: 30%;
+    background-color: #000;
+    border-radius: 0 100% 0 30% / 0 30% 0 100%;
+}
+
+.ear-r {
+    position: absolute;
+    bottom: 90%;
+    left: 50%;
+    width: var(--ear-width);
+    height: 30%;
+    background-color: #000;
+    border-radius: 100% 0 30% 0 / 30% 0 100% 0;
+}
+
+.body {
+    position: absolute;
+    bottom: -1%;
+    left: 27.5%;
+    width: 45%;
+    height: 70%;
+    background-color: #000;
+    border-radius: 50% / 80% 80% 20% 20%;
+}
+
+.eye-l {
+    position: absolute;
+    left: 27.5%;
+    bottom: var(--eye-bottom);
+    width: 20%;
+    height: 20%;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.eye-r {
+    position: absolute;
+    left: 52.5%;
+    bottom: var(--eye-bottom);
+    width: 20%;
+    height: 20%;
+    background-color: #fff;
+    border-radius: 50%;
+}
