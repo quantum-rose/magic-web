@@ -18,14 +18,12 @@
 14. [流动的水](http://cuihaojie.top/magic-web/14-%E6%B5%81%E5%8A%A8%E7%9A%84%E6%B0%B4/)
 15. [涟漪](http://cuihaojie.top/magic-web/15-%E6%B6%9F%E6%BC%AA/)
 16. [CSS 滤镜](http://cuihaojie.top/magic-web/16-CSS%E6%BB%A4%E9%95%9C/)
-17. [故障电视](http://cuihaojie.top/magic-web/17-%E7%94%B5%E8%A7%86%E9%9B%AA%E8%8A%B1/)
+17. [故障电视](http://cuihaojie.top/magic-web/17-%E6%95%85%E9%9A%9C%E7%94%B5%E8%A7%86/)
 
 ### SP
 
-1. [color-space](http://cuihaojie.top/magic-web/color-space/)
-2. [饼图](http://cuihaojie.top/magic-web/%E9%A5%BC%E5%9B%BE/)
-3. [随机树](http://cuihaojie.top/magic-web/%E9%9A%8F%E6%9C%BA%E6%A0%91/)
-4. [新拟态风格计算器](http://cuihaojie.top/magic-web/%E6%96%B0%E6%8B%9F%E6%80%81%E9%A3%8E%E6%A0%BC%E8%AE%A1%E7%AE%97%E5%99%A8/)
-5. [free-canvas](http://cuihaojie.top/magic-web/free-canvas/)：一个可以自由拖拽与缩放的画布
-
-<iframe src="http://cuihaojie.top/magic-web/free-canvas" width="480" height="270"></iframe>
+1. [Color Space](http://cuihaojie.top/magic-web/sp-01-color-space/)：一个使用 RGB 作为坐标的彩色立方体
+2. [Pie Charts 饼图](http://cuihaojie.top/magic-web/sp-02-pie-charts/)：4 种绘制饼图的方法
+3. [Random Tree 随机树](http://cuihaojie.top/magic-web/sp-03-random-tree/)：绘制一棵随机生长的二叉树，会开花的
+4. [Neumorphism Calculator 新拟态风格计算器](http://cuihaojie.top/magic-web/sp-04-neumorphism-calculator/)：使用横向滚动查看超出显示区域外的数字
+5. [Free Canvas](http://cuihaojie.top/magic-web/sp-05-free-canvas/)：一个可以自由拖拽与缩放的画布，此外还尝试了使用参数方程来绘制不同的曲线
