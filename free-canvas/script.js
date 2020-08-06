@@ -51,16 +51,25 @@ bindWheelEvent($cvs, function (e, dir) {
     mouseX = e.offsetX - offsetX;
     mouseY = offsetY - e.offsetY;
 
+    /**
+     * 设鼠标当前相对画布原点的坐标为 a(x, y)
+     * 则画布缩放n倍后的坐标为 b(nx, ny)
+     * 缩放后的水平偏移为 (n-1)x，竖直偏移为 (n-1)y
+     * 将画布平移相同的距离，即可在视觉效果上实现以鼠标为中心的缩放
+     * 因为在这个例子中，我将画布的纵轴上下翻转了
+     * 所以 (n-1)y 小于0时平移的方向是向下的
+     * 但画布的平移变换大于0才是向下的，两者的符号相反
+     */
     if (dir && zoom > 0.1) {
-        zoom *= 0.9;
-        offsetX += mouseX - mouseX * 0.9;
-        offsetY += mouseY * 0.9 - mouseY;
+        zoom *= 0.8;
+        offsetX += mouseX * 0.2;
+        offsetY -= mouseY * 0.2;
     }
 
     if (!dir && zoom < 100) {
-        zoom /= 0.9;
-        offsetX += mouseX - mouseX / 0.9;
-        offsetY += mouseY / 0.9 - mouseY;
+        zoom *= 1.25;
+        offsetX -= mouseX * 0.25;
+        offsetY += mouseY * 0.25;
     }
 });
 
