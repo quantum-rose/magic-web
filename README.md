@@ -19,6 +19,7 @@
 15. [Ripple 涟漪](http://cuihaojie.top/magic-web/15-ripple/)
 16. [CSS Filter & Mixed Mode 滤镜与混合模式](http://cuihaojie.top/magic-web/16-CSS-filter-&-mixed-mode/)
 17. [Broken TV 故障电视 📺](http://cuihaojie.top/magic-web/17-broken-TV/)
+18. [Cat🐱 & Mouse🐀](http://cuihaojie.top/magic-web/18-cat-&-mouse/)
 
 ### SP
 
