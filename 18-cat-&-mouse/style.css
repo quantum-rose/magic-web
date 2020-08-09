@@ -219,7 +219,7 @@ body {
 
 .eye-l:hover::before,
 .eye-r:hover::before {
-    height: 100%;
+    height: calc(100% + 1px);
     border-radius: 0 0 50% 50% / 0 0 30% 30%;
 }
 
