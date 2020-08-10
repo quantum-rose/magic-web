@@ -1,0 +1,71 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+.virtual-list {
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+    background-color: rgba(241, 241, 241, 1);
+    overflow-y: scroll;
+}
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.list > li {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 120px;
+}
+
+.list > li .container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 105px;
+    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.list > li .container .img {
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 85px;
+    height: 85px;
+    background-color: rgba(241, 241, 241, 1);
+}
+
+.list > li .container .text {
+    flex: 1;
+    margin-right: 20px;
+    text-align: right;
+    font-size: 60px;
+    color: #999;
+}
+
+nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+}
