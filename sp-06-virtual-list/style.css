@@ -42,12 +42,12 @@ body {
     align-items: center;
     width: 100%;
     height: 105px;
+    padding: 10px;
     border-radius: 8px;
     background-color: rgba(255, 255, 255, 1);
 }
 
 .list > li .container .img {
-    margin-left: 10px;
     margin-right: 10px;
     width: 85px;
     height: 85px;
@@ -56,16 +56,35 @@ body {
 
 .list > li .container .text {
     flex: 1;
-    margin-right: 20px;
+    height: 100%;
     text-align: right;
     font-size: 60px;
-    color: #999;
+}
+
+.list > li .container .text input {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-bottom: 2px solid rgba(241, 241, 241, 1);
+    outline: none;
+    padding: 0 10px;
+    font-size: 60px;
+    line-height: 1;
+    color: rgba(187, 187, 187, 1);
+    text-align: right;
+}
+
+.list > li .container .text input::placeholder {
+    line-height: 1.4;
+    color: rgba(187, 187, 187, 1);
 }
 
 nav {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 50%;
+    min-width: 320px;
     padding: 15px;
 }
