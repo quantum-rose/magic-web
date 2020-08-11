@@ -1,0 +1,22 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    margin: 0;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.box {
+    margin: auto;
+    overflow: hidden;
+}
