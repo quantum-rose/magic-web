@@ -28,3 +28,4 @@
 3. [Random Tree 随机树 🌳](http://cuihaojie.top/magic-web/sp-03-random-tree/)：绘制一棵随机生长的二叉树，会开花的
 4. [Neumorphism Calculator 新拟态风格计算器](http://cuihaojie.top/magic-web/sp-04-neumorphism-calculator/)：使用横向滚动查看超出显示区域外的数字
 5. [Free Canvas](http://cuihaojie.top/magic-web/sp-05-free-canvas/)：一个可以自由拖拽与缩放的画布，此外还尝试了使用参数方程来绘制不同的曲线
+6. [Virtual List 虚拟列表](http://cuihaojie.top/magic-web/sp-06-virtual-list/)：只显示可视区域内的列表项，以解决长列表的性能问题
