@@ -8,7 +8,7 @@ class Puzzle {
     set images(val) {
         this._images = val;
         this._imageIndex = 0;
-        this._setAllPiecesStyle();
+        this._changeBackgroundImage();
     }
 
     _imageIndex = 0;
@@ -17,25 +17,25 @@ class Puzzle {
     }
     set imageIndex(val) {
         this._imageIndex = val;
-        this._setAllPiecesStyle();
+        this._changeBackgroundImage();
     }
 
     constructor(elem, width, height, images = [], piecesNum = 160, levels = 8) {
         this.elem = elem;
-        this.id = parseInt(Math.random() * (0xffffffff - 0xfffffff) + 0xfffffff).toString(16);
-        elem.dataset[this.id] = '';
+        const id = (this.id = parseInt(Math.random() * (0xffffffff - 0xfffffff) + 0xfffffff).toString(16));
+        elem.dataset[id] = '';
         elem.style.position = 'relative';
         elem.style.top = '0';
         elem.style.left = '0';
         elem.style.opacity = '0';
 
-        this.$style = document.createElement('style');
-        document.head.append(this.$style);
+        this.$backgroundImage = document.createElement('style');
+        document.head.append(this.$backgroundImage);
 
         this.width = width;
-        elem.style.width = width + 'px';
+        this.maxOffsetX = width / 20;
         this.height = height;
-        elem.style.height = height + 'px';
+        this.maxOffsetY = height / 20;
 
         this.images = images;
         this._preload();
@@ -46,28 +46,34 @@ class Puzzle {
         this.cx = width / 2;
         this.cy = height / 2;
 
-        const $keyframes = document.createElement('style');
-        $keyframes.innerText = this._compressCss(`
-            [data-${this.id}].in > * {
-                animation: in-${this.id} 0.5s ease-out backwards;
+        const $style = document.createElement('style');
+        $style.innerText = this._compressCss(`
+            [data-${id}] > * {
+                background-size: ${width}px ${height}px;
+                background-repeat: no-repeat;
+                position: absolute;
+                box-shadow: 0 0 20px 6px rgba(0, 0, 0, 0.4);
             }
-            [data-${this.id}].out > * {
-                animation: out-${this.id} 0.5s ease-out forwards;
+            [data-${id}].in > * {
+                animation: in-${id} 0.3s ease-out backwards;
             }
-            @keyframes in-${this.id} {
+            [data-${id}].out > * {
+                animation: out-${id} 0.3s ease-out forwards;
+            }
+            @keyframes in-${id} {
                 from {
                     opacity: 0;
-                    transform: translate3d(${-width}px, 0, 0) scale(0);
+                    transform: translate3d(${-width}px, 0, 0) scale(1, 0);
                 }
             }
-            @keyframes out-${this.id} {
+            @keyframes out-${id} {
                 to {
                     opacity: 0;
-                    transform: translate3d(${width}px, 0, 0) scale(0);
+                    transform: translate3d(${width}px, 0, 0) scale(1, 0);
                 }
             }
         `);
-        document.head.append($keyframes);
+        document.head.append($style);
     }
 
     init() {
@@ -84,11 +90,9 @@ class Puzzle {
         }
 
         let isClicked = false;
-        let clickCount = 0;
         elem.addEventListener('click', () => {
             if (!isClicked) {
                 isClicked = true;
-                clickCount++;
                 elem.classList.add('out');
             }
         });
@@ -98,7 +102,7 @@ class Puzzle {
             if (animatedCount === piecesNum) {
                 animatedCount = 0;
                 if (elem.classList.contains('out')) {
-                    this.imageIndex = clickCount % images.length;
+                    this.imageIndex = (this.imageIndex + 1) % images.length;
                     this.reset();
                     requestAnimationFrame(() => {
                         elem.classList.remove('out');
@@ -112,11 +116,11 @@ class Puzzle {
         });
     }
 
-    parallax(offsetX, offsetY) {
-        const { levels, piecesNum } = this;
+    parallax(offsetXRatio, offsetYRatio) {
+        const { maxOffsetX, maxOffsetY, levels, piecesNum } = this;
         this.pieces.forEach((piece, i) => {
-            piece.translateX = offsetX * (piece.zIndex / levels + i / piecesNum); // 层级越高、索引越大，偏移量越大
-            piece.translateY = offsetY * (piece.zIndex / levels + i / piecesNum);
+            piece.translateX = offsetXRatio * maxOffsetX * (piece.zIndex / levels + i / piecesNum); // 层级越高、索引越大，偏移量越大
+            piece.translateY = offsetYRatio * maxOffsetY * (piece.zIndex / levels + i / piecesNum);
             piece.elem.style.transform = `translate3d(${piece.translateX}px,${piece.translateY}px,0)`;
         });
     }
@@ -125,14 +129,10 @@ class Puzzle {
         this.pieces.forEach(this._setPieceStyle.bind(this));
     }
 
-    _setAllPiecesStyle() {
-        this.$style.innerText = this._compressCss(`
+    _changeBackgroundImage() {
+        this.$backgroundImage.innerText = this._compressCss(`
             [data-${this.id}] > * {
                 background-image: url(${this.images[this.imageIndex]});
-                background-size: ${this.width}px ${this.height}px;
-                background-repeat: no-repeat;
-                position: absolute;
-                box-shadow: 0 0 20px 6px rgba(0, 0, 0, 0.4);
             }
         `);
     }
@@ -152,11 +152,11 @@ class Puzzle {
 
         const radiusRandom = Math.random();
         const rad = Math.random() * Math.PI * 2; // 随机的角度，碎片将分布在容器的内切椭圆中
-        const left = (piece.left = cx + cx * ((radiusRandom + zIndex - 1) / levels) * Math.cos(rad) - width / 2); // 层级越高，距离中心越远
-        const top = (piece.top = cy + cy * ((radiusRandom + zIndex - 1) / levels) * Math.sin(rad) - height / 2);
+        const left = (piece.left = cx * ((radiusRandom + zIndex - 1) / levels) * Math.cos(rad) - width / 2); // 层级越高，距离中心越远
+        const top = (piece.top = cy * ((radiusRandom + zIndex - 1) / levels) * Math.sin(rad) - height / 2);
         style.left = left + 'px';
         style.top = top + 'px';
-        style.backgroundPosition = `${-left}px ${-top}px`;
+        style.backgroundPosition = `${-left - cx}px ${-top - cy}px`;
         style.animationDelay = (Math.random() + i / piecesNum) * 0.5 + 's';
     }
 
@@ -174,6 +174,11 @@ class Puzzle {
             if (loadedCount === this.images.length) {
                 this.elem.style.transition = 'opacity 0.2s linear';
                 this.elem.style.opacity = '1';
+                this.elem.addEventListener('transitionend', function ontransitionend() {
+                    this.style.transition = '';
+                    this.style.opacity = '';
+                    this.removeEventListener('transitionend', ontransitionend);
+                });
             }
         };
         this.images.forEach(image => {
@@ -190,8 +195,9 @@ const puzzle = new Puzzle(document.querySelector('.box'), size, size, [
     './img/bg2.jpg',
     './img/bg3.jpg',
 ]);
+puzzle.imageIndex = Date.now() % 3;
 puzzle.init();
 
 window.addEventListener('mousemove', function (e) {
-    puzzle.parallax((window.innerWidth / 2 - e.clientX) / 10, (window.innerHeight / 2 - e.clientY) / 10);
+    puzzle.parallax(1 - (2 * e.clientX) / window.innerWidth, 1 - (2 * e.clientY) / window.innerHeight);
 });
