@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+}
+
+body {
+    display: flex;
+    background-image: linear-gradient(25deg, #24305a, #3e6270, #519885, #5fd29a);
+}
+
+#wave {
+    margin: auto;
+    width: 60vmin;
+    height: 60vmin;
+}
+
+.tools-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 15px;
+}
+
+.checkbox {
+    display: block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #d5f6ec;
+    margin-bottom: 1em;
+}

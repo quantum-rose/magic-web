@@ -13,7 +13,7 @@
 9.  [SVG Hollow Text 镂空文本](http://cuihaojie.top/magic-web/09-SVG-hollow-text/)
 10. [SVG Path Animation 路径动画](http://cuihaojie.top/magic-web/10-SVG-path-animation/)
 11. [Long Shadow 长阴影](http://cuihaojie.top/magic-web/11-long-shadow/)
-12. [Canvas Wave Loading Animation 水波加载动画](http://cuihaojie.top/magic-web/12-canvas-wave-loading-animation/)
+12. [Canvas Wave Loading 水波加载动画](http://cuihaojie.top/magic-web/12-canvas-wave-loading/)
 13. [SVG Filter 滤镜](http://cuihaojie.top/magic-web/13-SVG-filter/)
 14. [Flowing Water 流动的水](http://cuihaojie.top/magic-web/14-flowing-water/)
 15. [Ripple 涟漪](http://cuihaojie.top/magic-web/15-ripple/)
