@@ -8,50 +8,114 @@ window.addEventListener('resize', function () {
 
 /* 粒子 */
 class Particle {
-    radius = 10;
-    fromX = 0;
-    fromY = 0;
-    toX = 0;
-    toY = 0;
-    delay = 0;
-    duration = 1000;
-    startTime = 0;
-    random = true;
+    cvsCtx = null; // canvas 绘图上下文
+    radius = 0; // 粒子半径
+    maxX = 0; // 粒子分布最大坐标
+    maxY = 0; // 粒子分布最大坐标
 
-    constructor({ cvsCtx, maxX, maxY, delay = 0, random = true }) {
+    x = 0; // 粒子当前坐标
+    y = 0; // 粒子当前坐标
+    color = 'rgba(0, 0, 0, 0)'; // 粒子颜色
+
+    path = []; // 粒子的运动路径队列
+    random = true; // 是否是自由粒子（不参与组成文字）
+    delay = 0; // 粒子动画启动延时
+    duration = 3000; // 粒子动画持续时间
+    fromX = 0; // 粒子运动起始坐标
+    fromY = 0; // 粒子运动起始坐标
+    toX = 0; // 粒子运动结束坐标
+    toY = 0; // 粒子运动结束坐标
+    startTime = 0;
+
+    constructor({
+        cvsCtx,
+        radius,
+        maxX,
+        maxY,
+        random = true,
+        delay = 0,
+        duration = 1000,
+    }) {
         this.cvsCtx = cvsCtx;
+        this.radius = radius;
+        this.diameter = radius * 2;
         this.maxX = maxX;
         this.maxY = maxY;
-        this.delay = delay;
-        this.random = random;
-        this.x = (Math.floor(maxX * Math.random()) + 0.5) * this.radius;
-        this.y = (Math.floor(maxY * Math.random()) + 0.5) * this.radius;
+
+        this.x = this.fromX = this.toX = this._randomX();
+        this.y = this.fromY = this.toY = this._randomY();
         this.color = `hsl(180, 100%, ${Math.random() * 50 + 25}%)`;
+
+        this.random = random;
+        this.delay = delay;
+        this.duration = duration;
     }
 
-    reset({ random = true, delay, toX, toY } = {}) {
-        this.startTime = Date.now();
-        this.random = random || false;
-        this.fromX = this.x;
-        this.fromY = this.y;
-        this.toX = toX || (Math.floor(this.maxX * Math.random()) + 0.5) * this.radius;
-        this.toY = toY || (Math.floor(this.maxY * Math.random()) + 0.5) * this.radius;
-        this.delay = delay || this.delay;
+    reset({ random, delay, toX, toY }) {
+        this.path.push({
+            random: random === undefined ? this.random : random,
+            delay: delay === undefined ? this.delay : delay,
+            x: toX === undefined ? this._randomX() : toX + this.radius,
+            y: toY === undefined ? this._randomY() : toY + this.radius,
+        });
     }
 
     render() {
-        const { startTime, delay, duration, fromX, toX, fromY, toY, cvsCtx, color, radius, random } = this;
-        const p = Math.max(0, Math.min(1, (Date.now() - startTime - delay) / duration));
+        const {
+            startTime,
+            delay,
+            duration,
+            fromX,
+            toX,
+            fromY,
+            toY,
+            cvsCtx,
+            color,
+            radius,
+            random,
+        } = this;
+        const p = Math.max(
+            0,
+            Math.min(1, (Date.now() - startTime - delay) / duration)
+        );
         this.x = (toX - fromX) * this._easeInOutQuad(p) + fromX;
         this.y = (toY - fromY) * this._easeInOutQuad(p) + fromY;
         cvsCtx.beginPath();
         cvsCtx.fillStyle = color;
-        cvsCtx.arc(this.x, this.y, radius * 0.4, 0, Math.PI * 2, false);
+        cvsCtx.arc(this.x, this.y, radius * 0.8, 0, Math.PI * 2, false);
         cvsCtx.fill();
 
-        if (random && p >= 1) {
-            this.reset();
+        // 已运动到当前终点坐标
+        if (this.x === this.toX && this.y === this.toY) {
+            if (this.path.length === 0) {
+                if (random) {
+                    this.reset({
+                        random: true,
+                        delay: Math.random() * 1000,
+                    });
+                } else {
+                    return;
+                }
+            }
+            this.startTime = Date.now();
+            const end = this.path.shift();
+            this.fromX = this.x;
+            this.fromY = this.y;
+            this.random = end.random;
+            this.delay = end.delay;
+            this.toX = end.x;
+            this.toY = end.y;
         }
+    }
+
+    _randomX() {
+        const { maxX, diameter } = this;
+        return (Math.floor((maxX * Math.random()) / diameter) + 0.5) * diameter;
+    }
+
+    _randomY() {
+        const { maxY, diameter } = this;
+        return (Math.floor((maxY * Math.random()) / diameter) + 0.5) * diameter;
     }
 
     _easeInOutQuad(x) {
@@ -63,16 +127,19 @@ class Particle {
 class ParticleText {
     particles = [];
     text = '';
+    cvs = null;
+    cvsCtx = null;
     textCvs = null; // 文本画布
     textData = null; // 文本画布的imageData
+    cvsRatio = 10;
 
     constructor(cvs, text = '23:59:59') {
         this.cvs = cvs;
         this.cvsCtx = cvs.getContext('2d');
 
         this.textCvs = document.createElement('canvas');
-        this.textCvs.width = cvs.width / 10;
-        this.textCvs.height = cvs.height / 10;
+        this.textCvs.width = cvs.width / this.cvsRatio;
+        this.textCvs.height = cvs.height / this.cvsRatio;
         this.textCvsCtx = this.textCvs.getContext('2d');
 
         this._initParticles();
@@ -81,13 +148,20 @@ class ParticleText {
     }
 
     _initParticles() {
-        const { width, height } = this.textCvs;
+        const {
+            textCvs: { width, height },
+            cvs: { width: maxX, height: maxY },
+            cvsCtx,
+            cvsRatio,
+        } = this;
         for (let i = 0; i < (width * height) / 10; i++) {
+            const delay = Math.random() * 1000;
             this.particles[i] = new Particle({
-                cvsCtx: this.cvsCtx,
-                maxX: width,
-                maxY: height,
-                delay: Math.random() * 1000,
+                cvsCtx,
+                radius: cvsRatio / 2,
+                maxX,
+                maxY,
+                delay,
             });
         }
     }
@@ -105,28 +179,46 @@ class ParticleText {
 
             cvsCtx.clearRect(0, 0, width, height);
             cvsCtx.fillStyle = '#000000';
-            cvsCtx.font = `bold ${width / 5}px Helvetica`;
+            cvsCtx.font = `700 ${width / 6}px Helvetica`;
             cvsCtx.textAlign = 'center';
             cvsCtx.textBaseline = 'middle';
             cvsCtx.fillText(text, width / 2, height / 2);
 
-            const textData = (this.textData = cvsCtx.getImageData(0, 0, width, height));
+            const textData = (this.textData = cvsCtx.getImageData(
+                0,
+                0,
+                width,
+                height
+            ));
 
-            for (let i = 0, j = 0; j < particles.length; i += 4) {
-                if (i < textData.data.length && textData.data[i + 3] <= 127) {
-                    continue;
+            const textParticle = [];
+            for (let i = 0; i < textData.data.length; i += 4) {
+                if (textData.data[i + 3] !== 0) {
+                    textParticle.push(i);
                 }
-                if (i < textData.data.length) {
-                    particles[j].reset({
-                        random: false,
-                        toX: ((i / 4) % textData.width) * 10 + 5,
-                        toY: Math.floor(i / 4 / textData.width) * 10 + 5,
-                    });
-                } else {
-                    particles[j].reset();
-                }
-                j++;
             }
+
+            for (let i = 0; i < particles.length; i++) {
+                let opt = { delay: Math.random() * 1000 };
+                if (i < textParticle.length) {
+                    const index = textParticle[i];
+                    opt.random = false;
+                    opt.toX = ((index / 4) % textData.width) * this.cvsRatio;
+                    opt.toY =
+                        Math.floor(index / 4 / textData.width) * this.cvsRatio;
+                } else {
+                    opt.random = true;
+                }
+                particles[i].reset(opt);
+            }
+
+            setTimeout(() => {
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].reset({
+                        random: true,
+                    });
+                }
+            }, 5000);
         }
     }
 
@@ -140,19 +232,18 @@ class ParticleText {
     }
 }
 
-const particleText = new ParticleText(cvs, new Date().toTimeString().match(/^.*(?=GMT)/g)[0]);
+const particleText = new ParticleText(
+    cvs,
+    new Date().toTimeString().match(/^.*(?=GMT)/g)[0]
+);
+
 let lastTime = Date.now();
-let flag = false;
 requestAnimationFrame(function draw() {
-    if (Date.now() - lastTime > 4000) {
+    if (Date.now() - lastTime > 7000) {
         lastTime = Date.now();
-        // if (flag) {
-        //     flag = false;
-        //     particleText.updateText(new Date().toTimeString().match(/^.*(?=GMT)/g)[0]);
-        // } else {
-        flag = true;
-        particleText.updateText('');
-        // }
+        particleText.updateText(
+            new Date().toTimeString().match(/^.*(?=GMT)/g)[0]
+        );
     }
     requestAnimationFrame(draw);
 });
