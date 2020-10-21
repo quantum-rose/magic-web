@@ -14,14 +14,19 @@ class Particle {
     maxX = 0; // 粒子分布最大坐标
     maxY = 0; // 粒子分布最大坐标
 
+    color = 0; // 粒子当前色值
+    alpha = 1; // 粒子透明度
     x = 0; // 粒子当前坐标
     y = 0; // 粒子当前坐标
-    color = 'rgba(0, 0, 0, 0)'; // 粒子颜色
 
     path = []; // 粒子的运动路径队列
     random = true; // 是否是自由粒子（不参与组成文字）
     delay = 0; // 粒子动画启动延时
     duration = 1000; // 粒子动画持续时间
+    fromColor = 0; // 粒子运动起始色值
+    toColor = 0; // 粒子运动结束色值
+    fromAlpha = 0; // 粒子运动起始透明度
+    toAlpha = 0; // 粒子运动结束透明度
     fromX = 0; // 粒子运动起始坐标
     fromY = 0; // 粒子运动起始坐标
     toX = 0; // 粒子运动结束坐标
@@ -43,6 +48,8 @@ class Particle {
         radius,
         maxX,
         maxY,
+        color = 0,
+        alpha = 1,
         random = true,
         delay = 0,
         duration = 1000,
@@ -53,21 +60,24 @@ class Particle {
         this.maxX = maxX;
         this.maxY = maxY;
 
+        this.color = this.fromColor = this.toColor = color;
+        this.alpha = this.fromAlpha = this.toAlpha = alpha;
         this.x = this.fromX = this.toX = this.randomX;
         this.y = this.fromY = this.toY = this.randomY;
-        this.color = `hsl(180, 100%, ${Math.random() * 50 + 25}%)`;
 
         this.random = random;
         this.delay = delay;
         this.duration = duration;
     }
 
-    update({ random, delay, toX, toY } = {}) {
+    update({ random, delay, color, alpha, x, y } = {}) {
         this.path.push({
             random: random === undefined ? this.random : random,
             delay: delay === undefined ? this.delay : delay,
-            x: toX === undefined ? this.randomX : toX + this.radius,
-            y: toY === undefined ? this.randomY : toY + this.radius,
+            color: color === undefined ? this.color : color,
+            alpha: alpha === undefined ? this.alpha : alpha,
+            x: x === undefined ? this.randomX : x + this.radius,
+            y: y === undefined ? this.randomY : y + this.radius,
         });
     }
 
@@ -76,12 +86,15 @@ class Particle {
             startTime,
             delay,
             duration,
+            fromColor,
+            toColor,
+            fromAlpha,
+            toAlpha,
             fromX,
             toX,
             fromY,
             toY,
             cvsCtx,
-            color,
             radius,
         } = this;
         const p = this._easeInOutQuad(
@@ -92,8 +105,11 @@ class Particle {
         );
         this.x = (toX - fromX) * p + fromX;
         this.y = (toY - fromY) * p + fromY;
+        this.color = (toColor - fromColor) * p + fromColor;
+        this.alpha = (toAlpha - fromAlpha) * p + fromAlpha;
+
         cvsCtx.beginPath();
-        cvsCtx.fillStyle = color;
+        cvsCtx.fillStyle = `hsla(${this.color}, 100%, 50%, ${this.alpha})`;
         cvsCtx.arc(this.x, this.y, radius * 0.8, 0, Math.PI * 2, false);
         cvsCtx.fill();
 
@@ -110,11 +126,15 @@ class Particle {
                 }
             }
             this.startTime = Date.now();
-            const { random, delay, x, y } = this.path.shift();
+            const { random, delay, color, alpha, x, y } = this.path.shift();
+            this.fromColor = this.color;
+            this.fromAlpha = this.alpha;
             this.fromX = this.x;
             this.fromY = this.y;
             this.random = random;
             this.delay = delay;
+            this.toColor = color;
+            this.toAlpha = alpha;
             this.toX = x;
             this.toY = y;
         }
@@ -157,14 +177,15 @@ class ParticleText {
             cvsCtx,
             cvsRatio,
         } = this;
+        const color = Math.random() * 360;
         for (let i = 0; i < (width * height) / 10; i++) {
-            const delay = Math.random() * 1000;
             this.particles[i] = new Particle({
                 cvsCtx,
                 radius: cvsRatio / 2,
                 maxX,
                 maxY,
-                delay,
+                delay: Math.random() * 1000,
+                color,
             });
         }
     }
@@ -198,29 +219,39 @@ class ParticleText {
             const textParticle = [];
             for (let i = 0; i < textData.data.length; i += 4) {
                 if (textData.data[i + 3] !== 0) {
-                    textParticle.push(i);
+                    textParticle.push({
+                        index: i / 4,
+                        alpha: textData.data[i + 3] / 255,
+                    });
                 }
             }
 
+            const color = Math.random() * 360;
             for (let i = 0; i < particles.length; i++) {
-                let option = { delay: Math.random() * 1000 };
+                let option = {
+                    random: true,
+                    delay: Math.random() * 1000,
+                    color,
+                    alpha: 1,
+                };
                 if (i < textParticle.length) {
-                    const index = textParticle[i] >> 2;
+                    const { index, alpha } = textParticle[i];
                     option.random = false;
-                    option.toX = (index % textData.width) * this.cvsRatio;
-                    option.toY =
-                        parseInt(index / textData.width) * this.cvsRatio;
-                } else {
-                    option.random = true;
+                    option.alpha = alpha;
+                    option.x = (index % textData.width) * this.cvsRatio;
+                    option.y = parseInt(index / textData.width) * this.cvsRatio;
                 }
                 particles[i].update(option);
             }
 
             // 一段时间后自动散开
             setTimeout(() => {
+                const color = Math.random() * 360;
                 for (let i = 0; i < particles.length; i++) {
                     particles[i].update({
                         random: true,
+                        color,
+                        alpha: 1,
                     });
                 }
             }, 5000);
@@ -239,6 +270,7 @@ class ParticleText {
 
 const particleText = new ParticleText(
     cvs,
+    // '88:88:88'
     new Date().toTimeString().match(/^.*(?=GMT)/g)[0]
 );
 
