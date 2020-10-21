@@ -10,6 +10,7 @@ window.addEventListener('resize', function () {
 class Particle {
     cvsCtx = null; // canvas 绘图上下文
     radius = 0; // 粒子半径
+    diameter = 0; // 粒子直径
     maxX = 0; // 粒子分布最大坐标
     maxY = 0; // 粒子分布最大坐标
 
@@ -20,12 +21,22 @@ class Particle {
     path = []; // 粒子的运动路径队列
     random = true; // 是否是自由粒子（不参与组成文字）
     delay = 0; // 粒子动画启动延时
-    duration = 3000; // 粒子动画持续时间
+    duration = 1000; // 粒子动画持续时间
     fromX = 0; // 粒子运动起始坐标
     fromY = 0; // 粒子运动起始坐标
     toX = 0; // 粒子运动结束坐标
     toY = 0; // 粒子运动结束坐标
     startTime = 0;
+
+    get randomX() {
+        const { maxX, diameter } = this;
+        return (Math.floor((maxX * Math.random()) / diameter) + 0.5) * diameter;
+    }
+
+    get randomY() {
+        const { maxY, diameter } = this;
+        return (Math.floor((maxY * Math.random()) / diameter) + 0.5) * diameter;
+    }
 
     constructor({
         cvsCtx,
@@ -42,8 +53,8 @@ class Particle {
         this.maxX = maxX;
         this.maxY = maxY;
 
-        this.x = this.fromX = this.toX = this._randomX();
-        this.y = this.fromY = this.toY = this._randomY();
+        this.x = this.fromX = this.toX = this.randomX;
+        this.y = this.fromY = this.toY = this.randomY;
         this.color = `hsl(180, 100%, ${Math.random() * 50 + 25}%)`;
 
         this.random = random;
@@ -51,12 +62,12 @@ class Particle {
         this.duration = duration;
     }
 
-    reset({ random, delay, toX, toY }) {
+    update({ random, delay, toX, toY } = {}) {
         this.path.push({
             random: random === undefined ? this.random : random,
             delay: delay === undefined ? this.delay : delay,
-            x: toX === undefined ? this._randomX() : toX + this.radius,
-            y: toY === undefined ? this._randomY() : toY + this.radius,
+            x: toX === undefined ? this.randomX : toX + this.radius,
+            y: toY === undefined ? this.randomY : toY + this.radius,
         });
     }
 
@@ -72,24 +83,25 @@ class Particle {
             cvsCtx,
             color,
             radius,
-            random,
         } = this;
-        const p = Math.max(
-            0,
-            Math.min(1, (Date.now() - startTime - delay) / duration)
+        const p = this._easeInOutQuad(
+            Math.max(
+                Math.min((Date.now() - startTime - delay) / duration, 1),
+                0
+            )
         );
-        this.x = (toX - fromX) * this._easeInOutQuad(p) + fromX;
-        this.y = (toY - fromY) * this._easeInOutQuad(p) + fromY;
+        this.x = (toX - fromX) * p + fromX;
+        this.y = (toY - fromY) * p + fromY;
         cvsCtx.beginPath();
         cvsCtx.fillStyle = color;
         cvsCtx.arc(this.x, this.y, radius * 0.8, 0, Math.PI * 2, false);
         cvsCtx.fill();
 
         // 已运动到当前终点坐标
-        if (this.x === this.toX && this.y === this.toY) {
+        if (p === 1) {
             if (this.path.length === 0) {
-                if (random) {
-                    this.reset({
+                if (this.random) {
+                    this.update({
                         random: true,
                         delay: Math.random() * 1000,
                     });
@@ -98,24 +110,14 @@ class Particle {
                 }
             }
             this.startTime = Date.now();
-            const end = this.path.shift();
+            const { random, delay, x, y } = this.path.shift();
             this.fromX = this.x;
             this.fromY = this.y;
-            this.random = end.random;
-            this.delay = end.delay;
-            this.toX = end.x;
-            this.toY = end.y;
+            this.random = random;
+            this.delay = delay;
+            this.toX = x;
+            this.toY = y;
         }
-    }
-
-    _randomX() {
-        const { maxX, diameter } = this;
-        return (Math.floor((maxX * Math.random()) / diameter) + 0.5) * diameter;
-    }
-
-    _randomY() {
-        const { maxY, diameter } = this;
-        return (Math.floor((maxY * Math.random()) / diameter) + 0.5) * diameter;
     }
 
     _easeInOutQuad(x) {
@@ -125,13 +127,14 @@ class Particle {
 
 /* 粒子文本 */
 class ParticleText {
-    particles = [];
-    text = '';
-    cvs = null;
-    cvsCtx = null;
+    particles = []; // 所有粒子
+    text = ''; // 当前显示的文字
+    cvs = null; // 粒子画布
+    cvsCtx = null; // 粒子画布绘图上下文
     textCvs = null; // 文本画布
+    textCvsCtx = null; // 文本画布绘图上下文
     textData = null; // 文本画布的imageData
-    cvsRatio = 10;
+    cvsRatio = 10; // 粒子画布与文本画布边长之比
 
     constructor(cvs, text = '23:59:59') {
         this.cvs = cvs;
@@ -191,6 +194,7 @@ class ParticleText {
                 height
             ));
 
+            // 组成文字的粒子
             const textParticle = [];
             for (let i = 0; i < textData.data.length; i += 4) {
                 if (textData.data[i + 3] !== 0) {
@@ -199,22 +203,23 @@ class ParticleText {
             }
 
             for (let i = 0; i < particles.length; i++) {
-                let opt = { delay: Math.random() * 1000 };
+                let option = { delay: Math.random() * 1000 };
                 if (i < textParticle.length) {
-                    const index = textParticle[i];
-                    opt.random = false;
-                    opt.toX = ((index / 4) % textData.width) * this.cvsRatio;
-                    opt.toY =
-                        Math.floor(index / 4 / textData.width) * this.cvsRatio;
+                    const index = textParticle[i] >> 2;
+                    option.random = false;
+                    option.toX = (index % textData.width) * this.cvsRatio;
+                    option.toY =
+                        parseInt(index / textData.width) * this.cvsRatio;
                 } else {
-                    opt.random = true;
+                    option.random = true;
                 }
-                particles[i].reset(opt);
+                particles[i].update(option);
             }
 
+            // 一段时间后自动散开
             setTimeout(() => {
                 for (let i = 0; i < particles.length; i++) {
-                    particles[i].reset({
+                    particles[i].update({
                         random: true,
                     });
                 }
@@ -226,7 +231,7 @@ class ParticleText {
         const { particles, cvs, cvsCtx } = this;
         cvsCtx.clearRect(0, 0, cvs.width, cvs.height);
         for (let i = 0; i < particles.length; i++) {
-            particles[i].render(this.p);
+            particles[i].render();
         }
         requestAnimationFrame(this._onEnterFrame.bind(this));
     }
