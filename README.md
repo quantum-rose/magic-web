@@ -21,6 +21,7 @@
 17. [Broken TV 故障电视 📺](http://cuihaojie.top/magic-web/17-broken-TV/)
 18. [Cat🐱 & Mouse🐀](http://cuihaojie.top/magic-web/18-cat-&-mouse/)
 19. [Picture Splicing 图片拼接](http://cuihaojie.top/magic-web/19-picture-splicing/)
+20. [Canvas Particle Text 粒子文本](http://cuihaojie.top/magic-web/20-canvas-particle-text/)
 
 ### SP
 
