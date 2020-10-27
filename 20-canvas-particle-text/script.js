@@ -191,7 +191,7 @@ class ParticleText {
     _initParticles() {
         const {
             textCvs: { width, height },
-            cvs: { width: w, height: h },
+            cvs: { width: maxX, height: maxY },
             cvsCtx,
             cvsRatio,
         } = this;
@@ -202,8 +202,8 @@ class ParticleText {
                 radius: cvsRatio / 2,
                 minX: 0,
                 minY: 0,
-                maxX: w,
-                maxY: h,
+                maxX,
+                maxY,
                 delay: this.randomDelay,
                 duration: this.randomDuration,
                 color,
@@ -223,7 +223,7 @@ class ParticleText {
     }
 
     _update() {
-        const { particles, textCvsCtx: cvsCtx } = this;
+        const { particles, textCvsCtx: cvsCtx, cvsRatio } = this;
         const { width, height } = this.textCvs;
 
         cvsCtx.clearRect(0, 0, width, height);
@@ -257,8 +257,8 @@ class ParticleText {
                 const { index, alpha } = textParticle[i];
                 option.random = false;
                 option.alpha = alpha;
-                option.x = (index % textData.width) * this.cvsRatio;
-                option.y = parseInt(index / textData.width) * this.cvsRatio;
+                option.x = (index % textData.width) * cvsRatio;
+                option.y = parseInt(index / textData.width) * cvsRatio;
             }
             particles[i].update(option);
         }

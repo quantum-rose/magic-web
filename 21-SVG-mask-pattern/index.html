@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SVG蒙版和图案</title>
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <svg
+            width="100%"
+            height="100%"
+            viewBox="0 0 1920 1080"
+            preserveAspectRatio="xMidYMid meet"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+            <defs>
+                <mask id="mask-1" x="0" y="0" width="1" height="1">
+                    <rect x="500" y="50" width="200" height="200" fill="#222" />
+                    <circle cx="600" cy="150" r="50" fill="#888" />
+                    <text x="600" y="190" width="50" height="50" font-size="100">A</text>
+                </mask>
+            </defs>
+
+            <rect x="0" y="0" width="960" height="540" fill="red" style="mask: url(#mask-1)" />
+        </svg>
+    </body>
+</html>
