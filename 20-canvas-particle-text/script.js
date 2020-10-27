@@ -154,7 +154,7 @@ class ParticleText {
     _spreadTimer = null; // 粒子自动扩散延时器
 
     get randomText() {
-        return new Date().toTimeString().match(/^.*(?=GMT)/g)[0];
+        return new Date().toTimeString().match(/^.*(?=\sGMT)/g)[0];
     }
 
     get randomColor() {
