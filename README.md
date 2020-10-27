@@ -22,6 +22,7 @@
 18. [Cat🐱 & Mouse🐀](http://cuihaojie.top/magic-web/18-cat-&-mouse/)
 19. [Picture Splicing 图片拼接](http://cuihaojie.top/magic-web/19-picture-splicing/)
 20. [Canvas Particle Text 粒子文本](http://cuihaojie.top/magic-web/20-canvas-particle-text/)
+21. [SVG Mask Pattern SVG 蒙版与图案](http://cuihaojie.top/magic-web/21-SVG-mask-pattern/)
 
 ### SP
 
