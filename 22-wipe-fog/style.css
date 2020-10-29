@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    overflow: hidden;
+}
+
+.swiper-pagination {
+    padding: 4px;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.65);
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 1);
+}
+
+.swiper-pagination-bullet {
+    background-color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #fff;
+    box-shadow: 0 0 4px 2px rgba(255, 255, 255, 0.5);
+}
+
+.window {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1)), url('./bg-1.jpg');
+    background-size: 100% 100%, cover;
+    background-position: center, center bottom;
+    background-repeat: no-repeat;
+}
+
+#cvs-1 {
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: lighten;
+    filter: blur(10px);
+}
+
+.glass {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
+    height: 100%;
+    background-image: url('./bg-2.jpg');
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    /* filter: blur(10px); */
+}
+
+#cvs-2 {
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(10px);
+}

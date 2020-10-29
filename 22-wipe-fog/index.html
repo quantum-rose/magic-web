@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>擦雾特效</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@6.0.4/swiper-bundle.min.css" />
+        <link rel="stylesheet" href="./style.css" />
+    </head>
+    <body>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide swiper-no-swiping">
+                    <div class="window">
+                        <canvas id="cvs-1"></canvas>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="glass">
+                        <canvas id="cvs-2"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/swiper@6.0.4/swiper-bundle.min.js"></script>
+        <script src="./script.js"></script>
+    </body>
+</html>
