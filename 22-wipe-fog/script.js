@@ -251,21 +251,47 @@ class ScratchCard {
         this.height = cvs.height;
         this.$img = document.createElement('img');
         this.$img.src = img;
-        this.$img.addEventListener('load', () => {
-            cvs.addEventListener('mousedown', e => {
-                const { offsetX: x, offsetY: y } = e;
-                this.lastPoint.x = x;
-                this.lastPoint.y = y;
-                cvs.addEventListener('mousemove', this.wipe);
-            });
-
-            cvs.addEventListener('mouseup', e => {
-                cvs.removeEventListener('mousemove', this.wipe);
-            });
-
-            this._onEnterFrame();
-        });
+        this.$img.addEventListener('load', this._onLoad);
     }
+
+    _onLoad = () => {
+        const {
+            cvs,
+            $img,
+            width,
+            height,
+            $img: { naturalWidth: w, naturalHeight: h },
+        } = this;
+        const offCvs = (this.offCvs = document.createElement('canvas'));
+        offCvs.width = width;
+        offCvs.height = height;
+        const offCvsCtx = offCvs.getContext('2d');
+        let sWidth, sHeight, sx, sy;
+        if (w / h > width / height) {
+            sWidth = h * (width / height);
+            sHeight = h;
+            sx = (w - sWidth) / 2;
+            sy = 0;
+        } else {
+            sWidth = w;
+            sHeight = w * (height / width);
+            sx = 0;
+            sy = h - sHeight;
+        }
+        offCvsCtx.drawImage($img, sx, sy, sWidth, sHeight, 0, 0, width, height);
+
+        cvs.addEventListener('mousedown', e => {
+            const { offsetX: x, offsetY: y } = e;
+            this.lastPoint.x = x;
+            this.lastPoint.y = y;
+            cvs.addEventListener('mousemove', this.wipe);
+        });
+        cvs.addEventListener('mouseup', e => {
+            cvs.removeEventListener('mousemove', this.wipe);
+        });
+
+        this._onEnterFrame();
+    };
 
     wipe = e => {
         const {
@@ -287,7 +313,7 @@ class ScratchCard {
     };
 
     _onEnterFrame = () => {
-        const { cvsCtx, width, height, $img } = this;
+        const { cvsCtx, width, height, offCvs } = this;
         cvsCtx.clearRect(0, 0, width, height);
         cvsCtx.fillStyle = '#000000';
         cvsCtx.textAlign = 'center';
@@ -297,7 +323,7 @@ class ScratchCard {
         this.path = this.path.filter(item => (!item.destroyed && item.render(), !item.destroyed));
         cvsCtx.save();
         cvsCtx.globalCompositeOperation = 'source-in';
-        cvsCtx.drawImage($img, 0, 0, width, height);
+        cvsCtx.drawImage(offCvs, 0, 0, width, height);
         cvsCtx.restore();
         requestAnimationFrame(this._onEnterFrame);
     };
