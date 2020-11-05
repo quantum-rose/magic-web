@@ -10,11 +10,12 @@ class Particle {
     vy = 0; // 垂直速度
     ax = 0; // 水平加速度
     ay = 0; // 垂直加速度
+    color = '';
     lifetime = 1;
     duration = 0;
     alpha = 1;
 
-    constructor({ cvsCtx, x, y, vx, vy, ax, ay, lifetime = 1 }) {
+    constructor({ cvsCtx, x, y, vx, vy, ax, ay, color, lifetime = 1 }) {
         this.cvsCtx = cvsCtx;
         this.x = x;
         this.y = y;
@@ -22,11 +23,12 @@ class Particle {
         this.vy = vy;
         this.ax = ax;
         this.ay = ay;
+        this.color = color.join(',');
         this.lifetime = lifetime;
     }
 
-    render(t, rgb) {
-        const { cvsCtx, r, vx, vy, ax, ay, lifetime } = this;
+    render(t) {
+        const { cvsCtx, r, vx, vy, ax, ay, color, lifetime } = this;
         this.duration += t;
         this.alpha = (1 - Math.min(this.duration / lifetime, 1)) ** 0.5;
         this.vx += ax * t;
@@ -34,7 +36,7 @@ class Particle {
         this.x += vx * t;
         this.y += vy * t;
         cvsCtx.beginPath();
-        cvsCtx.fillStyle = `rgba(${rgb.join(',')},${this.alpha})`;
+        cvsCtx.fillStyle = `rgba(${color},${this.alpha})`;
         cvsCtx.arc(this.x, this.y, r, 0, Math.PI * 2, false);
         cvsCtx.fill();
         cvsCtx.closePath();
@@ -66,28 +68,6 @@ class ParticleLoading {
     get y() {
         return (this.height - this.h) * 0.5;
     }
-    get rgb() {
-        const { percent: p } = this;
-        let r, g, b;
-        if (p < 0.25) {
-            r = 255;
-            g = 255 * (p / 0.25);
-            b = 0;
-        } else if (p < 0.5) {
-            r = 255 * (1 - (p - 0.25) / 0.25);
-            g = 255;
-            b = 0;
-        } else if (p < 0.75) {
-            r = 0;
-            g = 255;
-            b = 255 * ((p - 0.5) / 0.25);
-        } else {
-            r = 0;
-            g = 255 * (1 - (p - 0.75) / 0.25);
-            b = 255;
-        }
-        return [r, g, b];
-    }
 
     constructor() {
         this.cvs = cvs;
@@ -112,7 +92,7 @@ class ParticleLoading {
     }
 
     _onEnterFrame = () => {
-        const { cvsCtx, width, height, w, h, x, y, v, percent, lastPercent, rgb } = this;
+        const { cvsCtx, width, height, w, h, x, y, v, percent, lastPercent } = this;
         const t = (Date.now() - this.lastTime) / 1000;
         this.lastTime = Date.now();
 
@@ -130,7 +110,7 @@ class ParticleLoading {
         cvsCtx.fillStyle = f;
         cvsCtx.fillRect(x, y, w * percent, h);
 
-        this.particles = this.particles.filter(item => (item.render(t, rgb), item.alpha > 0));
+        this.particles = this.particles.filter(item => (item.render(t), item.alpha > 0));
         for (let i = 0; i < (percent - lastPercent) * 5 * width; i++) {
             const rad = (Math.random() / 3 - 1) * Math.PI;
             this.particles.push(
@@ -142,12 +122,35 @@ class ParticleLoading {
                     vy: Math.sin(rad) * v,
                     ax: 0,
                     ay: v * 1.5,
+                    color: this._color(percent),
                 })
             );
         }
 
         requestAnimationFrame(this._onEnterFrame);
     };
+
+    _color(p) {
+        let r, g, b;
+        if (p < 0.25) {
+            r = 255;
+            g = 255 * (p / 0.25);
+            b = 0;
+        } else if (p < 0.5) {
+            r = 255 * (1 - (p - 0.25) / 0.25);
+            g = 255;
+            b = 0;
+        } else if (p < 0.75) {
+            r = 0;
+            g = 255;
+            b = 255 * ((p - 0.5) / 0.25);
+        } else {
+            r = 0;
+            g = 255 * (1 - (p - 0.75) / 0.25);
+            b = 255;
+        }
+        return [r, g, b];
+    }
 }
 
 const loading = new ParticleLoading(cvs);
