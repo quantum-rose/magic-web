@@ -21,13 +21,9 @@
 const cvs_1 = document.querySelector('#cvs-1');
 cvs_1.width = cvs_1.offsetWidth * window.devicePixelRatio;
 cvs_1.height = cvs_1.offsetHeight * window.devicePixelRatio;
-cvs_1.style.width = cvs_1.width + 'px';
-cvs_1.style.height = cvs_1.height + 'px';
 const cvs_2 = document.querySelector('#cvs-2');
 cvs_2.width = cvs_2.offsetWidth * window.devicePixelRatio;
 cvs_2.height = cvs_2.offsetHeight * window.devicePixelRatio;
-cvs_2.style.width = cvs_2.width + 'px';
-cvs_2.style.height = cvs_2.height + 'px';
 
 // 雪花
 class Snowflake {
@@ -231,8 +227,6 @@ new FogWindow(cvs_2);
 const cvs_3 = document.querySelector('#cvs-3');
 cvs_3.width = cvs_3.offsetWidth * window.devicePixelRatio;
 cvs_3.height = cvs_3.offsetHeight * window.devicePixelRatio;
-cvs_3.style.width = cvs_3.width + 'px';
-cvs_3.style.height = cvs_3.height + 'px';
 
 // 刮刮卡
 class ScratchCard {
