@@ -53,7 +53,7 @@ class ParticleGrid {
     flag = false;
 
     get total() {
-        return this.width * this.height * 0.0002;
+        return (this.width * this.height) ** 0.5 * 0.24;
     }
 
     get randomParticle() {
@@ -94,6 +94,8 @@ class ParticleGrid {
     constructor(cvs) {
         this.cvs = cvs;
         this.cvsCtx = cvs.getContext('2d');
+        this.width = this.cvs.width = 2560;
+        this.height = this.cvs.height = 1440;
         this.width = this.cvs.width = cvs.offsetWidth * window.devicePixelRatio;
         this.height = this.cvs.height = cvs.offsetHeight * window.devicePixelRatio;
         window.addEventListener('resize', () => {
@@ -187,10 +189,15 @@ class ParticleGrid {
 
     _onMouseMove = e => {
         const { offsetX: x, offsetY: y } = e;
+        const {
+            width,
+            height,
+            cvs: { offsetWidth: w, offsetHeight: h },
+        } = this;
         const mouse = this.particles[0];
         mouse.isMouse = true;
-        mouse.x = x;
-        mouse.y = y;
+        mouse.x = x * (width / w);
+        mouse.y = y * (height / h);
     };
 
     _onClick = e => {
