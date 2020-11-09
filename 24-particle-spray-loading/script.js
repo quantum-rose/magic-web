@@ -118,7 +118,7 @@ class ParticleLoading {
                     cvsCtx,
                     x: x + w * percent + 2 - Math.random() * 4,
                     y: y + Math.random() * h * 0.5,
-                    vx: Math.cos(rad) * v,
+                    vx: Math.cos(rad) * v * (0.5 + Math.random()),
                     vy: Math.sin(rad) * v,
                     ax: 0,
                     ay: v * 1.5,
