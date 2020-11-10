@@ -26,6 +26,7 @@
 22. [Wipe Fog 擦雾特效](http://cuihaojie.top/magic-web/22-wipe-fog/)
 23. [Particle Grid 粒子网格动画](http://cuihaojie.top/magic-web/23-particle-grid/)
 24. [Particle Spray Loading 喷洒粒子的进度条](http://cuihaojie.top/magic-web/24-particle-spray-loading/)
+25. [SVG Gradient SVG 渐变](http://cuihaojie.top/magic-web/25-SVG-gradient/)
 
 ### SP
 
