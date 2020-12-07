@@ -1,0 +1,25 @@
+{
+  "name": "magic-web",
+  "version": "1.0.0",
+  "description": "Discover and show the magic of numbers.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "babel ./ --watch --out-dir ./ --out-file-extension .babel.js --source-maps --ignore node_modules,libs,babel.config.js,.git,**/*.babel.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/quantum-rose/magic-web.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.12.8",
+    "@babel/core": "^7.12.9",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/preset-env": "^7.12.7"
+  }
+}

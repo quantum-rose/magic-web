@@ -8,30 +8,31 @@
     </head>
     <body>
         <div id="calculator">
-            <div class="result" style="grid-area: result;">
+            <div class="result" style="grid-area: result">
                 <div class="screen" v-text="result">0</div>
             </div>
-            <button @click="clear" style="grid-area: clear;">C</button>
-            <button @click="toggleSign" style="grid-area: sign;">±</button>
-            <button @click="percentage" style="grid-area: percent;">%</button>
-            <button @click="append('.')" style="grid-area: dot;">.</button>
-            <button @click="append('+')" style="grid-area: add;">+</button>
-            <button @click="append('-')" style="grid-area: subtract;">-</button>
-            <button @click="append('×')" style="grid-area: multiply;">×</button>
-            <button @click="append('÷')" style="grid-area: divide;">÷</button>
-            <button @click="append(0)" style="grid-area: number-0;">0</button>
-            <button @click="append(1)" style="grid-area: number-1;">1</button>
-            <button @click="append(2)" style="grid-area: number-2;">2</button>
-            <button @click="append(3)" style="grid-area: number-3;">3</button>
-            <button @click="append(4)" style="grid-area: number-4;">4</button>
-            <button @click="append(5)" style="grid-area: number-5;">5</button>
-            <button @click="append(6)" style="grid-area: number-6;">6</button>
-            <button @click="append(7)" style="grid-area: number-7;">7</button>
-            <button @click="append(8)" style="grid-area: number-8;">8</button>
-            <button @click="append(9)" style="grid-area: number-9;">9</button>
-            <button @click="calculate" style="grid-area: equal;">=</button>
+            <button @click="clear" style="grid-area: clear">C</button>
+            <button @click="toggleSign" style="grid-area: sign">±</button>
+            <button @click="percentage" style="grid-area: percent">%</button>
+            <button @click="append('.')" style="grid-area: dot">.</button>
+            <button @click="append('+')" style="grid-area: add">+</button>
+            <button @click="append('-')" style="grid-area: subtract">-</button>
+            <button @click="append('×')" style="grid-area: multiply">×</button>
+            <button @click="append('÷')" style="grid-area: divide">÷</button>
+            <button @click="append(0)" style="grid-area: number-0">0</button>
+            <button @click="append(1)" style="grid-area: number-1">1</button>
+            <button @click="append(2)" style="grid-area: number-2">2</button>
+            <button @click="append(3)" style="grid-area: number-3">3</button>
+            <button @click="append(4)" style="grid-area: number-4">4</button>
+            <button @click="append(5)" style="grid-area: number-5">5</button>
+            <button @click="append(6)" style="grid-area: number-6">6</button>
+            <button @click="append(7)" style="grid-area: number-7">7</button>
+            <button @click="append(8)" style="grid-area: number-8">8</button>
+            <button @click="append(9)" style="grid-area: number-9">9</button>
+            <button @click="calculate" style="grid-area: equal">=</button>
         </div>
 
-        <script src="./script.js" type="module"></script>
+        <script src="https://cdn.staticfile.org/vue/2.6.11/vue.js"></script>
+        <script src="./script.babel.js"></script>
     </body>
 </html>

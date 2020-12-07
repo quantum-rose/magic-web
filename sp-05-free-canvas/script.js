@@ -1,6 +1,3 @@
-import Vector2D from '../libs/Vector2D.js';
-import parametric from '../libs/parametric.js';
-
 const $cvs = document.querySelector('#cvs');
 const $reset = document.querySelector('.reset');
 const cvsCtx = $cvs.getContext('2d');

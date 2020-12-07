@@ -39,5 +39,3 @@ function parametric(func) {
         };
     };
 }
-
-export default parametric;

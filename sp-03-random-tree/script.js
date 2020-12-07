@@ -163,8 +163,8 @@ function drawTree(cvsCtx, start, length, width, dir, bias) {
 drawTree(
     cvsCtx,
     new Vector2D(0, 0),
-    cvs.height * 0.2,
-    cvs.height * 0.02,
+    Math.min(cvs.width, cvs.height) * 0.2,
+    Math.min(cvs.width, cvs.height) * 0.02,
     Math.PI * -0.5 + (0.5 - Math.random()),
     Math.PI / 3
 );
