@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "dev": "babel ./ --watch --out-dir ./ --out-file-extension .babel.js"
+    "dev": "babel ./ --watch --out-dir ./ --out-file-extension .babel.js",
+    "dev-sp-08": "babel ./sp-08-threejs/ --watch --out-dir ./sp-08-threejs/ --out-file-extension .babel.js"
   },
   "repository": {
     "type": "git",
