@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "babel ./ --watch --out-dir ./ --out-file-extension .babel.js",
+    "dev-27": "babel ./27-e-clock/ --watch --out-dir ./27-e-clock/ --out-file-extension .babel.js",
     "dev-sp-08": "babel ./sp-08-threejs/ --watch --out-dir ./sp-08-threejs/ --out-file-extension .babel.js"
   },
   "repository": {
@@ -21,6 +22,7 @@
     "@babel/cli": "^7.12.8",
     "@babel/core": "^7.12.9",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-proposal-private-methods": "^7.12.1",
     "@babel/preset-env": "^7.12.7"
   }
 }

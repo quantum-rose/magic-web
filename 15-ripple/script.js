@@ -36,81 +36,7 @@ const mySwiper = new Swiper('.swiper-container', {
     });
 })(document);
 
-(function (window, document) {
-    class Wave {
-        constructor(elem) {
-            this.elem = elem;
-            this.id = 'wave' + Date.now();
-            this.clicked = false;
-            this.init();
-        }
-
-        init() {
-            document.body.insertAdjacentHTML(
-                'afterbegin',
-                `<svg
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    style="position: absolute; height: 0; clip: rect(0 0 0 0);"
-                >
-                    <defs>
-                        <filter id="${this.id}">
-                            <feImage
-                                x="0"
-                                y="0"
-                                width="0"
-                                height="0"
-                                result="img"
-                                xlink:href="${this.backgroundImage}"
-                            ></feImage>
-                            <feDisplacementMap
-                                in="SourceGraphic"
-                                in2="img"
-                                scale="0"
-                                xChannelSelector="R"
-                                yChannelSelector="G"
-                                color-interpolation-filters="sRGB"
-                            ></feDisplacementMap>
-                            <feComposite operator="in" in2="img"></feComposite>
-                            <feComposite in2="SourceGraphic"></feComposite>
-                        </filter>
-                    </defs>
-                </svg>`
-            );
-            this.$feImage = document.querySelector(`#${this.id} feImage`);
-            this.$feDisplacementMap = document.querySelector(`#${this.id} feDisplacementMap`);
-
-            this.elem.addEventListener('click', e => {
-                if (this.clicked) return;
-                this.clicked = true;
-                this.elem.style.filter = `url(#${this.id})`;
-                let lastTime = 0;
-                let percent = 0;
-                const draw = () => {
-                    if (Date.now() - lastTime > 16) {
-                        lastTime = Date.now();
-                        percent = Math.min(percent + 0.01, 1);
-                        const size = 1000 * percent;
-                        this.$feImage.setAttribute('x', e.offsetX - size / 2);
-                        this.$feImage.setAttribute('y', e.offsetY - size / 2);
-                        this.$feImage.setAttribute('width', size);
-                        this.$feImage.setAttribute('height', size);
-                        this.$feDisplacementMap.setAttribute('scale', 50 * (1 - percent));
-                    }
-
-                    if (percent !== 1) {
-                        requestAnimationFrame(draw);
-                    } else {
-                        this.clicked = false;
-                        this.elem.style.filter = '';
-                    }
-                };
-                draw();
-            });
-        }
-    }
-
+const Wave = (function () {
     const radius = 256;
     const cvs = document.createElement('canvas');
     cvs.width = cvs.height = radius * 2;
@@ -164,11 +90,82 @@ const mySwiper = new Swiper('.swiper-container', {
     cvsCtx.fillStyle = f;
     cvsCtx.fill();
     cvsCtx.restore();
+    return class Wave {
+        static backgroundImage = cvs.toDataURL();
 
-    Wave.prototype.backgroundImage = cvs.toDataURL();
+        constructor(elem) {
+            this.elem = elem;
+            this.id = 'wave' + Date.now();
+            this.clicked = false;
+            this.init();
+        }
 
-    window.Wave = Wave;
-})(window, document);
+        init() {
+            document.body.insertAdjacentHTML(
+                'afterbegin',
+                `<svg
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                    style="position: absolute; height: 0; clip: rect(0 0 0 0);"
+                >
+                    <defs>
+                        <filter id="${this.id}">
+                            <feImage
+                                x="0"
+                                y="0"
+                                width="0"
+                                height="0"
+                                result="img"
+                                xlink:href="${Wave.backgroundImage}"
+                            ></feImage>
+                            <feDisplacementMap
+                                in="SourceGraphic"
+                                in2="img"
+                                scale="0"
+                                xChannelSelector="R"
+                                yChannelSelector="G"
+                                color-interpolation-filters="sRGB"
+                            ></feDisplacementMap>
+                            <feComposite operator="in" in2="img"></feComposite>
+                            <feComposite in2="SourceGraphic"></feComposite>
+                        </filter>
+                    </defs>
+                </svg>`
+            );
+            this.$feImage = document.querySelector(`#${this.id} feImage`);
+            this.$feDisplacementMap = document.querySelector(`#${this.id} feDisplacementMap`);
+
+            this.elem.addEventListener('click', e => {
+                if (this.clicked) return;
+                this.clicked = true;
+                this.elem.style.filter = `url(#${this.id})`;
+                let lastTime = 0;
+                let percent = 0;
+                const draw = () => {
+                    if (Date.now() - lastTime > 16) {
+                        lastTime = Date.now();
+                        percent = Math.min(percent + 0.01, 1);
+                        const size = 1000 * percent;
+                        this.$feImage.setAttribute('x', e.offsetX - size / 2);
+                        this.$feImage.setAttribute('y', e.offsetY - size / 2);
+                        this.$feImage.setAttribute('width', size);
+                        this.$feImage.setAttribute('height', size);
+                        this.$feDisplacementMap.setAttribute('scale', 50 * (1 - percent));
+                    }
+
+                    if (percent !== 1) {
+                        requestAnimationFrame(draw);
+                    } else {
+                        this.clicked = false;
+                        this.elem.style.filter = '';
+                    }
+                };
+                draw();
+            });
+        }
+    };
+})();
 
 new Wave(document.querySelector('#pond'));
 new Wave(document.querySelector('#box'));
