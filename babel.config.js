@@ -4,5 +4,5 @@ module.exports = {
     ignore: ['node_modules', 'libs', 'babel.config.js', '.git', '**/*.babel.js'],
     minified: true,
     comments: false,
-    sourceMaps: true,
+    sourceMaps: 'inline',
 };

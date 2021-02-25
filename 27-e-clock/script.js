@@ -78,13 +78,20 @@ class View {
     }
 }
 
-class StateTime {
+class State {
     view = null;
     model = null;
 
     constructor(view, model) {
+        console.log(view, model);
         this.model = model;
         this.view = view;
+    }
+}
+
+class StateTime extends State {
+    constructor(view, model) {
+        super(view, model);
     }
 
     update() {
@@ -97,7 +104,16 @@ class StateTime {
 class Model {
     view = null;
 
-    #stateMap = {};
+    #stateMap = {
+        0: null,
+        1: null,
+        2: null,
+        3: null,
+        4: null,
+        5: null,
+        6: null,
+        7: null,
+    };
     #state = 0;
     get state() {
         return this.#stateMap[this.#state];
@@ -120,6 +136,8 @@ class Model {
     #isValidDate = date => {
         return date instanceof Date && !isNaN(date.getTime());
     };
+
+    hour12 = true;
 
     get day() {
         return this.date.getDay();
@@ -151,7 +169,6 @@ class Model {
     get timeNum() {
         return (this.hour12 ? this.hh : this.HH) + this.mm + this.ss;
     }
-    hour12 = true;
 
     #alarmTime = '000000';
     set alarmTime(v) {
