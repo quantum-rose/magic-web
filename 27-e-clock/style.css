@@ -43,8 +43,27 @@ body {
     width: 10.24rem;
     height: 3.5rem;
     background-color: rgba(222, 222, 222, 1);
-    /* background-image: linear-gradient(red, orange); */
     border-radius: 0.2rem;
+    box-shadow: 0.05rem 0.05rem 0.1rem 0 rgba(0, 0, 0, 0.3) inset, 0 0 0.2rem 0 rgba(0, 0, 0, 0.2) inset;
+}
+
+.e-clock:hover .screen {
+    background-image: radial-gradient(hsla(24, 91%, 50%, 1), hsla(24, 91%, 80%, 1));
+}
+
+.screen.blink {
+    animation: alarm 1s step-start infinite;
+}
+
+@keyframes alarm {
+    0%,
+    100% {
+        background-image: radial-gradient(hsla(24, 91%, 50%, 1), hsla(24, 91%, 80%, 1));
+    }
+
+    50% {
+        background-image: radial-gradient(hsla(24, 91%, 60%, 1), hsla(24, 91%, 90%, 1));
+    }
 }
 
 /* 星期 */
@@ -163,6 +182,32 @@ body {
     transform: rotate(-36deg) translateY(0.4rem);
 }
 
+.icon-clock.active .ear::before,
+.icon-clock.active .ear::after,
+.icon-clock.active .body::before,
+.icon-clock.active .body::after,
+.icon-clock.active .leg::before,
+.icon-clock.active .leg::after {
+    background-color: var(--active);
+}
+
+.icon-clock.blink .ear::before,
+.icon-clock.blink .ear::after,
+.icon-clock.blink .body::before,
+.icon-clock.blink .body::after,
+.icon-clock.blink .leg::before,
+.icon-clock.blink .leg::after {
+    animation: blinkBg 1s linear infinite;
+}
+
+.icon-clock.active .body {
+    border-color: var(--active);
+}
+
+.icon-clock.blink .body {
+    animation: blinkBorder 1s linear infinite;
+}
+
 /* 数字 */
 .numbers {
     position: absolute;
@@ -200,7 +245,7 @@ body {
 
 .dot.blink::before,
 .dot.blink::after {
-    animation: blink 1s linear infinite;
+    animation: blinkBg 1s linear infinite;
 }
 
 .number {
@@ -213,7 +258,7 @@ body {
 }
 
 .branch {
-    --dur: 0.2s;
+    --dur: 0.1s;
 
     position: absolute;
     background-color: var(--inactive);
@@ -341,6 +386,24 @@ body {
     right: -0.07rem;
 }
 
+.number.blink .branch {
+    animation: blinkBg 1s linear infinite;
+}
+.number.blink .branch.center::before {
+    animation: blinkBorderRight 1s linear infinite;
+}
+.number.blink .branch.center::after {
+    animation: blinkBorderLeft 1s linear infinite;
+}
+.number.blink .branch.left::before,
+.number.blink .branch.right::before {
+    animation: blinkBorderBottom 1s linear infinite;
+}
+.number.blink .branch.left::after,
+.number.blink .branch.right::after {
+    animation: blinkBorderTop 1s linear infinite;
+}
+
 /* AM PM */
 .am-pm {
     position: absolute;
@@ -401,8 +464,8 @@ body {
     width: 0.36rem;
     height: 0.36rem;
     background-color: rgba(170, 170, 170, 1);
-    box-shadow: 0.01rem 0.01rem 0.02rem rgba(0, 0, 0, 0.3) inset,
-        -0.01rem -0.01rem 0.02rem rgba(250, 250, 250, 0.5) inset;
+    /* box-shadow: 0.01rem 0.01rem 0.02rem rgba(0, 0, 0, 0.3) inset,
+        -0.01rem -0.01rem 0.02rem rgba(250, 250, 250, 0.5) inset; */
 }
 
 .btn-cmd:active::after {
@@ -444,11 +507,45 @@ body {
 }
 
 /* 闪烁 */
-@keyframes blink {
+@keyframes blinkColor {
     50% {
         color: var(--inactive);
+        filter: drop-shadow(0.05rem 0.03rem 0.01rem rgba(0, 0, 0, 0));
+    }
+}
+@keyframes blinkBg {
+    50% {
         background-color: var(--inactive);
+        filter: drop-shadow(0.05rem 0.03rem 0.01rem rgba(0, 0, 0, 0));
+    }
+}
+@keyframes blinkBorder {
+    50% {
         border-color: var(--inactive);
+        filter: drop-shadow(0.05rem 0.03rem 0.01rem rgba(0, 0, 0, 0));
+    }
+}
+@keyframes blinkBorderTop {
+    50% {
+        border-top-color: var(--inactive);
+        filter: drop-shadow(0.05rem 0.03rem 0.01rem rgba(0, 0, 0, 0));
+    }
+}
+@keyframes blinkBorderBottom {
+    50% {
+        border-bottom-color: var(--inactive);
+        filter: drop-shadow(0.05rem 0.03rem 0.01rem rgba(0, 0, 0, 0));
+    }
+}
+@keyframes blinkBorderLeft {
+    50% {
+        border-left-color: var(--inactive);
+        filter: drop-shadow(0.05rem 0.03rem 0.01rem rgba(0, 0, 0, 0));
+    }
+}
+@keyframes blinkBorderRight {
+    50% {
+        border-right-color: var(--inactive);
         filter: drop-shadow(0.05rem 0.03rem 0.01rem rgba(0, 0, 0, 0));
     }
 }
