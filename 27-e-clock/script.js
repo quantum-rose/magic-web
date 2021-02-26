@@ -357,6 +357,7 @@ class StateSetAlarmHour extends State {
 
     update() {
         if (this.model.isTimeUp) {
+            this.model.resetAlarm();
             this.model.changeState('alarm');
         } else {
             super.update({
@@ -396,6 +397,7 @@ class StateSetAlarmMinute extends State {
 
     update() {
         if (this.model.isTimeUp) {
+            this.model.resetAlarm();
             this.model.changeState('alarm');
         } else {
             super.update({
@@ -435,6 +437,7 @@ class StateSetAlarmSecond extends State {
 
     update() {
         if (this.model.isTimeUp) {
+            this.model.resetAlarm();
             this.model.changeState('alarm');
         } else {
             super.update({
@@ -451,7 +454,7 @@ class StateSetAlarmSecond extends State {
     }
 
     handleCmdClick() {
-        this.model.setAlarmOver();
+        this.model.setAlarm();
         this.model.changeState('time');
     }
 
@@ -690,23 +693,29 @@ class Model {
         this.#setAlarmSecond(this.alarmSecond - 1);
     }
 
-    #alarmTime = '888888';
+    #alarmTime = [88, 88, 88];
     get alarmTime() {
-        return this.#alarmTime;
+        return this.#alarmTime.map(item => item.toString().padStart(2, '0')).join('');
     }
     get isAlarmSet() {
-        return this.#alarmTime !== '888888';
+        return this.alarmTime !== '888888';
     }
     get isTimeUp() {
-        return this.#alarmTime === this.timeNum;
+        return this.alarmTime === this.timeNum;
     }
 
-    setAlarmOver() {
-        this.#alarmTime = this.tempAlarmTime;
+    setAlarm() {
+        this.#alarmTime = [...this.#tempAlarmTime];
+    }
+
+    resetAlarm() {
+        if (this.isAlarmSet) {
+            this.#tempAlarmTime = [...this.#alarmTime];
+        }
     }
 
     closeAlarm() {
-        this.#alarmTime = '888888';
+        this.#alarmTime = [88, 88, 88];
     }
 }
 
