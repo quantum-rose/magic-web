@@ -7,7 +7,7 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 camera.position.set(10, 10, 10);
 camera.lookAt(2, 0, 0);
 
-const renderer = new THREE.WebGL1Renderer();
+const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
@@ -24,6 +24,15 @@ scene.add(pointLight1);
 // const pointLight2 = new THREE.PointLight(0x888888);
 // pointLight2.position.set(-200, -200, -200);
 // scene.add(pointLight2);
+
+const line = (function () {
+    const points = [];
+    points.push(new THREE.Vector3(-10, 0, 0), new THREE.Vector3(0, 10, 0), new THREE.Vector3(10, 0, 0));
+    const material = new THREE.LineBasicMaterial({ color: 0x00ffff });
+    const geomerty = new THREE.BufferGeometry().setFromPoints(points);
+    return new THREE.Line(geomerty, material);
+})();
+scene.add(line);
 
 const cube = (function () {
     const geometry = new THREE.BoxGeometry(1, 1, 1);
