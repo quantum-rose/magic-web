@@ -67,13 +67,13 @@ function drawText() {
 function drawStripe() {
     cvsCtx.beginPath();
     const f = cvsCtx.createLinearGradient(0, -stripeOffset, 0, 2 * h - stripeOffset);
-    for (let i = 0; i < 256; i += 2) {
-        f.addColorStop(i / 256, 'rgba(255, 255, 255, 0.1)');
-        f.addColorStop((i + 1) / 256, 'rgba(255, 255, 255, 0)');
+    for (let i = 0; i < 128; i += 2) {
+        f.addColorStop(i / 128, 'rgba(255, 255, 255, 0.1)');
+        f.addColorStop((i + 1) / 128, 'rgba(255, 255, 255, 0)');
     }
     cvsCtx.fillStyle = f;
     cvsCtx.fillRect(0, 0, w, h);
-    stripeOffset = (stripeOffset + h / 256) % h;
+    stripeOffset = (stripeOffset + h / 128) % h;
 }
 
 let lastTime = 0;
