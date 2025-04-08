@@ -9,8 +9,7 @@
   "scripts": {
     "dev": "babel ./ --watch --out-dir ./ --out-file-extension .babel.js",
     "dev-17": "babel ./17-broken-TV/ --watch --out-dir ./17-broken-TV/ --out-file-extension .babel.js",
-    "dev-27": "babel ./27-e-clock/ --watch --out-dir ./27-e-clock/ --out-file-extension .babel.js",
-    "dev-sp-08": "babel ./sp-08-threejs/ --watch --out-dir ./sp-08-threejs/ --out-file-extension .babel.js"
+    "dev-27": "babel ./27-e-clock/ --watch --out-dir ./27-e-clock/ --out-file-extension .babel.js"
   },
   "repository": {
     "type": "git",
