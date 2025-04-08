@@ -8,6 +8,7 @@
   },
   "scripts": {
     "dev": "babel ./ --watch --out-dir ./ --out-file-extension .babel.js",
+    "dev-17": "babel ./17-broken-TV/ --watch --out-dir ./17-broken-TV/ --out-file-extension .babel.js",
     "dev-27": "babel ./27-e-clock/ --watch --out-dir ./27-e-clock/ --out-file-extension .babel.js",
     "dev-sp-08": "babel ./sp-08-threejs/ --watch --out-dir ./sp-08-threejs/ --out-file-extension .babel.js"
   },
@@ -21,8 +22,7 @@
   "devDependencies": {
     "@babel/cli": "^7.13.0",
     "@babel/core": "^7.13.1",
-    "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/plugin-proposal-private-methods": "^7.13.0",
     "@babel/preset-env": "^7.13.5"
-  }
+  },
+  "packageManager": "pnpm@10.4.1"
 }
